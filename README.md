@@ -44,22 +44,22 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [polkit-gnome](https://gitlab.gnome.org/Archive/policykit-gnome) — PolicyKit authentication agent  
 - [rofi](https://github.com/davatorium/rofi) — App launcher (run menu)  
 - [zenity](https://github.com/GNOME/zenity), [slurp](https://github.com/emersion/slurp), [grim](https://gitlab.freedesktop.org/emersion/grim) — Screenshot utilities  
-- [playerctl — Media control (MPRIS)  
-- [chromium, firefox — Web browsers  
-- [thunar, yazi — File managers  
-- [cava + waybar-cava — Audio visualizer for Waybar  
-- [cpupower — CPU power management  
-- [btop — System monitor  
-- [networkmanager — Network control (with nmtui)  
-- [pavucontrol, pipewire, wireplumber — Audio stack for Wayland  
+- [playerctl](https://github.com/altdesktop/playerctl) — Media control (MPRIS)  
+- [chromium](https://github.com/chromium/chromium), [firefox](https://github.com/mozilla-firefox/firefox) — Web browsers  
+- [thunar](https://github.com/neilbrown/thunar), [yazi](https://github.com/sxyazi/yazi) — File managers  
+- [cava](https://github.com/karlstav/cava) + [waybar-cava](https://github.com/Alexays/Waybar) — Audio visualizer for Waybar  
+- cpupower — CPU power management  
+- [btop](https://github.com/aristocratos/btop) — System monitor  
+- [networkmanager](https://gitlab.freedesktop.org/NetworkManager/NetworkManager) — Network control (with nmtui)  
+- [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol), [pipewire](https://github.com/PipeWire/pipewire), [wireplumber](https://github.com/PipeWire/wireplumber) — Audio stack for Wayland  
 
 ---
 
 ## 💡 Optional Packages (Recommended)  
-- [easyeffects — Audio effects over PipeWire  
-- [mpd, rmpc, mpd-mpris — Music player with MPRIS support  
-- [wev — Key-code finder for custom keybinds  
-- [scrcpy — Display Android screen on PC  
+- [easyeffects]() — Audio effects over PipeWire  
+- [mpd](), [rmpc](), [mpd-mpris]() — Music player with MPRIS support  
+- [wev] — Key-code finder for custom keybinds  
+- [scrcpy] — Display Android screen on PC  
 - [ghostty](https://github.com/ghostty-org/ghostty) — Highly recommended terminal emulator  
 
 ---
