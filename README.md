@@ -69,4 +69,5 @@ A complete setup for a customized and modern Wayland desktop experience using **
 ## 🛠️ Installation Steps  
 1. Install all required dependencies listed above.  
 2. Copy themes, icons, fonts, and wallpaper into their respective directories.  
-3. Copy configuration folders into `~/.config/`:  
+3. Copy configuration folders into `~/.config/`:
+4. see `~/.config/hypr/hyprland.conf` for keybinds and enjoy
