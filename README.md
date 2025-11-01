@@ -61,6 +61,7 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [wev](https://github.com/jwrdegoede/wev) — Key-code finder for custom keybinds  
 - [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC  
 - [zsh](https://www.zsh.org/), [oh-my-zsh](https://ohmyz.sh/) — Zsh is a shell designed for interactive use
+- [neovim](https://neovim.io/) — hyperextensible Vim-based text editor
 
 ---
 
