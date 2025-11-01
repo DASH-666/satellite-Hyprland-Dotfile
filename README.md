@@ -65,9 +65,21 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [neovim](https://neovim.io/) — hyperextensible Vim-based text editor
 
 ---
+## 🔐 CPU Power Control Fix
 
+To allow cpupower commands to run without a sudo password prompt:
+```
+sudo visudo
+```
+
+Then add this line (replace your_username with your actual username):
+```
+your_username ALL=(ALL) NOPASSWD: /usr/bin/cpupower
+```
 ## 🛠️ Installation Steps  
 1. Install all required dependencies listed above.  
 2. Copy themes, icons, fonts, and wallpaper into their respective directories.  
 3. Copy configuration folders into `~/.config/`:
-4. see `~/.config/hypr/hyprland.conf` for keybinds and enjoy
+4. Reboot your machine.  
+5. Select **Hyprland** in your session manager, or run from TTY:  `Hyprland`
+6. see `~/.config/hypr/hyprland.conf` for keybinds and enjoy
