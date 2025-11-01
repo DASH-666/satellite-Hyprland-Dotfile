@@ -56,10 +56,10 @@ A complete setup for a customized and modern Wayland desktop experience using **
 ---
 
 ## 💡 Optional Packages (Recommended)  
-- [easyeffects]() — Audio effects over PipeWire  
-- [mpd](), [rmpc](), [mpd-mpris]() — Music player with MPRIS support  
-- [wev] — Key-code finder for custom keybinds  
-- [scrcpy] — Display Android screen on PC  
+- [easyeffects](https://github.com/wwmm/easyeffects) — Audio effects over PipeWire  
+- [mpd](https://github.com/MusicPlayerDaemon/MPD), [rmpc](https://github.com/mierak/rmpc), [mpd-mpris](https://github.com/natsukagami/mpd-mpris) — Music player with MPRIS support  
+- [wev](https://github.com/jwrdegoede/wev) — Key-code finder for custom keybinds  
+- [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC  
 - [ghostty](https://github.com/ghostty-org/ghostty) — Highly recommended terminal emulator  
 
 ---
