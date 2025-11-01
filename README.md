@@ -60,7 +60,7 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [mpd](https://github.com/MusicPlayerDaemon/MPD), [rmpc](https://github.com/mierak/rmpc), [mpd-mpris](https://github.com/natsukagami/mpd-mpris) — Music player with MPRIS support  
 - [wev](https://github.com/jwrdegoede/wev) — Key-code finder for custom keybinds  
 - [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC  
-- [ghostty](https://github.com/ghostty-org/ghostty) — Highly recommended terminal emulator  
+- [zsh](https://www.zsh.org/), [oh-my-zsh](https://ohmyz.sh/) — Zsh is a shell designed for interactive use
 
 ---
 
