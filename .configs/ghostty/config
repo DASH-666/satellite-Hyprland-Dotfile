@@ -1,0 +1,30 @@
+# cursor
+cursor-style = block
+cursor-style-blink = true
+cursor-invert-fg-bg = true
+shell-integration-features = no-cursor
+
+# keybind
+keybind = shift+ctrl+a=select_all
+keybind = shift+ctrl+c=copy_to_clipboard
+keybind = shift+ctrl+v=paste_from_clipboard
+keybind = shift+ctrl+w=new_split:down
+keybind = shift+ctrl+s=new_split:left
+
+# font
+font-size = 10.4
+font-family-bold = FiraCode Nerd Font Propo 
+selection-invert-fg-bg = true
+
+# ui
+background = 000000
+foreground = ffffff
+theme = 00my
+background-opacity = 0.7
+# gtk-adwaita = false
+focus-follows-mouse = true
+
+window-decoration = false
+gtk-titlebar = true
+mouse-hide-while-typing = true
+confirm-close-surface = false

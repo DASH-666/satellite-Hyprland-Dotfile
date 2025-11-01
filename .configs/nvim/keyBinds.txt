@@ -1,0 +1,53 @@
+-- NORMAL MODE
+ctrl + x       : Toggle NvimTree
+F8             : Toggle Tagbar
+ctrl + v       : Vertical split
+ctrl + h       : Horizontal split
+ctrl + Left    : Resize vertical split smaller
+ctrl + Right   : Resize vertical split larger
+ctrl + Up      : Resize horizontal split smaller
+ctrl + Down    : Resize horizontal split larger
+shift + s      : Save buffer
+shift + q      : Quit buffer
+ctrl + s       : Save buffer
+ctrl + q       : Quit buffer
+ctrl + e       : Previous tab
+ctrl + r       : Next tab
+ctrl + w       : New tab
+;              : Command mode (:)
+ctrl + d       : Duplicate line
+alt + t        : Toggle floating terminal
+
+-- INSERT MODE
+ctrl + s       : Save buffer
+ctrl + q       : Exit insert mode
+ctrl + d       : Duplicate line
+
+-- TERMINAL MODE
+alt + t        : Toggle floating terminal
+
+-- NvimTree Keys
+o              : Open file/folder
+Enter          : Open file/folder
+v              : Vertical split open
+h              : Horizontal split open
+i              : Toggle info view
+r              : Rename
+a              : New file
+d              : Delete
+x              : Cut
+c              : Copy
+p              : Paste
+s              : Sort files
+R              : Refresh tree
+?              : Help
+
+-- Completion (nvim-cmp)
+Tab            : Next completion / Expand snippet
+shift + Tab    : Previous completion / Jump to previous snippet
+Enter          : Confirm completion
+
+-- Tagbar
+Enter          : Jump to item
+o or space     : Expand/Collapse node
+ctrl + q       : Quit Tagbar window

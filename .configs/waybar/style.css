@@ -1,0 +1,314 @@
+/* =======================
+   Global font settings
+   ======================= */
+* {
+    font-family: FiraCode Nerd Font Propo;
+    font-size: 12px;
+    /*font-weight: bold;*/
+}
+
+/* =======================
+   Main Waybar container
+   ======================= */
+#waybar {
+    background-color: rgba(0, 0, 0, 0.0);
+    /*border-bottom: 2px solid #00ffcc;*/
+}
+
+/* =======================
+   Tooltip styling
+   ======================= */
+tooltip, tooltip * {
+    color: #ccccff;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-shadow:
+            0 0 1px #ff5f5f,
+            0 0 2px #ff3c3c,
+            0 0 3px #ff00aa;
+}
+
+/* =======================
+   Cava
+   ======================= */
+#cava {
+    color: #00dddd;
+    margin-bottom: 4px;
+    text-shadow:
+        0 0 1px #33ffee,
+        0 0 2px #1af0dd,
+        0 0 3px #00ddcc;
+    /*border-bottom: 2px solid #00dddd;*/
+}
+
+/* =======================
+   Clock
+   ======================= */
+#clock {
+    color: #00aaff;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #33bbff,
+        0 0 2px #1aaaff,
+        0 0 3px #00aaff;
+    /*border-bottom: 2px solid #00aaff;*/
+}
+
+/* =======================
+   CPU
+   ======================= */
+#cpu {
+    color: #7733ff;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #aa66ff,
+        0 0 2px #8844ff,
+        0 0 3px #7733ff;
+    /*border-bottom: 2px solid #7733ff;*/        
+}
+
+/* =======================
+   Custom AR icons
+   ======================= */
+#custom-ar1,
+#custom-ar2 {
+    margin-top: 2px;
+    color: #ff0000;
+    text-shadow:
+        0 0 1px #ff5f5f,
+        0 0 2px #ff3c3c,
+        0 0 3px #ff00aa;
+}
+
+/* =======================
+   Custom Chromium
+   ======================= */
+#custom-chromium,
+.browser-gg {
+    color: #ff0055;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #ff3366,
+        0 0 2px #ff1a4d,
+        0 0 3px #ff0055;
+    /*border-bottom: 2px solid #ff0055;*/        
+}
+
+/* =======================
+   Custom File Manager
+   ======================= */
+#custom-thunar,
+.filemanager-gg {
+    color: #ff5500;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #ff7733,
+        0 0 2px #ff661a,
+        0 0 3px #ff5500;
+    /*border-bottom: 2px solid #ff5500;*/        
+}
+
+/* =======================
+   Keyboard language
+   ======================= */
+#language {
+    color: #55ff00;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #77ff33,
+        0 0 2px #66ff1a,
+        0 0 3px #55ff00;
+    /*border-bottom: 2px solid #55ff00;*/        
+}
+
+/* =======================
+   Power controls
+   ======================= */
+#custom-power,
+.power-gg {
+    color: #aaff00;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #bbff33,
+        0 0 2px #aaff1a,
+        0 0 3px #aaff00;
+    /*border-bottom: 2px solid #aaff00;*/        
+}
+
+#idle_inhibitor,
+.power-mod-gg {
+    color: #597eff;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #7a99ff,
+        0 0 2px #6a8cff,
+        0 0 3px #597eff;
+    /*border-bottom: 2px solid #597eff;*/        
+}
+
+/* =======================
+   MPRIS (media player)
+   ======================= */
+#mpris {
+    color: #00ddcc;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #33ffee,
+        0 0 2px #1af0dd,
+        0 0 3px #00ddcc;
+    /*border-bottom: 2px solid #00ddcc;*/        
+}
+
+/* =======================
+   Temperature
+   ======================= */
+#temperature.critical,
+#temperature {
+    color: #aa00ff;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #bb33ff,
+        0 0 2px #aa1aff,
+        0 0 3px #aa00ff;
+    /*border-bottom: 2px solid #aa00ff;*/        
+}
+
+/* =======================
+   Ghostty / Terminal
+   ======================= */
+#custom-ghostty,
+.terminal-gg {
+    color: #ffaa00;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #ffbb33,
+        0 0 2px #ffaa1a,
+        0 0 3px #ffaa00;
+    /*border-bottom: 2px solid #ffaa00;*/        
+}
+
+/* =======================
+   Rofi
+   ======================= */
+#custom-rofi {
+    color: #ffee00;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #fff066,
+        0 0 2px #ffeb33,
+        0 0 3px #ffee00;
+    /*border-bottom: 2px solid #ffee00;*/        
+}
+
+/* =======================
+   Hyprland workspaces
+   ======================= */
+#hyprland-workspaces {
+    margin: 0 1px;
+    padding: 0;
+    min-height: 0;
+    background: transparent;
+    color: #00ff55;
+    text-shadow:
+        0 0 1px #33ff77,
+        0 0 2px #1aff66,
+        0 0 3px #00ff55;
+    /*border-bottom: 2px solid #00ff55;*/        
+}
+
+#hyprland-windows {
+    margin-top: 2px;
+    color: #ff0000;
+    text-shadow:
+        0 0 1px #ff5f5f,
+        0 0 2px #ff3c3c,
+        0 0 3px #ff00aa;
+    /*border-bottom: 2px solid #ff0000;*/        
+}
+
+/* =======================
+   Memory
+   ======================= */
+#memory {
+    color: #ff00aa;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #ff33bb,
+        0 0 2px #ff1aaa,
+        0 0 3px #ff00aa;
+    /*border-bottom: 2px solid #ff33bb;*/        
+}
+
+/* =======================
+   Network
+   ======================= */
+#network {
+    color: #00ffaa;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #33ffbb,
+        0 0 2px #1affaa,
+        0 0 3px #00ffaa;
+    /*border-bottom: 2px solid #00ffaa;*/        
+}
+
+/* =======================
+   Volume / Pulseaudio
+   ======================= */
+#pulseaudio {
+    color: #1ad1ff;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #4ddfff,
+        0 0 2px #1ad1ff,
+        0 0 3px #00bbff;
+    /*border-bottom: 2px solid #1ad1ff;*/        
+}
+
+/* =======================
+   System tray
+   ======================= */
+#tray {
+    color: #ff0088;
+    margin-top: 2px;
+    margin-right: 4px;
+    text-shadow:
+        0 0 1px #ff33aa,
+        0 0 2px #ff1a99,
+        0 0 3px #ff0088;
+    /*border-bottom: 2px solid #ff0088;*/        
+}
+
+/* =======================
+   Workspaces buttons
+   ======================= */
+#workspaces button {
+    color: #00ff55;
+    text-shadow:
+        0 0 1px #33ff77,
+        0 0 2px #1aff66,
+        0 0 3px #00ff55;
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+    border-radius: 0px;
+    /*border-bottom: 2px solid #00ff55;*/    
+}
+
+#workspaces button.visible,
+#workspaces button.active {
+    color: #ff00bb;
+    text-shadow:
+        0 0 1px #ff5f5f,
+        0 0 2px #ff3c3c,
+        0 0 3px #ff00aa;
+    /*border-bottom: 2px solid #ff00bb;*/        
+}
+
+#workspaces button.urgent {
+    background-color: red;
+    color: white;
+}
+
+#workspaces button.empty:not(.active):not(.visible):not(.urgent) {
+    opacity: 0.6;
+}

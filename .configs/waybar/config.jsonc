@@ -1,0 +1,449 @@
+{
+  // === General bar configuration ===
+  "bar_id": "bar-0",
+  "ipc": false,
+  "layer": "top",
+  "position": "top",
+  "spacing": 2,
+  "exclusive": true,
+  "reload_style_on_change": true,
+  
+  // === Modules positions ===
+  "modules-left": ["group/group-browser", "group/group-filemanager", "group/group-terminal", "custom/rofi"],
+  "modules-center": ["custom/ar1", "group/group-power", "hyprland/language", "hyprland/workspaces", "network", "mpris", "pulseaudio", "clock", "group/group-power-mod", "custom/ar2"],
+  "modules-right": ["cpu", "temperature", "memory", "tray"],
+
+  // === Custom separators ===
+  "custom/ar1": {
+    "format": ">>-(",
+    "tooltip": true,
+    "tooltip-format": "there is nothing here 󰱱 "
+  },
+
+  "custom/ar2": {
+    "format": ")-->",
+    "tooltip": true,
+    "tooltip-format": "what you want? 󰱱 "
+  },
+
+  // === Browser group ===
+  "group/group-browser": {
+    "drawer": {
+      "children-class": "browser-gg",
+      "transition-duration": 200,
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/chromium",
+      //"custom/chrome",
+      "custom/firefox"
+    ],
+    "orientation": "inherit"
+  },
+
+  // === FileManager group ===
+  "group/group-filemanager": {
+    "drawer": {
+      "children-class": "filemanager-gg",
+      "transition-duration": 200,
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/thunar",
+      "custom/yazi",
+    ],
+    "orientation": "inherit"
+  },
+
+  // === Terminal group ===
+  "group/group-terminal": {
+    "drawer": {
+      "children-class": "terminal-gg",
+      "transition-duration": 200,
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/ghostty",
+      "custom/foot"
+    ],
+    "orientation": "inherit"
+  },
+
+  // === Power group ===
+  "group/group-power": {
+    "drawer": {
+      "children-class": "power-gg",
+      "transition-duration": 200,
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/power",
+      "custom/suspend",
+      "custom/reboot",
+      "custom/quit"
+    ],
+    "orientation": "inherit"
+  },
+
+  // === Extra power modes group ===
+  "group/group-power-mod": {
+    "drawer": {
+      "children-class": "power-mod-gg",
+      "transition-duration": 200,
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "idle_inhibitor",
+      "custom/performance",
+      "custom/schedutil",
+      "custom/powersave"
+    ],
+    "orientation": "inherit"
+  },
+
+  // === Browser apps ===
+  "custom/chromium": {
+    "format": "  chromium ",
+    "on-click": "chromium",
+    "tooltip": true,
+    "tooltip-format": " chromium\ninternet browser"
+  },
+
+  "custom/chrome": {
+    "format": "  chrome ",
+    "on-click": "google-chrome-stable",
+    "tooltip": true,
+    "tooltip-format": " chrome\ninternet browser"
+  },
+
+  "custom/firefox": {
+    "format": "  firefox ",
+    "on-click": "firefox",
+    "tooltip": true,
+    "tooltip-format": " firefox\ninternet browser"
+  },
+
+  // === File manager ===
+  "custom/thunar": {
+    "format": "  thunar ",
+    "on-click": "thunar",
+    "tooltip": true,
+    "tooltip-format": " thunar\nfile manager"
+  },
+
+  "custom/yazi": {
+    "format": "  yazi ",
+    "on-click": "ghostty -e yazi",
+    "tooltip": true,
+    "tooltip-format": " yazi\nfile manager"
+  },
+
+  // === Keyboard layout ===
+  // you can use this if the default language change dont work for you
+  //"custom/keyboard": {
+  //  "exec": "~/.config/waybar/keyboard-layout.sh",
+  //  "format": " {} ",
+  //  "interval": 1,
+  //  "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+  //  "tooltip": true
+  //},
+  "hyprland/language": {
+    "format": " {} ",
+    "format-en": "ENG",
+    "format-fa": "FA",
+    "keyboard-name": "at-translated-set-2-keyboard",
+    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+    "tooltip": true
+  },
+
+  // === Media controls ===
+  "custom/next": {
+    "format": "⏭  ",
+    "on-click": "playerctl next",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "tooltip": true
+  },
+
+  "custom/player": {
+    "format": " ⏯  ",
+    "on-click": "playerctl play-pause",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "tooltip": true
+  },
+
+  "custom/prev": {
+    "format": " ⏮ ",
+    "on-click": "playerctl previous",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "tooltip": true
+  },
+
+  "mpris": {
+    "format": " {status_icon} {player} ",
+    "interval": 1,
+    "status-icons": {
+      "paused": "",
+      "playing": "",
+      "stopped": "󰓛"
+    },
+    "player-icons": {
+      "default": " ",
+      "chromium": " ",
+      "chrome": " ",
+      "firefox": " ",
+      "mpv": " ",
+      "mpd": " "
+    },
+    "on-click": "playerctl play-pause",
+    "on-click-forward": "playerctl next",
+    "on-click-backward": "playerctl previous",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous",
+    "on-scroll-up": "playerctl position 5+",
+    "on-scroll-down": "playerctl position 5-",
+  },
+
+  "cava": {
+    "framerate": 20,
+    "autosens": 1,
+    "bars": 6,
+    "lower_cutoff_freq": 100,
+    "higher_cutoff_freq": 10000,
+    "hide_on_silence": false,
+    "sleep_timer": 1,
+    "method": "pipewire",
+    "source": "auto",
+    "stereo": true,
+    "reverse": false,
+    "bar_delimiter": 0,
+    "monstercat": false,
+    "waves": true,
+    "noise_reduction": 0.0,
+    "input_delay": 1,
+    "format-icons": [" ▁", " ▂", " ▃", " ▄", " ▅", " ▆", " ▇", " █" ],
+    "on-click": "playerctl play-pause",
+    "on-click-forward": "playerctl next",
+    "on-click-backward": "playerctl previous",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+  },
+
+  // === Power actions ===
+  "custom/power": {
+    "format": "  ",
+    "on-click": "systemctl poweroff",
+    "tooltip": true,
+    "tooltip-format": " power off"
+  },
+
+  "custom/quit": {
+    "format": "  ",
+    "on-click": "hyprctl dispatch exit",
+    "tooltip": true,
+    "tooltip-format": " quit"
+  },
+
+  "custom/reboot": {
+    "format": "  ",
+    "on-click": "systemctl reboot",
+    "tooltip": true,
+    "tooltip-format": " reboot"
+  },
+
+  "custom/suspend": {
+    "format": "  ",
+    "on-click": "systemctl suspend",
+    "tooltip": true,
+    "tooltip-format": " suspend"
+  },
+
+  // === CPU power modes ===
+  "custom/performance": {
+    "format": "  ",
+    "on-click": "sudo cpupower frequency-set -g performance && notify-send ' performance power mod' ",
+    "tooltip": true,
+    "tooltip-format": " performance power mod"
+  },
+
+  "custom/schedutil": {
+    "format": "  ",
+    "on-click": "sudo cpupower frequency-set -g schedutil && notify-send '  schedutil power mod' ",
+    "tooltip": true,
+    "tooltip-format": " schedutil power mod"
+  },
+
+  "custom/powersave": {
+    "format": "  ",
+    "on-click": "sudo cpupower frequency-set -g powersave && notify-send '  powersave power mod' ",
+    "tooltip": true,
+    "tooltip-format": " powersaver power mod"
+  },
+
+  "idle_inhibitor": {
+    "format": " {icon} ",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    "tooltip": true,
+    "tooltip-format-activated": "  monitor idle mode off",
+    "tooltip-format-deactivated": "  monitor idle mode on"
+  },
+
+  // === External apps ===
+  "custom/scrcpy": {
+    "format": "  scrcpy ",
+    "on-click": "scrcpy --video-codec=h265 --max-size=2340 --max-fps=120 --keyboard=uhid --window-width=400 --window-height=600 --select-usb",
+    "tooltip": true,
+    "tooltip-format": " scrcpy\nphone screen share on pc"
+  },
+
+  "custom/rofi": {
+  	"format": "  rofi ",
+  	"on-click": "rofi -show run -theme /home/dash-/.config/rofi/theme.rasi",
+  	"tooltip": true,
+  	"tooltip-format": " rofi\napp menu"
+  },
+
+  // === Terminals ===
+  "custom/ghostty": {
+    "format": "  ghostty ",
+    "on-click": "ghostty",
+    "tooltip": true,
+    "tooltip-format": " ghostty\nterminal emulator"
+  },
+
+  "custom/foot": {
+    "format": " 󰽒 foot ",
+    "on-click": "foot",
+    "tooltip": true,
+    "tooltip-format": "󰽒 foot\nterminal emulator"
+  },
+
+  // === Clock & calendar ===
+  "clock": {
+    "format": "  {:%H:%M:%S} ",
+    "format-alt": "  {:%A %d %B %Y  %H:%M:%S} ",
+    "interval": 1,
+    "tooltip-format": "<small>{calendar}</small>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "left",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "tz_up",
+      "on-scroll-down": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+
+  // === System stats ===
+  "cpu": {
+    "format": "  {usage}% {avg_frequency}GHz {load} ",
+    "interval": 1,
+    "min-length": 20,
+    "on-click": "ghostty -e btop"
+  },
+
+  "memory": {
+    "format": "  {used:0.1f}GB of {total:0.1f}GB ",
+    "interval": 2,
+    "on-click": "ghostty -e btop",
+    "tooltip": true
+  },
+
+  "temperature": {
+    "interval": 1,
+    "thermal-zone": 2,
+    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 70,
+    "format-critical": " {temperatureC}°C ",
+    "format": " {temperatureC}°C ",
+    "on-click": "ghostty -e btop"
+  },
+
+  // === Network ===
+  "network": {
+    "format-ethernet": "  {bandwidthTotalBytes} ",
+    "format-linked": " {ifname} (No IP) ",
+    "format-disconnected": "  Disconnected ",
+    "format-wifi": "  wifi({signalStrength}%) ",
+    "format-alt": "  {ifname}: {ipaddr}/{cidr}",
+    "interval": 1,
+    //"min-length": 13,
+    "tooltip": true,
+    "tooltip-format": " {ifname} via {gwaddr}  ",
+    "on-click-right": "ghostty -e nmtui"
+  },
+
+  // === Audio ===
+  "pulseaudio": {
+    "escape": true,
+    "format": " {icon}{volume}% ",
+    "format-bluetooth": "{volume}% {icon} {format_source} ",
+    "format-bluetooth-muted": " {icon} {format_source} ",
+    "format-muted": "  {volume}% ",
+    "format-source-muted": " ",
+    "format-icons": {
+      "default": [" ", " ", " "],
+      //"hands-free": " ",
+      //"headphone": " ",
+      //"headset": " ",
+      //"phone": "  ",
+      //"portable": "  "
+      //"car": "  ",
+    },
+    "on-click": "GTK_THEME=Adwaita:dark pavucontrol",
+    "on-click-right": "hdajackretask",
+    "on-click-forward": "playerctl next",
+    "on-click-backward": "playerctl previous",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    //"pulse-sink": "alsa_output.pci-0000_00_1b.0.analog-stereo",
+    //"scroll-step": 5,
+    "tooltip": true
+  },
+
+  // === System tray ===
+  "tray": {
+    "custom-icons-path": "~/.icons/BeautyLine",
+    "icon-size": 13,
+    "spacing": 10
+  },
+
+  // === Hyprland integration ===
+  "hyprland/window": {
+    "format": " {title:.18s}... ",
+    "tooltip": true
+  },
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "persistent-workspaces": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+    },
+    "on-click-left": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "tooltip": true,
+    "tooltip-format": "workspace"
+  }
+}
