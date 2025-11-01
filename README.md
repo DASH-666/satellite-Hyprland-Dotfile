@@ -22,44 +22,45 @@ A complete setup for a customized and modern Wayland desktop experience using **
   Install in: `~/.fonts`
 
 - **Wallpaper:** Spaceship — download image from [here](https://www.vecteezy.com/photo/29163762-3d-cg-rendering-of-space-ship)  
-  Place in `~/.config/waybar/` and rename to `spaceship.jpg`
+  Place in `~/.config/hypr/` and rename to `spaceship.jpg`
 
 ---
 
 ## ⚙️ Required Packages
 
 ### Core Components  
-- `[Hyprland](https://github.com/hyprwm/Hyprland)` + `hypridle` — Window manager & idle manager  
-- `hyprlock` — Lock screen utility  
-- `xdg-desktop-portal-hyprland` — Desktop portal backend for Wayland  
-- `libinput` — Input device support  
+- [Hyprland](https://github.com/hyprwm/Hyprland) — window manager
+- [Hypridle](https://github.com/hyprwm/hypridle) — idle manager  
+- [Hyprlock](https://github.com/hyprwm/hyprlock) — Lock screen utility  
+- [xdg-desktop-portal-hyprland](https://github.com/hyprwm/xdg-desktop-portal-hyprland) — Desktop portal backend for Wayland  
+- [libinput](https://github.com/wayland-tablet/libinput) — Input device support  
 
 ### Used in Configs  
-- `ghostty`, `foot` — Terminal emulators  
-- `waybar` — Status bar  
-- `gtk3`, `gtk4` — GTK toolkits  
-- `mako` — Notification daemon  
-- `swaybg` — Wallpaper/background manager  
-- `polkit-gnome` — PolicyKit authentication agent  
-- `rofi` — App launcher (run menu)  
-- `zenity`, `slurp`, `grim` — Screenshot utilities  
-- `playerctl` — Media control (MPRIS)  
-- `chromium`, `firefox` — Web browsers  
-- `thunar`, `yazi` — File managers  
-- `cava` + `waybar-cava` — Audio visualizer for Waybar  
-- `cpupower` — CPU power management  
-- `btop` — System monitor  
-- `networkmanager` — Network control (with nmtui)  
-- `pavucontrol`, `pipewire`, `wireplumber` — Audio stack for Wayland  
+- ghostty, foot — Terminal emulators  
+- waybar — Status bar  
+- gtk3, gtk4 — GTK toolkits  
+- mako — Notification daemon  
+- swaybg — Wallpaper/background manager  
+- polkit-gnome — PolicyKit authentication agent  
+- rofi — App launcher (run menu)  
+- zenity, slurp, grim — Screenshot utilities  
+- playerctl — Media control (MPRIS)  
+- chromium, firefox — Web browsers  
+- thunar, yazi — File managers  
+- cava + waybar-cava — Audio visualizer for Waybar  
+- cpupower — CPU power management  
+- btop — System monitor  
+- networkmanager — Network control (with nmtui)  
+- pavucontrol, pipewire, wireplumber — Audio stack for Wayland  
 
 ---
 
 ## 💡 Optional Packages (Recommended)  
-- `easyeffects` — Audio effects over PipeWire  
-- `mpd`, `ncmpcpp`, `mpd-mpris` — Music player with MPRIS support  
-- `wev` — Key-code finder for custom keybinds  
-- `scrcpy` — Display Android screen on PC  
-- `ghostty` — Highly recommended terminal emulator  
+- easyeffects — Audio effects over PipeWire  
+- mpd, rmpc, mpd-mpris — Music player with MPRIS support  
+- wev — Key-code finder for custom keybinds  
+- scrcpy — Display Android screen on PC  
+- ghostty — Highly recommended terminal emulator  
 
 ---
 
