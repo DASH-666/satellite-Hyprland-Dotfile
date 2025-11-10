@@ -87,7 +87,7 @@ vim.o.mouse = "a"
 vim.cmd('syntax enable')
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-vim.o.expandtab = false
+vim.o.expandtab = true
 vim.o.ruler = true
 vim.o.showcmd = true
 vim.o.laststatus = 2
