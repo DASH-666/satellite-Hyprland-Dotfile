@@ -9,9 +9,9 @@
   "reload_style_on_change": true,
   
   // === Modules positions ===
-  "modules-left": ["group/group-browser", "group/group-filemanager", "group/group-terminal", "custom/rofi"],
+  "modules-left": ["group/group-browser", "group/group-filemanager", "group/group-terminal"],
   "modules-center": ["custom/ar1", "group/group-power", "hyprland/language", "hyprland/workspaces", "network", "mpris", "pulseaudio", "clock", "group/group-power-mod", "custom/ar2"],
-  "modules-right": ["cpu", "temperature", "memory", "tray"],
+  "modules-right": ["group/group-cpu", "memory", "tray"],
 
   // === Custom separators ===
   "custom/ar1": {
@@ -41,6 +41,20 @@
     "orientation": "inherit"
   },
 
+  // === Cpu group ===
+  "group/group-cpu": {
+    "drawer": {
+      "children-class": "cpu-gg",
+      "transition-duration": 200,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "cpu",
+      "temperature",
+    ],
+    "orientation": "inherit"
+  },
+
   // === FileManager group ===
   "group/group-filemanager": {
     "drawer": {
@@ -64,7 +78,8 @@
     },
     "modules": [
       "custom/ghostty",
-      "custom/foot"
+      "custom/foot",
+      "custom/rofi",
     ],
     "orientation": "inherit"
   },
@@ -139,7 +154,6 @@
   },
 
   // === Keyboard layout ===
-  // you can use this if the default language change dont work for you
   //"custom/keyboard": {
   //  "exec": "~/.config/waybar/keyboard-layout.sh",
   //  "format": " {} ",
@@ -378,15 +392,15 @@
 
   // === Network ===
   "network": {
-    "format-ethernet": "  {bandwidthTotalBytes} ",
+    "format-ethernet": "  {bandwidthTotalBytes} ",
     "format-linked": " {ifname} (No IP) ",
     "format-disconnected": "  Disconnected ",
-    "format-wifi": "  wifi({signalStrength}%) ",
+    "format-wifi": "  wifi({signalStrength}%){bandwidthTotalBytes} ",
     "format-alt": "  {ifname}: {ipaddr}/{cidr}",
     "interval": 1,
     //"min-length": 13,
     "tooltip": true,
-    "tooltip-format": " {ifname} via {gwaddr}  ",
+    "tooltip-format": " {ifname} via {gwaddr} {bandwidthTotalBytes} ",
     "on-click-right": "ghostty -e nmtui"
   },
 
