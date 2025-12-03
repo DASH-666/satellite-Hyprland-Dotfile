@@ -44,7 +44,6 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [swaybg](https://github.com/swaywm/swaybg) — Wallpaper/background manager  
 - [polkit-gnome](https://gitlab.gnome.org/Archive/policykit-gnome) — PolicyKit authentication agent  
 - [rofi](https://github.com/davatorium/rofi) — App launcher (run menu)  
-- [zenity](https://github.com/GNOME/zenity), [slurp](https://github.com/emersion/slurp), [grim](https://gitlab.freedesktop.org/emersion/grim) — Screenshot utilities  
 - [playerctl](https://github.com/altdesktop/playerctl) — Media control (MPRIS)  
 - [chromium](https://github.com/chromium/chromium), [firefox](https://github.com/mozilla-firefox/firefox) — Web browsers  
 - [thunar](https://github.com/neilbrown/thunar), [yazi](https://github.com/sxyazi/yazi) — File managers  
@@ -63,6 +62,7 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC  
 - [zsh](https://www.zsh.org/), [oh-my-zsh](https://ohmyz.sh/) — Zsh is a shell designed for interactive use
 - [neovim](https://neovim.io/) — hyperextensible Vim-based text editor
+- [screen shot and record scrips](https://github.com/DASH-666/screen-record-and-shot-script-for-hyprland) — to get screen shot and screen record
 
 ---
 ## 🔐 CPU Power Control Fix
