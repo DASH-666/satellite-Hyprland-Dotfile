@@ -11,7 +11,7 @@
    Main Waybar container
    ======================= */
 #waybar {
-    background-color: rgba(0, 0, 0, 0.0);
+    background-color: rgba(0, 0, 0, 0.7);
     /*border-bottom: 2px solid #00ffcc;*/
 }
 
@@ -57,12 +57,18 @@ tooltip, tooltip * {
    CPU
    ======================= */
 #cpu {
-    color: #7733ff;
+    /*color: #7733ff;
     margin-top: 2px;
     text-shadow:
         0 0 1px #aa66ff,
         0 0 2px #8844ff,
-        0 0 3px #7733ff;
+        0 0 3px #7733ff;*/
+     color: #aa00ff;
+     margin-top: 2px;
+     text-shadow:
+         0 0 1px #bb33ff,
+         0 0 2px #aa1aff,
+         0 0 3px #aa00ff;
     /*border-bottom: 2px solid #7733ff;*/        
 }
 
@@ -187,19 +193,6 @@ tooltip, tooltip * {
 }
 
 /* =======================
-   Rofi
-   ======================= */
-#custom-rofi {
-    color: #ffee00;
-    margin-top: 2px;
-    text-shadow:
-        0 0 1px #fff066,
-        0 0 2px #ffeb33,
-        0 0 3px #ffee00;
-    /*border-bottom: 2px solid #ffee00;*/        
-}
-
-/* =======================
    Hyprland workspaces
    ======================= */
 #hyprland-workspaces {
@@ -297,11 +290,13 @@ tooltip, tooltip * {
 #workspaces button.visible,
 #workspaces button.active {
     color: #ff00bb;
+    border-radius: 50px;
     text-shadow:
         0 0 1px #ff5f5f,
         0 0 2px #ff3c3c,
         0 0 3px #ff00aa;
-    /*border-bottom: 2px solid #ff00bb;*/        
+    border-left: 2px solid #ff00bb;
+    border-right: 2px solid #ff00bb;
 }
 
 #workspaces button.urgent {
