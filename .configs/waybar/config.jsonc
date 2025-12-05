@@ -34,9 +34,10 @@
       "transition-left-to-right": true
     },
     "modules": [
-      "custom/chromium",
+      "custom/zen",
       //"custom/chrome",
-      "custom/firefox"
+      //"custom/firefox",
+      "custom/chromium",
     ],
     "orientation": "inherit"
   },
@@ -136,6 +137,13 @@
     "on-click": "firefox",
     "tooltip": true,
     "tooltip-format": " firefox\ninternet browser"
+  },
+
+  "custom/zen": {
+    "format": "  zen ",
+    "on-click": "zen-browser",
+    "tooltip": true,
+    "tooltip-format": " zen\ninternet browser"
   },
 
   // === File manager ===
