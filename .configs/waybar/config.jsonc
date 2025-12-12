@@ -377,7 +377,6 @@
   "cpu": {
     "format": "  {usage}% {avg_frequency}GHz {load} ",
     "interval": 1,
-    "min-length": 20,
     "on-click": "ghostty -e btop"
   },
 
