@@ -34,7 +34,7 @@
       "transition-left-to-right": true
     },
     "modules": [
-      "custom/zen",
+      "custom/librewolf",
       //"custom/chrome",
       //"custom/firefox",
       "custom/chromium",
@@ -121,6 +121,8 @@
   "custom/chromium": {
     "format": "  chromium ",
     "on-click": "chromium",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " chromium\ninternet browser"
   },
@@ -128,6 +130,8 @@
   "custom/chrome": {
     "format": "  chrome ",
     "on-click": "google-chrome-stable",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " chrome\ninternet browser"
   },
@@ -135,6 +139,8 @@
   "custom/firefox": {
     "format": "  firefox ",
     "on-click": "firefox",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " firefox\ninternet browser"
   },
@@ -142,14 +148,27 @@
   "custom/zen": {
     "format": "  zen ",
     "on-click": "zen-browser",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " zen\ninternet browser"
+  },
+
+  "custom/librewolf": {
+    "format": "  librewolf ",
+    "on-click": "librewolf",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
+    "tooltip": true,
+    "tooltip-format": " librewolf\ninternet browser"
   },
 
   // === File manager ===
   "custom/thunar": {
     "format": "  thunar ",
     "on-click": "thunar",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " thunar\nfile manager"
   },
@@ -157,24 +176,21 @@
   "custom/yazi": {
     "format": "  yazi ",
     "on-click": "ghostty -e yazi",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " yazi\nfile manager"
   },
 
   // === Keyboard layout ===
-  //"custom/keyboard": {
-  //  "exec": "~/.config/waybar/keyboard-layout.sh",
-  //  "format": " {} ",
-  //  "interval": 1,
-  //  "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
-  //  "tooltip": true
-  //},
   "hyprland/language": {
     "format": " {} ",
     "format-en": "ENG",
     "format-fa": "FA",
     "keyboard-name": "at-translated-set-2-keyboard",
     "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+    "on-scroll-down": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+    "on-scroll-up": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
     "tooltip": true
   },
 
@@ -257,6 +273,8 @@
   "custom/power": {
     "format": "  ",
     "on-click": "systemctl poweroff",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " power off"
   },
@@ -264,6 +282,8 @@
   "custom/quit": {
     "format": "  ",
     "on-click": "hyprctl dispatch exit",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " quit"
   },
@@ -271,6 +291,8 @@
   "custom/reboot": {
     "format": "  ",
     "on-click": "systemctl reboot",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " reboot"
   },
@@ -278,6 +300,8 @@
   "custom/suspend": {
     "format": "  ",
     "on-click": "systemctl suspend",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " suspend"
   },
@@ -286,6 +310,8 @@
   "custom/performance": {
     "format": "  ",
     "on-click": "sudo cpupower frequency-set -g performance && notify-send ' performance power mod' ",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " performance power mod"
   },
@@ -293,6 +319,8 @@
   "custom/schedutil": {
     "format": "  ",
     "on-click": "sudo cpupower frequency-set -g schedutil && notify-send '  schedutil power mod' ",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " schedutil power mod"
   },
@@ -300,6 +328,8 @@
   "custom/powersave": {
     "format": "  ",
     "on-click": "sudo cpupower frequency-set -g powersave && notify-send '  powersave power mod' ",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " powersaver power mod"
   },
@@ -310,6 +340,8 @@
       "activated": "",
       "deactivated": ""
     },
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format-activated": "  monitor idle mode off",
     "tooltip-format-deactivated": "  monitor idle mode on"
@@ -319,6 +351,8 @@
   "custom/scrcpy": {
     "format": "  scrcpy ",
     "on-click": "scrcpy --video-codec=h265 --max-size=2340 --max-fps=120 --keyboard=uhid --window-width=400 --window-height=600 --select-usb",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " scrcpy\nphone screen share on pc"
   },
@@ -326,6 +360,8 @@
   "custom/rofi": {
   	"format": "  rofi ",
   	"on-click": "rofi -show run -theme /home/dash-/.config/rofi/theme.rasi",
+  	"on-scroll-down": ":",
+  	"on-scroll-up": ":",
   	"tooltip": true,
   	"tooltip-format": " rofi\napp menu"
   },
@@ -334,6 +370,8 @@
   "custom/ghostty": {
     "format": "  ghostty ",
     "on-click": "ghostty",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " ghostty\nterminal emulator"
   },
@@ -341,6 +379,8 @@
   "custom/foot": {
     "format": " 󰽒 foot ",
     "on-click": "foot",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": "󰽒 foot\nterminal emulator"
   },
@@ -377,13 +417,17 @@
   "cpu": {
     "format": "  {usage}% {avg_frequency}GHz {load} ",
     "interval": 1,
-    "on-click": "ghostty -e btop"
+    "on-click": "ghostty -e btop",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
   },
 
   "memory": {
     "format": "  {used:0.1f}GB of {total:0.1f}GB ",
     "interval": 2,
     "on-click": "ghostty -e btop",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
     "tooltip": true
   },
 
@@ -394,7 +438,9 @@
     "critical-threshold": 70,
     "format-critical": " {temperatureC}°C ",
     "format": " {temperatureC}°C ",
-    "on-click": "ghostty -e btop"
+    "on-click": "ghostty -e btop",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
   },
 
   // === Network ===
@@ -405,10 +451,11 @@
     "format-wifi": "  wifi({signalStrength}%){bandwidthTotalBytes} ",
     "format-alt": "  {ifname}: {ipaddr}/{cidr}",
     "interval": 1,
-    //"min-length": 13,
     "tooltip": true,
     "tooltip-format": " {ifname} via {gwaddr} {bandwidthTotalBytes} ",
-    "on-click-right": "ghostty -e nmtui"
+    "on-click-right": "ghostty -e nmtui",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":",
   },
 
   // === Audio ===
