@@ -1,4 +1,3 @@
-
 #![enable(implicit_some)]
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]
@@ -40,10 +39,12 @@
             "3":       SwitchToTab("Playlists"),
             "4":       SwitchToTab("Search"),
             "q":       Quit,
-            "l":       NextTrack,
+            ">":       NextTrack,
+            "L":       NextTrack,
             "p":       TogglePause,
             "<Space>": TogglePause,
-            "j":       PreviousTrack,
+            "<":       PreviousTrack,
+            "J":       PreviousTrack,
             "o":       SeekForward,
             "z":       ToggleRepeat,
             "x":       ToggleRandom,
@@ -52,7 +53,7 @@
             "u":       SeekBack,
             "~":       ShowHelp,
             "U":       Update,
-            "E":       ShowCurrentSongInfo,
+            "I":       ShowCurrentSongInfo,
             "O":       ShowOutputs,
             "P":       ShowDecoders,
             "R":       AddRandom,
