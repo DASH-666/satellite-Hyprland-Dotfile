@@ -220,7 +220,7 @@
   },
 
   "mpris": {
-    "format": " {status_icon} {player} ",
+    "format": " {status_icon} {player_icon}{player} ",
     "interval": 1,
     "status-icons": {
       "paused": "",
@@ -238,8 +238,8 @@
     "on-click": "playerctl play-pause",
     "on-click-forward": "playerctl next",
     "on-click-backward": "playerctl previous",
-    "on-click-right": "playerctl next",
-    "on-click-middle": "playerctl previous",
+    "on-click-right": "playerctl stop",
+    "on-click-middle": "playerctl next",
     "on-scroll-up": "playerctl position 5+",
     "on-scroll-down": "playerctl position 5-",
   },
