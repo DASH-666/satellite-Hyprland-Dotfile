@@ -19,12 +19,22 @@
    Tooltip styling
    ======================= */
 tooltip, tooltip * {
-    color: #ccccff;
+    color: #ff0000;
     background-color: rgba(0, 0, 0, 0.5);
     text-shadow:
             0 0 1px #ff5f5f,
             0 0 2px #ff3c3c,
             0 0 3px #ff00aa;
+}
+
+#battery {
+    color: #00aaff;
+    margin-top: 2px;
+    text-shadow:
+        0 0 1px #33bbff,
+        0 0 2px #1aaaff,
+        0 0 3px #00aaff;
+    /*border-bottom: 2px solid #00aaff;*/
 }
 
 /* =======================
@@ -88,7 +98,7 @@ tooltip, tooltip * {
 /* =======================
    Custom Chromium
    ======================= */
-#custom-zen,
+#custom-librewolf,
 .browser-gg {
     color: #ff0055;
     margin-top: 2px;
