@@ -51,18 +51,19 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - cpupower — CPU power management  
 - [btop](https://github.com/aristocratos/btop) — System monitor  
 - [networkmanager](https://gitlab.freedesktop.org/NetworkManager/NetworkManager) — Network control (with nmtui)  
-- [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol), [pipewire](https://github.com/PipeWire/pipewire), [wireplumber](https://github.com/PipeWire/wireplumber) — Audio stack for Wayland  
-
----
-
-## 💡 Optional Packages (Recommended)  
+- [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol), [pipewire](https://github.com/PipeWire/pipewire), [wireplumber](https://github.com/PipeWire/wireplumber) — Audio stack for Wayland
+- [screen shot and record scrips](https://github.com/DASH-666/screen-record-and-shot-script-for-hyprland) — to get screen shot and screen record
 - [easyeffects](https://github.com/wwmm/easyeffects) — Audio effects over PipeWire  
 - [mpd](https://github.com/MusicPlayerDaemon/MPD), [rmpc](https://github.com/mierak/rmpc), [mpd-mpris](https://github.com/natsukagami/mpd-mpris) — Music player with MPRIS support  
 - [wev](https://github.com/jwrdegoede/wev) — Key-code finder for custom keybinds  
 - [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC  
+
+---
+
+## 💡 Optional Packages (Recommended)  
+
 - [zsh](https://www.zsh.org/), [oh-my-zsh](https://ohmyz.sh/) — Zsh is a shell designed for interactive use
 - [neovim](https://neovim.io/) — hyperextensible Vim-based text editor
-- [screen shot and record scrips](https://github.com/DASH-666/screen-record-and-shot-script-for-hyprland) — to get screen shot and screen record
 
 ---
 ## 🔐 CPU Power Control Fix
