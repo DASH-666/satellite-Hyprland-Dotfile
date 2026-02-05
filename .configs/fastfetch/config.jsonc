@@ -9,7 +9,7 @@
   		},
   		"logo": {
   		    "type": "kitty-direct",
-  		    "source": "~/.config/fastfetch/BlackArch.png",
+  		    "source": "/home/dash-/.config/fastfetch/BlackArch.png",
   		    "width": 37,
   		    "height": 22,
   		    "padding": {
@@ -18,7 +18,11 @@
   		        "right": 0,
   		    },
   		},
-  "modules": [	
+  "modules": [
+        {
+        	"type": "custom",
+        	"key": "\u001b[39mTh\u001b[31mi\u001b[39mnkPad T440p",
+        },
         "title",
         "separator",
         {
@@ -69,10 +73,10 @@
             "type": "cpu",
             "key": "\u001b[34m│ \u001b[31mCPU",
         },
-    //    {
-    //        "type": "gpu",
-    //        "key": "\u001b[34m│ \u001b[31mGPU",
-    //    },
+        {
+            "type": "gpu",
+            "key": "\u001b[34m│ \u001b[31mGPU",
+        },
         {
             "type": "memory",
             "key": "\u001b[34m│ \u001b[31mMemory",
