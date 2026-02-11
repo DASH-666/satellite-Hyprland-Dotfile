@@ -56,7 +56,9 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [easyeffects](https://github.com/wwmm/easyeffects) — Audio effects over PipeWire  
 - [mpd](https://github.com/MusicPlayerDaemon/MPD), [rmpc](https://github.com/mierak/rmpc), [mpd-mpris](https://github.com/natsukagami/mpd-mpris) — Music player with MPRIS support  
 - [wev](https://github.com/jwrdegoede/wev) — Key-code finder for custom keybinds  
-- [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC  
+- [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC
+- [nwg-displays](https://github.com/nwg-piotr/nwg-displays) — Output managment
+- [librewolf](https://librewolf.net/) — Browser
 
 ---
 
