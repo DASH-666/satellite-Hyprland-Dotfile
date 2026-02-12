@@ -25,6 +25,9 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - **Wallpaper:** Spaceship — download image from [here](https://www.vecteezy.com/photo/29163762-3d-cg-rendering-of-space-ship)  
   Place in `~/.config/hypr/` and rename to `spaceship.jpg`
 
+-**Waybar:**   [Color](https://github.com/DASH-666/satellite-Hyprland-Dotfile/blob/main/.configs/waybar/style.css) & [thinkpad theme](https://github.com/DASH-666/satellite-Hyprland-Dotfile/blob/main/.configs/waybar/style-thinkpad.css)
+ There is 2 theme for waybar.the default is color.but if you like the thinkpad one just rename the style-thinkpad.css to style.css(first rename the last style.css to somthing else ).
+
 ---
 
 ## ⚙️ Required Packages
