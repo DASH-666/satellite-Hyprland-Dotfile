@@ -3,6 +3,7 @@
 A complete setup for a customized and modern Wayland desktop experience using **[Hyprland](https://github.com/hyprwm/Hyprland)**.
 
 ![fastest window](ss-color.png)
+![fastest window](ss-thinkpad.png)
 ---
 
 ## 🎨 Themes and Customizations
