@@ -20,9 +20,19 @@ require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-context'
 
   -- Colorschemes
-  use 'lunarvim/colorschemes'
-  use { "scottmckendry/cyberdream.nvim" }
+  use {
+    "navarasu/onedark.nvim",
+    config = function()
+      require('onedark').setup {
+        style = 'deep',
+        transparent = true,
+      }
+      require('onedark').load()
+    end
+  }
 
+  -- use 'lunarvim/colorschemes'
+  
   -- File explorer
   use {
     'kyazdani42/nvim-tree.lua',
@@ -73,7 +83,7 @@ end)
 -- OPTIONS AND SETTINGS
 -- ===================================
 vim.o.termguicolors = true
-vim.cmd('colorscheme cyberdream')
+vim.cmd('colorscheme onedark')
 
 -- UI options
 vim.wo.number = true
@@ -110,12 +120,12 @@ vim.cmd [[
 ]]
 
 -- Highlighting
-vim.cmd [[
-  hi CursorLine guibg=#2c2c2c
-  hi Comment gui=italic
-  hi Function gui=bold
-  hi Keyword gui=bold
-]]
+-- vim.cmd [[
+  -- hi CursorLine guibg=#2c2c2c
+  -- hi Comment gui=italic
+  -- hi Function gui=bold
+  -- hi Keyword gui=bold
+-- ]]
 
 -- Yank highlight
 vim.cmd [[
@@ -171,7 +181,7 @@ end
 -- ===================================
 require("mason").setup()
 require("mason-lspconfig").setup {
-  ensure_installed = { "pyright", "clangd", "bashls", "lua_ls" },
+  ensure_installed = { "pyright", "clangd", "bashls", "lua_ls", "cssls", "jsonls" },
 }
 
 -- ===================================
@@ -230,7 +240,7 @@ require('nvim-autopairs').setup{}
 -- TREESITTER CONFIG
 -- ===================================
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "python", "bash", "cpp", "lua" },
+  ensure_installed = { "python", "bash", "cpp", "lua", "c", "json", "css" },
   highlight = { enable = true },
   additional_vim_regex_highlighting = false,
   rainbow = {
