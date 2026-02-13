@@ -32,7 +32,7 @@
 -- ctrl + a → Select all text
 
 -- TERMINAL MODE
--- alt + t → Toggle floating terminal
+-- ctrl + t → Toggle floating terminal
 
 -- NvimTree Keys
 -- o → Open file/folder
@@ -54,7 +54,7 @@
 -- Tab → Next completion / Expand snippet
 -- shift + Tab → Previous completion / Jump to previous snippet
 -- Enter → Confirm completion
--- 
+--
 -- Tagbar
 -- Enter → Jump to item
 -- o or space → Expand/Collapse node
@@ -94,7 +94,7 @@ require('packer').startup(function(use)
   }
 
   -- use 'lunarvim/colorschemes'
-  
+
   -- File explorer
   use {
     'kyazdani42/nvim-tree.lua',
@@ -244,7 +244,6 @@ vim.keymap.set('i', '<C-q>', '<Esc>', opts)
 vim.keymap.set('i', '<C-d>', '<Esc>YpA', opts)
 vim.keymap.set('i', '<C-a>', '<Esc>ggVG', opts)
 
-
 -- Tabs 1–9
 for i = 1, 9 do
   vim.api.nvim_set_keymap('n', '<C-'..i..'>', ':tabn '..i..'<CR>', opts)
@@ -388,9 +387,8 @@ function _G.toggle_floating_terminal()
   vim.cmd("startinsert")
 end
 
-vim.api.nvim_set_keymap('n', '<A-t>', "<cmd>lua _G.toggle_floating_terminal()<CR>", opts)
-vim.api.nvim_set_keymap('t', '<M-t>', [[<C-\><C-n>:lua toggle_floating_terminal()<CR>]], opts)
-
+vim.keymap.set('n', '<C-t>', "<cmd>lua _G.toggle_floating_terminal()<CR>", { noremap = true, silent = true })
+vim.keymap.set('t', '<C-t>', [[<C-\><C-n>:lua _G.toggle_floating_terminal()<CR>]], { noremap = true, silent = true })
 
 -- ===================================
 -- RAINBOW DELIMITERS
@@ -412,3 +410,4 @@ vim.g.rainbow_delimiters = {
     'RainbowDelimiterCyan',
   },
 }
+
