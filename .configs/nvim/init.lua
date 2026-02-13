@@ -144,31 +144,44 @@ vim.cmd [[
 -- ===================================
 -- KEYMAPS
 -- ===================================
-local opts = { noremap=true, silent=true }
 
--- Normal mode
-vim.api.nvim_set_keymap('n', '<C-x>', ':NvimTreeToggle<CR>', opts)
-vim.api.nvim_set_keymap('n', '<F8>', ':TagbarToggle<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-v>', ':vsplit<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-h>', ':split<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-Left>', ':vertical resize -2<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-Right>', ':vertical resize +2<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-Up>', ':resize -2<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-Down>', ':resize +2<CR>', opts)
-vim.api.nvim_set_keymap('n', '<S-s>', ':w<CR>', opts)
-vim.api.nvim_set_keymap('n', '<S-q>', ':q<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-q>', ':q!<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-e>', ':tabprevious<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-r>', ':tabnext<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-w>', ':tabnew<CR>', opts)
-vim.api.nvim_set_keymap('n', ';', ':', opts)
-vim.api.nvim_set_keymap("n", "<C-d>", "Yp", opts)
+local opts = { noremap = true, silent = true }
 
--- Insert mode
-vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', opts)
-vim.api.nvim_set_keymap('i', '<C-q>', '<Esc>', opts)
-vim.api.nvim_set_keymap("i", "<C-d>", "<Esc>YpA", opts)
+vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
+vim.keymap.set('n', '<F8>', ':TagbarToggle<CR>', opts)
+
+vim.keymap.set('n', '<C-j>', ':vsplit<CR>', opts)
+vim.keymap.set('n', '<C-k>', ':split<CR>', opts)
+
+vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', opts)
+vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', opts)
+vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', opts)
+vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', opts)
+
+vim.keymap.set('n', '<S-s>', ':w<CR>', opts)
+vim.keymap.set('n', '<S-q>', ':q<CR>', opts)
+vim.keymap.set('n', '<C-s>', ':w<CR>', opts)
+vim.keymap.set('n', '<C-q>', ':q!<CR>', opts)
+
+vim.keymap.set('n', '<C-e>', ':tabprevious<CR>', opts)
+vim.keymap.set('n', '<C-r>', ':tabnext<CR>', opts)
+vim.keymap.set('n', '<C-w>', ':tabnew<CR>', opts)
+
+vim.keymap.set('n', ';', ':', opts)
+vim.keymap.set('n', '<C-d>', 'Yp', opts)
+
+vim.keymap.set({'n','v'}, '<C-c>', '"+y', opts)
+vim.keymap.set({'n','v'}, '<C-x>', '"+d', opts)
+vim.keymap.set({'n','v'}, '<C-v>', '"+p', opts)
+
+vim.keymap.set({'n','v'}, '<C-a>', 'ggVG', opts)
+
+vim.keymap.set('i', '<C-v>', '<C-r>+', opts)
+vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>a', opts)
+vim.keymap.set('i', '<C-q>', '<Esc>', opts)
+vim.keymap.set('i', '<C-d>', '<Esc>YpA', opts)
+vim.keymap.set('i', '<C-a>', '<Esc>ggVG', opts)
+
 
 -- Tabs 1–9
 for i = 1, 9 do
