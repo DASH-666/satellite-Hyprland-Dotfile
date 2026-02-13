@@ -1,3 +1,5 @@
+this repo is just for backup of my configs.it may have som problems fow others.
+
 # Hyprland Rice
 
 A complete setup for a customized and modern Wayland desktop experience using **[Hyprland](https://github.com/hyprwm/Hyprland)**.
