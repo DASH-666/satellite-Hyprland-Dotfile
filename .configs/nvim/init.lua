@@ -3,10 +3,14 @@
 -- F8 → Toggle Tagbar
 -- Ctrl + j → Vertical split
 -- Ctrl + k → Horizontal split
--- Ctrl + Left → Resize vertical split smaller
--- Ctrl + Right → Resize vertical split larger
--- Ctrl + Up → Resize horizontal split smaller
+-- Ctrl + Shift + Left → Resize vertical split smaller
+-- Ctrl + Shift + Right → Resize vertical split larger
+-- Ctrl + Shift + Up → Resize horizontal split smaller
 -- Ctrl + Down → Resize horizontal split larger
+-- Ctrl + Left → Change focus horizontal left
+-- Ctrl + Right → Change focus horizontal right
+-- Ctrl + Up → Change focus vertical up
+-- Ctrl + Down → Change focus vertical done
 -- Shift + s → Save buffer
 -- Shift + q → Quit buffer
 -- Ctrl + s → Save buffer
@@ -268,6 +272,19 @@ vim.cmd [[
   autocmd BufWritePre * %s/\s\+$//e
 ]]
 
+-- Auto open toggleterm & NVIMTree
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() == 0 then
+      local main_win = vim.api.nvim_get_current_win()
+      vim.cmd("ToggleTerm")
+      vim.cmd("stopinsert")
+      require("nvim-tree.api").tree.open()
+      vim.api.nvim_set_current_win(main_win)
+    end
+  end,
+})
+
 -- ===================================
 -- KEYMAPS
 -- ===================================
@@ -277,10 +294,14 @@ vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 vim.keymap.set('n', '<F8>', ':TagbarToggle<CR>', opts)
 vim.keymap.set('n', '<C-j>', ':vsplit<CR>', opts)
 vim.keymap.set('n', '<C-k>', ':split<CR>', opts)
-vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', opts)
-vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', opts)
-vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', opts)
-vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', opts)
+vim.keymap.set('n', '<C-S-Left>',  ':vertical resize -2<CR>', opts)
+vim.keymap.set('n', '<C-S-Right>', ':vertical resize +2<CR>', opts)
+vim.keymap.set('n', '<C-S-Up>',    ':resize -2<CR>', opts)
+vim.keymap.set('n', '<C-S-Down>',  ':resize +2<CR>', opts)
+vim.keymap.set('n', '<C-Left>',  '<C-w>h', opts)
+vim.keymap.set('n', '<C-Right>', '<C-w>l', opts)
+vim.keymap.set('n', '<C-Up>',    '<C-w>k', opts)
+vim.keymap.set('n', '<C-Down>',  '<C-w>j', opts)
 vim.keymap.set('n', '<S-s>', ':w<CR>', opts)
 vim.keymap.set('n', '<S-q>', ':q<CR>', opts)
 vim.keymap.set('n', '<C-s>', ':w<CR>', opts)
