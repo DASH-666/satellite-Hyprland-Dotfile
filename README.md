@@ -4,8 +4,7 @@ this repo is just for backup of my configs.it may have som problems fow others.
 
 A complete setup for a customized and modern Wayland desktop experience using **[Hyprland](https://github.com/hyprwm/Hyprland)**.
 
-![fastest window](ss-color.png)
-![fastest window](ss-thinkpad.png)
+![fastest window](ss.png)
 ---
 
 ## 🎨 Themes and Customizations
@@ -28,9 +27,6 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - **Wallpaper:** Spaceship — download image from [here](https://www.vecteezy.com/photo/29163762-3d-cg-rendering-of-space-ship)
   Place in `~/.config/hypr/` and rename to `spaceship.jpg`
 
-- **Waybar:**   [Color](https://github.com/DASH-666/satellite-Hyprland-Dotfile/blob/main/.configs/waybar/style.css) & [thinkpad theme](https://github.com/DASH-666/satellite-Hyprland-Dotfile/blob/main/.configs/waybar/style-thinkpad.css)
- There is 2 theme for waybar.the default is color.but if you like the thinkpad one just rename the style-thinkpad.css to style.css(first rename the last style.css to somthing else ).
-
 ---
 
 ## ⚙️ Required Packages
@@ -50,7 +46,7 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [swaybg](https://github.com/swaywm/swaybg) — Wallpaper/background manager  
 - [polkit-gnome](https://gitlab.gnome.org/Archive/policykit-gnome) — PolicyKit authentication agent  
 - [rofi](https://github.com/davatorium/rofi) — App launcher (run menu)  
-- [playerctl](https://github.com/altdesktop/playerctl) — Media control (MPRIS)  
+- [playerctl](https://github.com/altdesktop/playerctl) — Media control (MPRIS)
 - [chromium](https://github.com/chromium/chromium), [firefox](https://github.com/mozilla-firefox/firefox) — Web browsers  
 - [thunar](https://github.com/neilbrown/thunar), [yazi](https://github.com/sxyazi/yazi) — File managers  
 - [cava](https://github.com/karlstav/cava) + [waybar-cava](https://github.com/Alexays/Waybar) — Audio visualizer for Waybar  
@@ -60,7 +56,7 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol), [pipewire](https://github.com/PipeWire/pipewire), [wireplumber](https://github.com/PipeWire/wireplumber) — Audio stack for Wayland
 - [screen shot and record scrips](https://github.com/DASH-666/screen-record-and-shot-script-for-hyprland) — to get screen shot and screen record
 - [easyeffects](https://github.com/wwmm/easyeffects) — Audio effects over PipeWire  
-- [mpd](https://github.com/MusicPlayerDaemon/MPD), [rmpc](https://github.com/mierak/rmpc), [mpd-mpris](https://github.com/natsukagami/mpd-mpris) — Music player with MPRIS support  
+- [mpd](https://github.com/MusicPlayerDaemon/MPD), [rmpc](https://github.com/mierak/rmpc), [mpc](https://github.com/MusicPlayerDaemon/mpc) — Music player with MPRIS support  
 - [wev](https://github.com/jwrdegoede/wev) — Key-code finder for custom keybinds  
 - [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC
 - [nwg-displays](https://github.com/nwg-piotr/nwg-displays) — Output managment
