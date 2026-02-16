@@ -27,7 +27,7 @@ window {
     margin:                      0px;
     padding:                     0px;
     border:                      1px solid;
-    border-radius:               3px;
+    border-radius:               0px;
     border-color:                #33ccffff;
     cursor:                      "default";
     background-color:            #00000000;
@@ -39,7 +39,7 @@ mainbox {
     margin:                      0px;
     padding:                     10px;
     border:                      1px solid;
-    border-radius:               3px;
+    border-radius:               0px;
     border-color:                #000000ff;
     background-color:            #00000077;
     children:                    [ "inputbar", "message", "listview", "mode-switcher" ];
@@ -201,7 +201,7 @@ message {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               0px 0px 0px 0px;
+    border-radius:               0px;
     border-color:                #000000ff;
     background-color:            transparent;
     text-color:                  #ffffffff;
