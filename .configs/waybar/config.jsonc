@@ -4,27 +4,14 @@
   "ipc": false,
   "layer": "top",
   "position": "top",
-  "spacing": 2,
+  "spacing": 3,
   "exclusive": true,
   "reload_style_on_change": true,
-  
+
   // === Modules positions ===
   "modules-left": ["group/group-browser", "group/group-filemanager", "group/group-terminal"],
-  "modules-center": ["custom/ar1", "group/group-power", "hyprland/language", "hyprland/workspaces", "network", "mpris", "pulseaudio", "battery", "clock", "group/group-power-mod", "custom/ar2"],
-  "modules-right": ["group/group-cpu", "memory", "tray"],
-
-  // === Custom separators ===
-  "custom/ar1": {
-    "format": ">>-(",
-    "tooltip": true,
-    "tooltip-format": "there is nothing here 󰱱 "
-  },
-
-  "custom/ar2": {
-    "format": ")-->",
-    "tooltip": true,
-    "tooltip-format": "what you want? 󰱱 "
-  },
+  "modules-center": ["custom/linux", "group/group-power", "hyprland/language", "network", "mpd", "hyprland/workspaces", "mpris", "battery", "clock", "group/group-power-mod"],
+  "modules-right": ["cpu", "temperature", "memory", "pulseaudio", "tray"],
 
   // === Browser group ===
   "group/group-browser": {
@@ -37,21 +24,7 @@
       "custom/librewolf",
       //"custom/chrome",
       //"custom/firefox",
-      "custom/chromium",
-    ],
-    "orientation": "inherit"
-  },
-
-  // === Cpu group ===
-  "group/group-cpu": {
-    "drawer": {
-      "children-class": "cpu-gg",
-      "transition-duration": 200,
-      "transition-left-to-right": false
-    },
-    "modules": [
-      "cpu",
-      "temperature",
+      "custom/chromium"
     ],
     "orientation": "inherit"
   },
@@ -65,7 +38,7 @@
     },
     "modules": [
       "custom/thunar",
-      "custom/yazi",
+      "custom/yazi"
     ],
     "orientation": "inherit"
   },
@@ -80,7 +53,7 @@
     "modules": [
       "custom/ghostty",
       "custom/foot",
-      "custom/rofi",
+      "custom/rofi"
     ],
     "orientation": "inherit"
   },
@@ -106,7 +79,7 @@
     "drawer": {
       "children-class": "power-mod-gg",
       "transition-duration": 200,
-      "transition-left-to-right": true
+      "transition-left-to-right": false
     },
     "modules": [
       "idle_inhibitor",
@@ -116,6 +89,16 @@
     ],
     "orientation": "inherit"
   },
+
+  // === Custom separators ===
+    "custom/linux": {
+    "format": "  linux ",
+    "tooltip": true,
+    "tooltip-format": " this is a linux pc",
+    "on-click": "ghostty -e btop",
+    "on-scroll-down": ":",
+    "on-scroll-up": ":"
+    },
 
   // === Browser apps ===
   "custom/chromium": {
@@ -127,15 +110,6 @@
     "tooltip-format": " chromium\ninternet browser"
   },
 
-  "custom/chrome": {
-    "format": "  chrome ",
-    "on-click": "google-chrome-stable",
-    "on-scroll-down": ":",
-    "on-scroll-up": ":",
-    "tooltip": true,
-    "tooltip-format": " chrome\ninternet browser"
-  },
-
   "custom/firefox": {
     "format": "  firefox ",
     "on-click": "firefox",
@@ -143,15 +117,6 @@
     "on-scroll-up": ":",
     "tooltip": true,
     "tooltip-format": " firefox\ninternet browser"
-  },
-
-  "custom/zen": {
-    "format": "  zen ",
-    "on-click": "zen-browser",
-    "on-scroll-down": ":",
-    "on-scroll-up": ":",
-    "tooltip": true,
-    "tooltip-format": " zen\ninternet browser"
   },
 
   "custom/librewolf": {
@@ -194,45 +159,20 @@
     "tooltip": true
   },
 
-  // === Media controls ===
-  "custom/next": {
-    "format": "⏭  ",
-    "on-click": "playerctl next",
-    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
-    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-    "tooltip": true
-  },
-
-  "custom/player": {
-    "format": " ⏯  ",
-    "on-click": "playerctl play-pause",
-    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
-    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-    "tooltip": true
-  },
-
-  "custom/prev": {
-    "format": " ⏮ ",
-    "on-click": "playerctl previous",
-    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
-    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-    "tooltip": true
-  },
-
+  // === Meadia control ===
   "mpris": {
     "format": " {player_icon}{player} {status_icon} ",
-    "interval": 1,
     "status-icons": {
       "paused": "",
-      "playing": "",
-      "stopped": "󰓛"
+      "playing": ""
     },
     "player-icons": {
       "default": " ",
       "chromium": " ",
       "chrome": " ",
       "firefox": " ",
-      "mpv": " ",
+      "TelegramDesktop": " ",
+      "mpv": "󰿎 ",
       "mpd": " "
     },
     "on-click": "playerctl play-pause",
@@ -241,7 +181,26 @@
     "on-click-right": "playerctl stop",
     "on-click-middle": "playerctl next",
     "on-scroll-up": "playerctl position 5+",
-    "on-scroll-down": "playerctl position 5-",
+    "on-scroll-down": "playerctl position 5-"
+  },
+
+  "mpd": {
+      "format": "  ",
+      "format-disconnected": "  ",
+      "format-paused": "  ",
+      "state-icons": {
+          "paused": "",
+          "playing": ""
+      },
+      "tooltip-format": " {stateIcon} MPD: {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})  ",
+      "tooltip-format-disconnected": "MPD (disconnected)",
+      "on-click": "mpc toggle",
+      "on-click-right": "mpc next",
+      "on-click-middle": "mpc prev",
+      "on-click-forward": "mpc next",
+      "on-click-backward": "mpc prev",
+      "on-scroll-up": "mpc seek +5",
+      "on-scroll-down": "mpc seek -5"
   },
 
   "cava": {
@@ -266,7 +225,7 @@
     "on-click-forward": "playerctl next",
     "on-click-backward": "playerctl previous",
     "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
-    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%"
   },
 
   // === Power actions ===
@@ -315,8 +274,8 @@
          "critical": 15
        },
        "events": {
-         "on-discharging-warning": "notify-send -u normal 'Low Battery 󰁻30%'",
-         "on-discharging-critical": "notify-send -u critical 'Very Low Battery 󰁺15%'",
+         "on-discharging-warning": "notify-send -u normal 'Low Battery 󱊡30%'",
+         "on-discharging-critical": "notify-send -u critical 'Very Low Battery 󱊡15%'",
          "on-charging-100": "notify-send -u normal 'Battery Full!'"
        },
        "format": " {icon} {capacity}% ",
@@ -324,18 +283,20 @@
        "format-charging": " {icon} {capacity}% ",
        "format-full": " {icon} {capacity}% ",
        "format-alt": " {icon} {time} ",
-       "format-icons": { 
-          "discharging": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰂀", "󰂁", "󰂂", "󰁹"],
-          "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋"],
-          "plugged": ["󰂅", "󰚥"],  
-          "full": ["󰂅"],       
-       }  ,  
+       "format-icons": {
+          "discharging": ["󰂎", "󱊡", "󱊢", "󱊣"],
+          "charging": ["󰢟", "󱊤", "󱊥", "󱊦"],
+          "plugged": ["󰚥"],
+          "full": ["󱟣"]
+       }  ,
        "tooltip": true,
        "tooltip-format": "{timeTo} ({capacity}%)",
        "tooltip-format-charging": "Charging: {time} ({capacity}%)",
        "tooltip-format-discharging": "Discharging: {time} ({capacity}%)",
        "tooltip-format-full": "Full: {capacity}%",
-       "tooltip-format-plugged": "Plugged: {capacity}%"
+       "tooltip-format-plugged": "Plugged: {capacity}%",
+       "on-scroll-down": ":",
+       "on-scroll-up": ":"
   },
 
   // === CPU power modes ===
@@ -420,7 +381,7 @@
   // === Clock & calendar ===
   "clock": {
     "format": "  {:%H:%M:%S} ",
-    "format-alt": "  {:%A %d %B %Y  %H:%M:%S} ",
+    "format-alt": "  {:%H:%M:%S   %a %d %b %Y} ",
     "interval": 1,
     "tooltip-format": "<small>{calendar}</small>",
     "calendar": {
@@ -438,8 +399,6 @@
     },
     "actions": {
       "on-click-right": "mode",
-      "on-scroll-up": "tz_up",
-      "on-scroll-down": "tz_down",
       "on-scroll-up": "shift_up",
       "on-scroll-down": "shift_down"
     }
@@ -447,17 +406,18 @@
 
   // === System stats ===
   "cpu": {
-    "format": "  {usage}% {avg_frequency}GHz {load} ",
+    "format": "  {usage}% ",
+    "format-alt": "  {usage}% {avg_frequency}GHz {load} ",
     "interval": 1,
-    "on-click": "ghostty -e btop",
+    //"on-click": "ghostty -e btop",
     "on-scroll-down": ":",
-    "on-scroll-up": ":",
+    "on-scroll-up": ":"
   },
 
   "memory": {
-    "format": "  {used:0.1f}GB/{total:0.1f}GB ",
+    "format": "  {percentage}% ",
+    "format-alt": "  {used:0.1f}GB of {total:0.1f}GB ",
     "interval": 2,
-    "on-click": "ghostty -e btop",
     "on-scroll-down": ":",
     "on-scroll-up": ":",
     "tooltip": true
@@ -468,26 +428,27 @@
     "thermal-zone": 2,
     "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input",
     "critical-threshold": 70,
-    "format-critical": " {temperatureC}°C ",
-    "format": " {temperatureC}°C ",
+    "format-critical": "  {temperatureC}°C ",
+    "format": "  {temperatureC}°C ",
     "on-click": "ghostty -e btop",
     "on-scroll-down": ":",
-    "on-scroll-up": ":",
+    "on-scroll-up": ":"
   },
 
   // === Network ===
   "network": {
-    "format-ethernet": "  {bandwidthTotalBytes} ",
-    "format-linked": " {ifname} (No IP) ",
-    "format-disconnected": "  Disconnected ",
-    "format-wifi": "  ({signalStrength}%){bandwidthTotalBytes} ",
-    "format-alt": "  {ifname}: {ipaddr}/{cidr}",
+    "format-wifi": "  {signalStrength}% ",
+    "format-ethernet": "  ",
+    "format-disconnected": "  ",
+    "format-alt": " {ifname}({signalStrength}%): {ipaddr}/{cidr} {bandwidthTotalBytes}",
     "interval": 1,
     "tooltip": true,
-    "tooltip-format": " {ifname} via {gwaddr} {bandwidthTotalBytes} ",
+    "tooltip-format-wifi": " WiFi {ifname}({signalStrength}%): {ipaddr}/{cidr} {bandwidthTotalBytes} ",
+    "tooltip-format-ethernet": " Ethernet {ifname}: {ipaddr}/{cidr} {bandwidthTotalBytes} ",
+    "tooltip-format-disconnected": " Disconnected",
     "on-click-right": "ghostty -e nmtui",
     "on-scroll-down": ":",
-    "on-scroll-up": ":",
+    "on-scroll-up": ":"
   },
 
   // === Audio ===
@@ -500,12 +461,7 @@
     "format-source-muted": " ",
     "format-icons": {
       "default": [" ", " "],
-      //"hands-free": " ",
-      //"headphone": " ",
-      //"headset": " ",
-      //"phone": "  ",
-      //"portable": "  "
-      //"car": "  ",
+      "headphone": " "
     },
     "on-click": "GTK_THEME=Adwaita:dark pavucontrol",
     "on-click-right": "hdajackretask",
@@ -514,7 +470,6 @@
     "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
     "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
     //"pulse-sink": "alsa_output.pci-0000_00_1b.0.analog-stereo",
-    //"scroll-step": 5,
     "tooltip": true
   },
 
@@ -525,12 +480,6 @@
     "spacing": 10
   },
 
-  // === Hyprland integration ===
-  "hyprland/window": {
-    "format": " {title:.18s}... ",
-    "tooltip": true
-  },
-
   "hyprland/workspaces": {
     "format": "{name}",
     "persistent-workspaces": {
@@ -538,7 +487,7 @@
       "2": {},
       "3": {},
       "4": {},
-      "5": {},
+      "5": {}
     },
     "on-click-left": "activate",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
