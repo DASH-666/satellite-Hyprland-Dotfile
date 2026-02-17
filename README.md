@@ -32,9 +32,10 @@ A complete setup for a customized and modern Wayland desktop experience using **
 ## ⚙️ Required Packages
 
 ### Core Components  
-- [Hyprland](https://github.com/hyprwm/Hyprland) — window manager
-- [Hypridle](https://github.com/hyprwm/hypridle) — idle manager  
-- [Hyprlock](https://github.com/hyprwm/hyprlock) — Lock screen utility  
+- [hyprland](https://github.com/hyprwm/Hyprland) — window manager
+- [hypridle](https://github.com/hyprwm/hypridle) — idle manager  
+- [hyprlock](https://github.com/hyprwm/hyprlock) — Lock screen utility
+- [hypr-zoom](https://github.com/FShou/hypr-zoom) — zoom on hyprland
 - [xdg-desktop-portal-hyprland](https://github.com/hyprwm/xdg-desktop-portal-hyprland) — Desktop portal backend for Wayland  
 - [libinput](https://github.com/wayland-tablet/libinput) — Input device support  
 
