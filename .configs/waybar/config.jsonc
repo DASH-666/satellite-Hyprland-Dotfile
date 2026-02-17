@@ -11,7 +11,7 @@
   // === Modules positions ===
   "modules-left": ["group/group-browser", "group/group-filemanager", "group/group-terminal"],
   "modules-center": ["custom/linux", "group/group-power", "hyprland/language", "network", "mpd", "hyprland/workspaces", "mpris", "battery", "clock", "group/group-power-mod"],
-  "modules-right": ["cpu", "temperature", "memory", "pulseaudio", "tray"],
+  "modules-right": ["pulseaudio", "cpu", "temperature", "memory", "tray"],
 
   // === Browser group ===
   "group/group-browser": {
