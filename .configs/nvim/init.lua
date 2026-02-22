@@ -331,6 +331,10 @@ for i = 1, 9 do
   vim.api.nvim_set_keymap('n', '<C-'..i..'>', ':tabn '..i..'<CR>', opts)
 end
 
+for i = 1, 9 do
+  vim.api.nvim_set_keymap('i', '<C-'..i..'>', '<Esc>:tabn '..i..'<CR>', opts)
+end
+
 -- ===================================
 -- MASON & LSP
 -- ===================================
