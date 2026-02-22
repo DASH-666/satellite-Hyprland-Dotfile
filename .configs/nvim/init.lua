@@ -319,6 +319,14 @@ vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>a', opts)
 vim.keymap.set('i', '<C-q>', '<Esc>', opts)
 vim.keymap.set('i', '<C-d>', '<Esc>YpA', opts)
 vim.keymap.set('i', '<C-a>', '<Esc>ggVG', opts)
+vim.keymap.set('i', '<C-n>', '<Esc>:NvimTreeToggle<CR>', opts)
+vim.keymap.set('i', '<C-e>', '<Esc>:tabprevious<CR>', opts)
+vim.keymap.set('i', '<C-r>', '<Esc>:tabnext<CR>', opts)
+vim.keymap.set('i', '<C-w>', '<Esc>:tabnew<CR>', opts)
+vim.keymap.set('i', '<F8>',  '<Esc>:TagbarToggle<CR>', opts)
+vim.keymap.set('i', '<C-j>', '<Esc>:vsplit<CR>', opts)
+vim.keymap.set('i', '<C-k>', '<Esc>:split<CR>', opts)
+
 for i = 1, 9 do
   vim.api.nvim_set_keymap('n', '<C-'..i..'>', ':tabn '..i..'<CR>', opts)
 end
