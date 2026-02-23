@@ -188,9 +188,11 @@
       "format": "  ",
       "format-disconnected": "  ",
       "format-paused": "  ",
+      "format-stopped": "  ",
       "state-icons": {
           "paused": "",
-          "playing": ""
+          "playing": "",
+          "stopped": ""
       },
       "tooltip-format": " {stateIcon} MPD: {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})  ",
       "tooltip-format-disconnected": "MPD (disconnected)",
@@ -282,12 +284,12 @@
        "format-plugged": " {icon} {capacity}% ",
        "format-charging": " {icon} {capacity}% ",
        "format-full": " {icon} {capacity}% ",
-       "format-alt": " {icon} {time} ",
+       "format-alt": " {icon} {capacity}% {time} ",
        "format-icons": {
-          "discharging": ["󰂎", "󱊡", "󱊢", "󱊣"],
-          "charging": ["󰢟", "󱊤", "󱊥", "󱊦"],
+          "discharging": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰁹"],
+          "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂋", "󰂅"],
           "plugged": ["󰚥"],
-          "full": ["󱟣"]
+          "full": ["󱟢"]
        }  ,
        "tooltip": true,
        "tooltip-format": "{timeTo} ({capacity}%)",
