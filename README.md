@@ -1,4 +1,4 @@
-this repo is just for backup of my configs.it may have som problems fow others.
+this repo is just for backup of my configs.it may have som problems for others.
 
 # Hyprland Rice
 
