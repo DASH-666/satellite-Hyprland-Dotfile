@@ -9,9 +9,26 @@
   "reload_style_on_change": true,
 
   // === Modules positions ===
-  "modules-left": ["group/group-browser", "group/group-filemanager", "group/group-terminal"],
-  "modules-center": ["custom/linux", "group/group-power", "hyprland/language", "network", "mpd", "hyprland/workspaces", "mpris", "battery", "clock", "group/group-power-mod"],
-  "modules-right": ["pulseaudio", "cpu", "temperature", "memory", "tray"],
+  "modules-left": ["group/group-browser", 
+  				   "group/group-filemanager", 
+  				   "group/group-terminal"],
+  				   
+  "modules-center": ["group/group-power", 
+  					 "hyprland/language", 
+  					 "network", 
+  					 "mpd", 
+  					 "hyprland/workspaces", 
+  					 "mpris", 
+  					 "battery", 
+  					 "clock", 
+  					 "group/group-power-mod"],
+  					 
+  "modules-right": [
+  					"group/group-pulse",
+  					"cpu", 
+  					"temperature", 
+  					"memory", 
+  					"tray"],
 
   // === Browser group ===
   "group/group-browser": {
@@ -90,6 +107,20 @@
     "orientation": "inherit"
   },
 
+	// === Pulse group ===
+	"group/group-pulse": {
+	  "drawer": {
+	    "children-class": "pulse-gg",
+	    "transition-duration": 200,
+	    "transition-left-to-right": true
+	  },
+	  "modules": [
+	    "pulseaudio",
+	    "pulseaudio/slider"
+	  ],
+	  "orientation": "inherit"
+	},
+	
   // === Custom separators ===
     "custom/linux": {
     "format": "  linux ",
@@ -150,7 +181,7 @@
   // === Keyboard layout ===
   "hyprland/language": {
     "format": " {} ",
-    "format-en": "ENG",
+    "format-en": "EN",
     "format-fa": "FA",
     "keyboard-name": "at-translated-set-2-keyboard",
     "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
@@ -162,6 +193,7 @@
   // === Meadia control ===
   "mpris": {
     "format": " {player_icon}{player} {status_icon} ",
+    "tooltip-format": " {player} {status} : {artist} - {title} [{length}] {player_icon} ",
     "status-icons": {
       "paused": "",
       "playing": ""
@@ -194,7 +226,7 @@
           "playing": "",
           "stopped": ""
       },
-      "tooltip-format": " {stateIcon} MPD: {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})  ",
+      "tooltip-format": " mpd {stateIcon} : {artist} - {title} [{elapsedTime:%M:%S}/{totalTime:%M:%S}]  ",
       "tooltip-format-disconnected": "MPD (disconnected)",
       "on-click": "mpc toggle",
       "on-click-right": "mpc next",
@@ -276,9 +308,9 @@
          "critical": 15
        },
        "events": {
-         "on-discharging-warning": "notify-send -u normal 'Low Battery 󱊡30%'",
-         "on-discharging-critical": "notify-send -u critical 'Very Low Battery 󱊡15%'",
-         "on-charging-100": "notify-send -u normal 'Battery Full!'"
+         "on-discharging-warning": "notify-send '󱊡30% low battery'",
+         "on-discharging-critical": "notify-send -u critical '󱊡15% very low battery'",
+         "on-charging-100": "notify-send '󱟢 full battery!'"
        },
        "format": " {icon} {capacity}% ",
        "format-plugged": " {icon} {capacity}% ",
@@ -418,7 +450,7 @@
 
   "memory": {
     "format": "  {percentage}% ",
-    "format-alt": "  {used:0.1f}GB of {total:0.1f}GB ",
+    "format-alt": "  {used:0.1f}GB of {total:0.1f}GB ",
     "interval": 2,
     "on-scroll-down": ":",
     "on-scroll-up": ":",
@@ -442,13 +474,18 @@
     "format-wifi": "  {signalStrength}% ",
     "format-ethernet": "  ",
     "format-disconnected": "  ",
-    "format-alt": " {ifname}({signalStrength}%): {ipaddr}/{cidr} {bandwidthTotalBytes}",
+    "format-linked": " ",
+    "format-disabled": "  ",
+    "format-alt": " {ifname}({signalStrength}%): {essid} {ipaddr}/{cidr} {bandwidthTotalBytes}",
     "interval": 1,
     "tooltip": true,
-    "tooltip-format-wifi": " WiFi {ifname}({signalStrength}%): {ipaddr}/{cidr} {bandwidthTotalBytes} ",
+    "tooltip-format-wifi": " WiFi {ifname}({signalStrength}%): {essid} {ipaddr}/{cidr} {frequency}GHz {bandwidthTotalBytes} ",
     "tooltip-format-ethernet": " Ethernet {ifname}: {ipaddr}/{cidr} {bandwidthTotalBytes} ",
     "tooltip-format-disconnected": " Disconnected",
+    "tooltip-format-linked": " Linked but has no ip",
+    "tooltip-format-disabled": " Disabled with rfkill",
     "on-click-right": "ghostty -e nmtui",
+    "on-click-middle": "/home/dash-/.config/hypr/wifi-toggle.sh",
     "on-scroll-down": ":",
     "on-scroll-up": ":"
   },
@@ -463,7 +500,13 @@
     "format-source-muted": " ",
     "format-icons": {
       "default": [" ", " "],
-      "headphone": " "
+      "headphone": " ",
+      "hands-free": "<U+F590>",
+      "headset": "<U+F590>",
+      "phone": "<U+F095>",
+      "phone-muted": "<U+ED17>",
+      "portable": "<U+F095>",
+      "car": "<U+F1B9>",
     },
     "on-click": "GTK_THEME=Adwaita:dark pavucontrol",
     "on-click-right": "hdajackretask",
@@ -473,6 +516,12 @@
     "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
     //"pulse-sink": "alsa_output.pci-0000_00_1b.0.analog-stereo",
     "tooltip": true
+  },
+
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
   },
 
   // === System tray ===

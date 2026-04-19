@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1727011133317096-1</unique-id>
+	<command>ghostty --working-directory=%f</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>drive-harddisk</icon>
+	<name>My-Disk NTFS</name>
+	<submenu></submenu>
+	<unique-id>1751412927230288-1</unique-id>
+	<command>bash -c &apos;pkexec mount -t ntfs-3g -o uid=$(id -u),gid=$(id -g),umask=0022 /dev/sdb5 /media/Disk&apos;
+</command>
+	<description>mount my disk</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>micro</icon>
+	<name>open with micro</name>
+	<submenu></submenu>
+	<unique-id>1751413640119252-1</unique-id>
+	<command>ghostty -e micro %f</command>
+	<description>micro file editor</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+</actions>

@@ -1,4 +1,3 @@
-
 * {
     font-family: FiraCode Nerd Font Propo;
     font-size: 11px;
@@ -15,7 +14,6 @@ tooltip, tooltip * {
     border: 1px;
     background-color: rgba(0, 0, 0, 0.2);
 }
-
 
 .filemanager-gg,
 .browser-gg,
@@ -45,12 +43,13 @@ tooltip, tooltip * {
 #tray,
 #workspaces button.visible {
 	color: #ffffff;
-	margin-top: 2px;
+	margin-top: 0px;
 	text-shadow: 0 0 1px #ffffff;
 	border-bottom: 1px solid #ffffff;
 
 }
 #workspaces button {
+	color: #ffffff;
 	padding: 0;
 	margin: 0;
 	font-size: 10px;
@@ -65,7 +64,7 @@ tooltip, tooltip * {
         0 0 1px #ffffff,
         0 0 2px #ffffff,
         0 0 3px #ffffff,
-        0 0 6px #ffffff;
+        0 0 8px #ffffff;
     	border-bottom: 1px solid #ffffff;
 }
 
@@ -81,4 +80,34 @@ tooltip, tooltip * {
 
 #workspaces button.empty:not(.active):not(.visible):not(.urgent) {
     opacity: 0.6;
+}
+
+#pulseaudio-slider {
+	color: #ffffff;
+	padding: 0px;
+	padding-right: 5px;
+	margin: 0px;
+	text-shadow: 0 0 1px #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+#pulseaudio-slider slider {
+    min-height: 0px;
+             min-width: 0px;
+             opacity: 0;
+             background-image: none;
+             border: none;
+             box-shadow: none;
+}
+#pulseaudio-slider trough {
+	min-height: 4px;
+	min-width: 85px;
+	border-radius: 0px;
+	background: rgba(255, 255, 255, 0.5);
+	opacity: 0;
+}
+#pulseaudio-slider highlight {
+	min-height: 4px;
+	min-width: 1px;
+	border-radius: 0px;
+	background: #ffffff;
 }

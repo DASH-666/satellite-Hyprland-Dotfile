@@ -1,11 +1,13 @@
 
 configuration {
-	modi:                       "run,drun,window,filebrowser";
+	modi:                       "run,calc,emoji,drun,filebrowser,window";
     show-icons:                 false;
     display-drun:               "";
     display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
+    display-calc:               "🖩";
+    display-emoji:              "𜲦𜲧";
 	drun-display-format:        "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
 	window-format:              "{w} · {c} · {t}";
 }
@@ -28,7 +30,7 @@ window {
     padding:                     0px;
     border:                      1px solid;
     border-radius:               0px;
-    border-color:                #33ccffff;
+    border-color:                #ffffffff;
     cursor:                      "default";
     background-color:            #00000000;
 }
@@ -90,7 +92,7 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    
+
     spacing:                     0px;
     margin:                      0px;
     padding:                     0px;
@@ -133,16 +135,16 @@ element normal.active {
     text-color:                  #ffffffff;
 }
 element selected.normal {
-    background-color:            #00000000;
-    text-color:                  #ff0000ff;
+    background-color:            #ffffffff;
+    text-color:                  #000000ff;
 }
 element selected.urgent {
-    background-color:            #00000000;
-    text-color:                  #ff0000ff;
+    background-color:            #ffffffff;
+    text-color:                  #000000ff;
 }
 element selected.active {
-    background-color:            #00000000;
-    text-color:                  #ff0000ff;
+    background-color:            #ffffffff;
+    text-color:                  #000000ff;
 }
 element alternate.normal {
     background-color:            #00000088;
@@ -192,8 +194,8 @@ button {
     cursor:                      pointer;
 }
 button selected {
-    background-color:            #00000000;
-    text-color:                  #ff0000ff;
+    background-color:            #ffffffff;
+    text-color:                  #000000ff;
 }
 
 message {

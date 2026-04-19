@@ -1,4 +1,3 @@
-
 #![enable(implicit_some)]
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]
@@ -11,7 +10,7 @@
     modal_backdrop: true,
     text_color: "#ffffff",
     header_background_color: None,
-    modal_background_color: "#ff0000",
+    modal_background_color: "#111111",
     preview_label_style: (fg: "#ff0000"),
     preview_metadata_group_style: (fg: "#ff0000"),
     tab_bar: (
@@ -19,8 +18,8 @@
         active_style: (fg: "#ff0000", bg: "#000000", modifiers: "Bold"),
         inactive_style: (fg: "#ffffff", bg: None, modifiers: "Bold"),
     ),
-    highlighted_item_style: (fg: "#ff0000", modifiers: "Bold"),
-    current_item_style: (fg: "#ff00bb", bg: "#000000", modifiers: "Bold"),
+    highlighted_item_style: (fg: "#ff0505", modifiers: "Bold"),
+    current_item_style: (fg: "#ff00ff", modifiers: "Bold"),
     borders_style: (fg: "#0000ff", modifiers: "Bold"),
     highlight_border_style: (fg: "#ff0000"),
     symbols: (song: "󰝚 ", dir: " ", playlist: "󰲸 ", marker: "* ", ellipsis: "..."),
@@ -38,13 +37,13 @@
     ),
     song_table_format: [
         (
-            prop: (kind: Property(Artist), style: (fg: "#ff9000", modifiers: "Bold"),
+            prop: (kind: Property(Artist), style: (fg: "#ffb000", modifiers: "Bold"),
                 default: (kind: Text("Unknown"), style: (fg: "#00ff00"))
             ),
             width: "100%",
         ),
         (
-            prop: (kind: Property(Title), style: (fg: "#88c0d0", modifiers: "Bold"),
+            prop: (kind: Property(Title), style: (fg: "#ff7700", modifiers: "Bold"),
                 highlighted_item_style: (fg: "#d8dee9", modifiers: "Bold"),
                 default: (kind: Property(Filename), style: (fg: "#d8dee9"),)
             ),
