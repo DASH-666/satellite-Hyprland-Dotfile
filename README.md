@@ -62,6 +62,8 @@ A complete setup for a customized and modern Wayland desktop experience using **
 - [scrcpy](https://github.com/Genymobile/scrcpy) — Display Android screen on PC
 - [nwg-displays](https://github.com/nwg-piotr/nwg-displays) — Output managment
 - [librewolf](https://librewolf.net/) — Browser
+- [dynamic-cursors](https://github.com/VirtCode/hypr-dynamic-cursors) — This plugin makes your cursor more realistic
+- [hyprexpo-plus](https://github.com/sandwichfarm/hyprexpo-plus) — HyprExpo+ is a fork of [HyprExpo](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprexpo) that adds additional functionality
 
 ---
 
@@ -83,9 +85,16 @@ Then add this line (replace your_username with your actual username):
 your_username ALL=(ALL) NOPASSWD: /usr/bin/cpupower
 ```
 ## 🛠️ Installation Steps  
-1. Install all required dependencies listed above.  
-2. Copy themes, icons, fonts, and wallpaper into their respective directories.  
-3. Copy configuration folders into `~/.config/`:
-4. Reboot your machine.  
-5. Select **Hyprland** in your session manager, or run from TTY:  `Hyprland`
-6. see `~/.config/hypr/hyprland.conf` for keybinds and enjoy
+1. Install all required dependencies listed above.
+2. Install plugins:
+```
+hyprpm add https://github.com/sandwichfarm/hyprexpo-plus
+hyprpm enable hyprexpo-plus
+hyprpm add https://github.com/virtcode/hypr-dynamic-cursors
+hyprpm enable dynamic-cursors
+```
+3. Copy themes, icons, fonts, and wallpaper into their respective directories.  
+4. Copy configuration folders into `~/.config/`:
+5. Reboot your machine.  
+6. Select **Hyprland** in your session manager, or run from TTY:  `Hyprland`
+7. see `~/.config/hypr/hyprland.conf` for keybinds and enjoy
