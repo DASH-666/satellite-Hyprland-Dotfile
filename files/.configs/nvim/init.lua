@@ -99,16 +99,17 @@ require('packer').startup(function(use)
   }
 
   -- Colorschemes
-  use {
-    "navarasu/onedark.nvim",
-    config = function()
-      require('onedark').setup {
-        style = 'deep',
-        transparent = true,
-      }
-      require('onedark').load()
-    end
-  }
+  use 'drazil100/dusklight.vim'
+  -- use {
+    -- "navarasu/onedark.nvim",
+    -- config = function()
+      -- require('onedark').setup {
+        -- style = 'deep',
+        -- transparent = true,
+      -- }
+      -- require('onedark').load()
+    -- end
+  -- }
 
   -- Colorizer (رنگ کد‌ها)
   use {
@@ -226,7 +227,8 @@ end)
 -- OPTIONS AND SETTINGS
 -- ===================================
 vim.o.termguicolors = true
-vim.cmd('colorscheme onedark')
+-- vim.cmd('colorscheme onedark')
+vim.cmd('colorscheme dusklight')
 
 vim.wo.number = true
 vim.o.ignorecase = true
