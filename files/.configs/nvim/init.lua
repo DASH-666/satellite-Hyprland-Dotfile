@@ -6,11 +6,11 @@
 -- Ctrl + Shift + Left → Resize vertical split smaller
 -- Ctrl + Shift + Right → Resize vertical split larger
 -- Ctrl + Shift + Up → Resize horizontal split smaller
--- Ctrl + Down → Resize horizontal split larger
+-- Ctrl + Shift + Down → Resize horizontal split larger
 -- Ctrl + Left → Change focus horizontal left
 -- Ctrl + Right → Change focus horizontal right
 -- Ctrl + Up → Change focus vertical up
--- Ctrl + Down → Change focus vertical done
+-- Ctrl + Down → Change focus vertical down
 -- Shift + s → Save buffer
 -- Shift + q → Quit buffer
 -- Ctrl + s → Save buffer
@@ -20,11 +20,40 @@
 -- Ctrl + w → New tab
 -- ; → Command mode (:)
 -- Ctrl + d → Duplicate line
+-- Ctrl + / → Comment line (Toggle)
+-- Ctrl + i → Show which-key menu
+-- Ctrl + Space → Telescope find files
+-- Alt + t → Toggle terminal
 -- Ctrl + c → Copy selected text
 -- Ctrl + x → Cut selected text
 -- Ctrl + v → Paste from system clipboard
 -- Ctrl + a → Select all text
 -- Ctrl + 1–9 → Switch to tab 1–9
+
+-- Insert Mode
+-- Ctrl + v → Paste from system clipboard
+-- Ctrl + s → Save buffer
+-- Ctrl + q → Exit insert mode
+-- Ctrl + d → Duplicate line
+-- Ctrl + a → Select all text
+-- Ctrl + n → Toggle NvimTree
+-- Ctrl + e → Previous tab
+-- Ctrl + r → Next tab
+-- Ctrl + w → New tab
+-- F8 → Toggle Tagbar
+-- Ctrl + j → Vertical split
+-- Ctrl + k → Horizontal split
+-- Ctrl + / → Comment line (Toggle)
+-- Ctrl + i → Show which-key menu
+-- Ctrl + Space → Telescope find files
+-- Alt + t → Toggle terminal
+-- Ctrl + 1–9 → Switch to tab 1–9
+
+-- Visual Mode
+-- Ctrl + c → Copy selected text
+-- Ctrl + x → Cut selected text
+-- Ctrl + v → Paste from system clipboard
+-- Ctrl + a → Select all text
 
 -- NvimTree Default Keys
 -- o / Enter → Open file/folder
@@ -46,20 +75,10 @@
 -- o / Space → Expand/Collapse node
 -- Ctrl + q → Quit Tagbar window
 
--- ToggleTerm Default Keys
--- Alt + t → Toggle floating terminal
-
 -- Completion (nvim-cmp)
 -- Tab → Next completion / Expand snippet
 -- Shift + Tab → Previous completion / Jump to previous snippet
 -- Enter → Confirm completion
-
--- Insert Mode
--- Ctrl + v → Paste from system clipboard
--- Ctrl + s → Save buffer
--- Ctrl + q → Exit insert mode
--- Ctrl + d → Duplicate line
--- Ctrl + a → Select all text
 
 -- ===================================
 -- BOOTSTRAP LAZY.NVIM
@@ -175,6 +194,29 @@ require("lazy").setup({
     end,
   },
 
+  -- which-key
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      delay = 100,
+      preset = "modern",
+    },
+    config = function()
+      local wk = require("which-key")
+      wk.setup({ delay = 100, preset = "modern" })
+    end,
+  },
+  
+  -- telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("telescope").setup({})
+    end,
+  },
+
   -- mason.nvim
   "williamboman/mason.nvim",
 
@@ -184,6 +226,16 @@ require("lazy").setup({
   -- nvim-lspconfig
   "neovim/nvim-lspconfig",
 
+  -- bufferline
+  {
+  	'akinsho/bufferline.nvim', 
+  	version = "*", 
+  	dependencies = 'nvim-tree/nvim-web-devicons',
+  	config = function()
+  	  require("bufferline").setup({})
+  	end,
+  },
+  
   -- nvim-cmp
   {
     "hrsh7th/nvim-cmp",
@@ -237,7 +289,7 @@ require("lazy").setup({
   },
 
   -- rainbow-delimiters.nvim (disabled)
-  {
+  --[[{
     "HiPhish/rainbow-delimiters.nvim",
     config = function()
       vim.g.rainbow_delimiters = {
@@ -254,7 +306,7 @@ require("lazy").setup({
         },
       }
     end,
-  },
+  },]]--
 
   -- nvim-autopairs
   {
@@ -262,6 +314,17 @@ require("lazy").setup({
     config = function()
       require("nvim-autopairs").setup({})
     end,
+  },
+
+  -- coment
+  {
+      "numToStr/Comment.nvim",
+      config = function()
+        require('Comment').setup({})
+       end,
+      opts = {
+          -- add any options here
+      }
   },
 
   -- lualine.nvim
@@ -286,9 +349,7 @@ require("lazy").setup({
     "akinsho/toggleterm.nvim",
     config = function()
       require("toggleterm").setup({
-        size = function(term)
-          return math.floor(vim.o.lines / 3)
-        end,
+        size = function(term) return math.floor(vim.o.lines / 3) end,
         open_mapping = [[<A-t>]],
         direction = "horizontal",
         hide_numbers = true,
@@ -305,6 +366,7 @@ require("lazy").setup({
 -- OPTIONS AND SETTINGS
 -- ===================================
 vim.cmd("colorscheme dusklight")
+--vim.opt.termguicolors = true
 
 vim.wo.number = true
 vim.o.ignorecase = true
@@ -375,6 +437,10 @@ vim.keymap.set("n", "<C-r>", ":tabnext<CR>", opts)
 vim.keymap.set("n", "<C-w>", ":tabnew<CR>", opts)
 vim.keymap.set("n", ";", ":", opts)
 vim.keymap.set("n", "<C-d>", "Yp", opts)
+vim.keymap.set("n", "<C-/>", "gcc", { remap = true })
+vim.keymap.set({ "n", "i" }, "<C-i>", function() require("which-key").show({ global = true }) end, { desc = "Show which-key" })
+vim.keymap.set({ "n", "i" }, "<C-Space>", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
+vim.keymap.set({ "n", "i" }, "<A-t>", function() require("toggleterm").toggle() end, { desc = "Toggle terminal" })
 vim.keymap.set({ "n", "v" }, "<C-c>", '"+y', opts)
 vim.keymap.set({ "n", "v" }, "<C-x>", '"+d', opts)
 vim.keymap.set({ "n", "v" }, "<C-v>", '"+p', opts)
@@ -391,6 +457,7 @@ vim.keymap.set("i", "<C-w>", "<Esc>:tabnew<CR>", opts)
 vim.keymap.set("i", "<F8>", "<Esc>:TagbarToggle<CR>", opts)
 vim.keymap.set("i", "<C-j>", "<Esc>:vsplit<CR>", opts)
 vim.keymap.set("i", "<C-k>", "<Esc>:split<CR>", opts)
+vim.keymap.set("i", "<C-/>", "<Esc>gcca", { remap = true })
 
 for i = 1, 9 do
   vim.keymap.set("n", "<C-" .. i .. ">", ":tabn " .. i .. "<CR>", opts)
@@ -417,7 +484,13 @@ end
 
 local servers = {
   pyright = {},
-  clangd = {},
+  clangd = {
+  	cmd = {
+  	      "clangd",
+  	      "--compile-commands-dir=build",  -- یا مسیر کامل
+  	      "--background-index",
+  	    }
+  },
   bashls = {},
   lua_ls = {},
   cssls = {},
