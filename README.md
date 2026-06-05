@@ -2,7 +2,7 @@
 
 A complete setup for a customized and modern Wayland desktop experience using **[Hyprland](https://github.com/hyprwm/Hyprland)**.
 
-![fastest window](ss.png)
+![fastest window](SS.PNG)
 
 ## Disclaimer
 
