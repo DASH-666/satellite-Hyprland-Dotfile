@@ -69,6 +69,7 @@ I don't own or claim authorship of the software, artwork, wallpapers, or other t
 - [librewolf](https://librewolf.net/) — Browser
 - [dynamic-cursors](https://github.com/VirtCode/hypr-dynamic-cursors) — This plugin makes your cursor more realistic
 - [hyprexpo-plus](https://github.com/sandwichfarm/hyprexpo-plus) — HyprExpo+ is a fork of [HyprExpo](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprexpo) that adds additional functionality
+- [wayscriber](https://github.com/devmobasa/wayscriber) — A ZoomIt-like real-time screen annotation tool for Linux/Wayland, written in Rust
 
 ---
 
