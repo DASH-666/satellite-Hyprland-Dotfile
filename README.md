@@ -8,7 +8,7 @@ A complete setup for a customized and modern Wayland desktop experience using **
 
 This repository exists mainly as a backup of my personal Linux desktop setup. Feel free to use it as inspiration or a starting point, but keep in mind that it's tailored to my workflow and environment. If something breaks on your system, you're on your own.
 
-I don't own or claim authorship of the software, artwork, wallpapers, or other third-party resources used here. All credit goes to their respective creators. I only wrote the configuration files and custom scripts that make this setup work for me.
+I don't own or claim authorship of the software, artwork, wallpapers, Fonts, or other third-party resources used here. All credit goes to their respective creators. I only wrote the configuration files and custom scripts that make this setup work for me.
 
 ---
 
