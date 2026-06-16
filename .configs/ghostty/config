@@ -13,7 +13,7 @@ keybind = shift+ctrl+s=new_split:left
 
 # font
 font-size = 10.4
-font-family-bold = FiraCode Nerd Font Propo 
+font-family-bold = FiraCode Nerd Font Mono 
 selection-invert-fg-bg = true
 
 # ui
@@ -28,3 +28,5 @@ window-decoration = false
 gtk-titlebar = true
 mouse-hide-while-typing = true
 confirm-close-surface = false
+
+working-directory = home

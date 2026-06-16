@@ -26,11 +26,11 @@ I don't own or claim authorship of the software, artwork, wallpapers, Fonts, or 
 - **Icon Theme:** [BeautyLine](https://github.com/gvolpe/BeautyLine)  
   Install in: `~/.icons`
 
-- **Font:** [FiraCode](https://github.com/tonsky/FiraCode) & [OCRA](https://fontsgeek.com/fonts/OCRA-Regular)  
+- **Font:** [FiraCode](https://github.com/tonsky/FiraCode), [OCRA](https://fontsgeek.com/fonts/OCRA-Regular)  
   Install in: `~/.fonts`
 
-- **Wallpaper:** epic-cat — download image from [here](https://wall.alphacoders.com/big.php?i=103573)
-  Place in `~/.config/hypr/` and rename to `epic-cat.jpg`
+- **Wallpaper:** [epic-cat](https://wall.alphacoders.com/big.php?i=103573)
+  Place in: `~/.config/hypr/` and rename to `epic-cat.jpg`
 
 ---
 
@@ -95,12 +95,9 @@ recuired:
 sudo pacman -Syu hyprland hypridle hyprlock hypr-zoom xdg-desktop-portal-hyprland ghostty foot waybar gtk3 gtk4 mako swaybg polkit-gnome rofi playerctl chromium thunar superfile btop pavucontrol pipewire wireplumber pipewire-pulse easyeffects mpd rmpc mpc
 yay -S librewolf-bin hyprmon-bin 
 
-```
 
-optional:
-```
-sudo pacman -Syu zsh neovim wev scrcpy cava
-yay -S waybar-cava oh-my-zsh-git
+sudo pacman -Syu zsh neovim wev scrcpy cava # (optional)
+yay -S waybar-cava oh-my-zsh-git # (optional)
 ```
 
 2. Install plugins:

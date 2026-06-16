@@ -55,7 +55,7 @@
     },
     "modules": [
       "custom/thunar",
-      "custom/yazi"
+      "custom/superfile"
     ],
     "orientation": "inherit"
   },
@@ -151,7 +151,7 @@
   },
 
   "custom/librewolf": {
-    "format": "  librewolf ",
+    "format": "  librewolf ",
     "on-click": "librewolf",
     "on-scroll-down": ":",
     "on-scroll-up": ":",
@@ -169,13 +169,13 @@
     "tooltip-format": " thunar\nfile manager"
   },
 
-  "custom/yazi": {
-    "format": "  yazi ",
-    "on-click": "ghostty -e yazi",
+  "custom/superfile": {
+    "format": "  superfile ",
+    "on-click": "ghostty -e spf",
     "on-scroll-down": ":",
     "on-scroll-up": ":",
     "tooltip": true,
-    "tooltip-format": " yazi\nfile manager"
+    "tooltip-format": " superfile\nfile manager"
   },
 
   // === Keyboard layout ===

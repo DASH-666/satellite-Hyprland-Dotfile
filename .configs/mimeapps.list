@@ -2,12 +2,12 @@
 application/xml=micro.desktop;
 image/jpeg=imv.desktop;gimp.desktop;
 image/png=imv.desktop;gimp.desktop;
-application/pdf=librewolf.desktop;chromium.desktop;org.pwmt.zathura.desktop;libreoffice-draw.desktop;
+application/pdf=libreoffice-draw.desktop;onlyoffice-desktopeditors.desktop;okularApplication_pdf.desktop;librewolf.desktop;chromium.desktop;org.pwmt.zathura.desktop;
 application/json=micro.desktop;
 audio/mpeg=mpv.desktop;easytag.desktop;
 text/x-c++src=nvim.desktop;micro.desktop;
 text/x-lua=micro.desktop;
-text/plain=micro.desktop;
+text/plain=nvim.desktop;micro.desktop;
 application/x-zerosize=micro.desktop;
 x-scheme-handler/http=zen.desktop;
 x-scheme-handler/https=zen.desktop;
@@ -26,6 +26,10 @@ video/mp4=mpv.desktop;chromium.desktop;
 application/vnd.apple.mpegurl=micro.desktop;
 application/x-subrip=com.microsoft.edit.desktop;
 application/vnd.ms-powerpoint=libreoffice-impress.desktop;librewolf.desktop;
+image/x-xcursor=imv.desktop;
+application/vnd.openxmlformats-officedocument.presentationml.presentation=libreoffice-impress.desktop;onlyoffice-desktopeditors.desktop;
+text/x-csrc=nvim.desktop;
+text/markdown=micro.desktop;
 
 [Default Applications]
 inode/directory=thunar.desktop
@@ -50,3 +54,4 @@ application/vnd.powdertoy.save=powdertoy-uk.co.powdertoy.tpt.desktop
 x-scheme-handler/ptsave=powdertoy-uk.co.powdertoy.tpt.desktop
 x-scheme-handler/phoenixclient=phoenix-launcher-handler.desktop
 application/x-subrip=com.microsoft.edit.desktop
+image/x-xcursor=imv.desktop
