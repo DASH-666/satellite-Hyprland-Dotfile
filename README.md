@@ -108,7 +108,7 @@ hyprpm add https://github.com/virtcode/hypr-dynamic-cursors
 hyprpm enable dynamic-cursors
 ```
 3. Copy themes, icons, fonts, and wallpaper into their respective directories.  
-4. Copy configuration folders into `~/.config/`:
+4. Copy configuration folders into `~/.config/`, `~/`.
 5. Reboot your machine.  
 6. Select **Hyprland** in your session manager, or run from TTY:  `start-hyprland`
 7. see `~/.config/hypr/hyprland.conf` for keybinds and enjoy :D
