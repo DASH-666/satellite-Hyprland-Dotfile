@@ -4,7 +4,7 @@ A complete setup for a customized and modern Wayland desktop experience using **
 
 ![fastest window](SS.PNG)
 
-## Disclaimer
+## ❗ Disclaimer
 
 This repository exists mainly as a backup of my personal Linux desktop setup. Feel free to use it as inspiration or a starting point, but keep in mind that it's tailored to my workflow and environment. If something breaks on your system, you're on your own.
 
