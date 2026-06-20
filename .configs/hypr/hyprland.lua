@@ -735,6 +735,37 @@ hl.bind(
     }
 )
 
+-- move focus with main_mod + vim_keys
+hl.bind(
+    main_mod .. " + H",
+    hl.dsp.focus({ direction = "left" }),
+    {
+        description = "focus to left window",
+    }
+)
+hl.bind(
+    main_mod .. " + L",
+    hl.dsp.focus({ direction = "right" }),
+    {
+        description = "focus to right window",
+    }
+)
+hl.bind(
+    main_mod .. " + K",
+    hl.dsp.focus({ direction = "up" }),
+    {
+        description = "focus to up window",
+    }
+)
+hl.bind(
+    main_mod .. " + J",
+    hl.dsp.focus({ direction = "down" }),
+    {
+        description = "focus to down window",
+    }
+)
+
+
 -- move window with main_mod + shift + arrow_keys
 hl.bind(
     main_mod .. " + SHIFT + left",
@@ -774,6 +805,56 @@ hl.bind(
 )
 hl.bind(
     main_mod .. " + SHIFT + down",
+    hl.dsp.window.move({
+        x = 0,
+        y = 30,
+        relative = true,
+    }),
+    {
+        repeating = true,
+        description = "move window to down",
+    }
+)
+
+-- move window with main_mod + shift + vim_keys
+hl.bind(
+    main_mod .. " + SHIFT + H",
+    hl.dsp.window.move({
+        x = -30,
+        y = 0,
+        relative = true,
+    }),
+    {
+        repeating = true,
+        description = "move window to left",
+    }
+)
+hl.bind(
+    main_mod .. " + SHIFT + L",
+    hl.dsp.window.move({
+        x = 30,
+        y = 0,
+        relative = true,
+    }),
+    {
+        repeating = true,
+        description = "move window to right",
+    }
+)
+hl.bind(
+    main_mod .. " + SHIFT + K",
+    hl.dsp.window.move({
+        x = 0,
+        y = -30,
+        relative = true,
+    }),
+    {
+        repeating = true,
+        description = "move window to up",
+    }
+)
+hl.bind(
+    main_mod .. " + SHIFT + J",
     hl.dsp.window.move({
         x = 0,
         y = 30,
@@ -836,8 +917,57 @@ hl.bind(
     }
 )
 
+-- resize window with main_mod + ctrl + vim_keys
+hl.bind(
+    main_mod .. " + CTRL + H",
+    hl.dsp.window.resize({
+        x = -10,
+        y = 0,
+        relative = true,
+    }),
+    {
+        repeating = true,
+        description = "lower vertical window size",
+    }
+)
+hl.bind(
+    main_mod .. " + CTRL + L",
+    hl.dsp.window.resize({
+        x = 10,
+        y = 0,
+        relative = true,
+    }),
+    {
+        repeating = true,
+        description = "raise vertical window size",
+    }
+)
+hl.bind(
+    main_mod .. " + CTRL + K",
+    hl.dsp.window.resize({
+        x = 0,
+        y = -10,
+        relative = true,
+    }),
+    {
+        repeating = true,
+        description = "lower horizontal window size",
+    }
+)
+hl.bind(
+    main_mod .. " + CTRL + J",
+    hl.dsp.window.resize({
+        x = 0,
+        y = 10,
+        relative = true,
+    }),
+    {
+        repeating = true,
+        description = "raise horizontal window size",
+    }
+)
 
--- Move/resize windows with main_mod + LMB/RMB and dragging
+-- Move/resize windows with main_mod + mouse_keys and dragging
 hl.bind(
     main_mod .. " + mouse:272",
     hl.dsp.window.drag(),
@@ -855,10 +985,10 @@ hl.bind(
     }
 )
 
--- zoom
+-- cursor zoom function
 local MAX_ZOOM = 10
 local MIN_ZOOM = 1
-local ZOOM_TOGGLE_FACTOR = 1.5
+local ZOOM_TOGGLE_FACTOR = 2.0
 
 ---@param offset number
 ---@return nil
@@ -875,7 +1005,15 @@ local function zoom(offset)
     hl.config({ cursor = { zoom_factor = current } })
 end
 
-hl.bind(main_mod .. " + Z", zoom)
+hl.bind(
+    main_mod .. " + Z",
+    zoom,
+    {
+        description = "toggle 2x zoom",
+    }
+)
+
+-- cursor zoom with main_mod + ctrl + "="/"-"
 hl.bind(
     main_mod .. " + CTRL + equal",
     function()
@@ -886,6 +1024,18 @@ hl.bind(
         description = "zoom in to cursor",
     }
 )
+hl.bind(
+    main_mod .. " + CTRL + minus",
+    function()
+        zoom(-0.5)
+    end,
+    {
+        repeating = true,
+        description = "zoom out to cursor",
+    }
+)
+
+-- cursor zoom with main_mod + ctrl + mouse_scroll
 hl.bind(
     main_mod .. " + CTRL + mouse_down",
     function()
@@ -902,16 +1052,6 @@ hl.bind(
     end,
     {
         description = "zoom in to cursor",
-    }
-)
-hl.bind(
-    main_mod .. " + CTRL + minus",
-    function()
-        zoom(-0.5)
-    end,
-    {
-        repeating = true,
-        description = "zoom out to cursor",
     }
 )
 hl.bind(
@@ -933,7 +1073,7 @@ hl.bind(
     }
 )
 
--- workspace
+-- change and move to workspace with main_mod + number and main_mod + shift + number
 for i = 1, 10 do
     local key = i % 10
     hl.bind(
@@ -956,7 +1096,7 @@ for i = 1, 10 do
     )
 end
 
--- Scroll through existing workspaces with mainMod + scroll
+-- change workspaces with main_mod + mouse_scroll
 hl.bind(
     main_mod .. " + mouse_down",
     hl.dsp.focus({ workspace = "e+1" }),
@@ -986,7 +1126,7 @@ hl.bind(
     }
 )
 
--- special workspace
+-- toggle and move window to special workspace with main_mod + s and main_mod + shift + s
 hl.bind(
     main_mod .. " + S",
     hl.dsp.workspace.toggle_special("magic"),
@@ -1002,7 +1142,7 @@ hl.bind(
     }
 )
 
--- system
+-- system keybinds(exit, suspend, change layout) with main_mod + key
 hl.bind(
     main_mod .. " + M",
     hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"),
@@ -1047,7 +1187,7 @@ hl.bind(
 )
 
 
--- Laptop multimedia keys for volume and LCD brightness
+-- change volume and toggle mute with main_mod + multimedia_keys
 hl.bind(
     "XF86AudioRaiseVolume",
     hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
@@ -1083,7 +1223,9 @@ hl.bind(
         repeating = true,
         description = "mute the microphone",
     }
-    )
+)
+
+-- changing brightness with laptop function keys
 hl.bind(
     "XF86MonBrightnessUp",
     hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),
@@ -1102,6 +1244,8 @@ hl.bind(
         description = "lower the brightness level",
     }
 )
+
+-- launching apps with laptop multimedia_keys
 hl.bind(
     "XF86WLAN",
     hl.dsp.exec_cmd(wifi_bt),
@@ -1138,7 +1282,7 @@ hl.bind(
     }
 )
 
--- Requires playerctl
+-- toggle play and pause and next and previous for audio/video
 hl.bind(
     "XF86AudioNext",
     hl.dsp.exec_cmd("playerctl next"),
