@@ -407,7 +407,7 @@ hl.config({
     },
     binds = {
         pass_mouse_when_bound = false,
-        scroll_event_delay = 100,
+        scroll_event_delay = 50,
         workspace_back_and_forth = false,
         hide_special_on_workspace_change = true,
         allow_workspace_cycles = true,
@@ -685,18 +685,53 @@ local function zoom(offset)
     hl.config({ cursor = { zoom_factor = current } })
 end
 
-hl.bind("SUPER + Z", zoom)
-hl.bind("SUPER + equal", function()
-    zoom(0.5)
-end, {repeating = true})
-hl.bind("SUPER + minus", function()
-    zoom(-0.5)
-end, {repeating = true})
-
+hl.bind(main_mod .. " + Z", zoom)
+hl.bind(
+    main_mod .. " + CTRL + equal",
+    function()
+        zoom(0.5)
+    end,
+    {
+        repeating = true,
+    }
+)
+hl.bind(
+    main_mod .. " + CTRL + mouse_down",
+    function()
+        zoom(0.5)
+    end
+)
+hl.bind(
+    main_mod .. " + CTRL + mouse:275",
+    function()
+        zoom(0.5)
+    end
+)
+hl.bind(
+    main_mod .. " + CTRL + minus",
+    function()
+        zoom(-0.5)
+    end,
+    {
+        repeating = true,
+    }
+)
+hl.bind(
+    main_mod .. " + CTRL + mouse_up",
+    function()
+        zoom(-0.5)
+    end
+)
+hl.bind(
+    main_mod .. " + CTRL + mouse:276",
+    function()
+        zoom(-0.5)
+    end
+)
 
 -- workspace
 for i = 1, 10 do
-    local key = i % 10 -- 10 maps to key 0
+    local key = i % 10
     hl.bind(
         main_mod .. " + " .. key,
         hl.dsp.focus({
