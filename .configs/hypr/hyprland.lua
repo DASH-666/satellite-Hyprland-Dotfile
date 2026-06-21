@@ -5,7 +5,7 @@ local terminal_0   = "ghostty"
 local terminal_1   = "foot"
 local file_manager = "ghostty -e spf"
 local browser      = "librewolf"
-local editor       = "ghostty -e nvim"
+local file_editor       = "ghostty -e nvim"
 local display      = "nwg_displays"
 local whiteboard   = "wayscriber --daemon-toggle"
 local music        = " mpd && until mpc status >/dev/null 2>&1; do sleep 1; done; mpd-mpris"
@@ -17,6 +17,7 @@ local wallpaper    = "swaybg -m fill -i /home/$USER/.config/hypr/epic-cat.jpg"
 local idle         = "(killall hypridle && notify-send 'stop hypridle') || (notify-send 'start hypridle' && hypridle)"
 local polkit       = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 local tool         = "foot -e btop"
+local screenshot   = "~/.config/hypr/screenshot.sh"
 
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 hl.env("GDK_BACKEND", "wayland,x11")
@@ -403,6 +404,17 @@ hl.config({
         split_bias                   = 0,
         precise_mouse_move           = false,
     },
+    scrolling = {
+        fullscreen_on_one_column = true,
+        column_width = 0.5,
+        focus_fit_method = 1,
+        follow_focus = true,
+        follow_min_visible = 0.4,
+        explicit_column_widths = "0.333, 0.5, 0.667, 1.0",
+        wrap_focus = true,
+        wrap_swapcol = true,
+        direction = "right",
+    },
     binds = {
         pass_mouse_when_bound             = false,
         scroll_event_delay                = 50,
@@ -637,10 +649,17 @@ hl.bind(
     }
 )
 hl.bind(
-    main_mod .. " + R",
-    hl.dsp.exec_cmd(editor),
+    main_mod .. " + SHIFT + E",
+    hl.dsp.exec_cmd(file_editor),
     {
-        description = "open favourite code editor",
+        description = "open favourite file manager",
+    }
+)
+hl.bind(
+    main_mod .. " + R",
+    hl.dsp.exec_cmd("hyprland-run"),
+    {
+        description = "hyprland run",
     }
 )
 hl.bind(
@@ -672,8 +691,21 @@ hl.bind(
     }
 )
 
---Screenshot & Screenrecord
-
+--Screenshot
+hl.bind(
+    "Print",
+    hl.dsp.exec_cmd(screenshot .. " -a"),
+    {
+        description = "print full screen",
+    }
+)
+hl.bind(
+    "SHIFT + Print",
+    hl.dsp.exec_cmd(screenshot),
+    {
+        description = "pring screen with given file adress and screen size",
+    }
+)
 
 -- control window with main_mod + key
 hl.bind(
@@ -702,6 +734,26 @@ hl.bind(
     hl.dsp.layout("togglesplit"),
     {
         description = "split window vertical/horizontal",
+    }
+)
+hl.bind(
+    main_mod .. " + F",
+    hl.dsp.window.fullscreen({
+        mode = "maximized",
+        action = "toggle",
+    }),
+    {
+        description = "toggle maximize window",
+    }
+)
+hl.bind(
+    "F11",
+    hl.dsp.window.fullscreen({
+        mode = "fullscreen",
+        action = "toggle",
+    }),
+    {
+        description = "toggle fullscreen window",
     }
 )
 
@@ -866,7 +918,6 @@ hl.bind(
     }
 )
 
-
 -- resize window with main_mod + ctrl + arrow_keys
 hl.bind(
     main_mod .. " + CTRL + left",
@@ -967,7 +1018,7 @@ hl.bind(
     }
 )
 
--- Move/resize windows with main_mod + mouse_keys and dragging
+-- move/resize windows with main_mod + mouse_keys and dragging
 hl.bind(
     main_mod .. " + mouse:272",
     hl.dsp.window.drag(),
@@ -1126,6 +1177,42 @@ hl.bind(
     }
 )
 
+-- scroll through scrolling layout with main_mod + '.'/','
+hl.bind(
+    main_mod .. " + period",
+    hl.dsp.layout("move +col")
+)
+hl.bind(
+    main_mod .. " + comma",
+    hl.dsp.layout("move -col")
+)
+hl.bind(
+    main_mod .. " + SHIFT + period",
+    hl.dsp.layout("swapcol r")
+)
+hl.bind(
+    main_mod .. " + SHIFT + comma",
+    hl.dsp.layout("swapcol l")
+)
+
+-- scroll through scrolling layout with main_mod + mouse_scroll
+hl.bind(
+    main_mod .. " + SHIFT + ",
+    hl.dsp.layout("move +col")
+)
+hl.bind(
+    main_mod .. " + SHIFT + ",
+    hl.dsp.layout("move -col")
+)
+hl.bind(
+    main_mod .. " + period",
+    hl.dsp.layout("move +col")
+)
+hl.bind(
+    main_mod .. " + comma",
+    hl.dsp.layout("move -col")
+)
+
 -- toggle and move window to special workspace with main_mod + s and main_mod + shift + s
 hl.bind(
     main_mod .. " + S",
@@ -1282,7 +1369,7 @@ hl.bind(
     }
 )
 
--- toggle play and pause and next and previous for audio/video
+-- controling audio/video with xf86_keys
 hl.bind(
     "XF86AudioNext",
     hl.dsp.exec_cmd("playerctl next"),
@@ -1371,3 +1458,104 @@ hl.bind(
         description = "lower the position of audio/video",
     }
 )
+
+-- controling audio/video with main_mod + keys
+hl.bind(
+    main_mod .. " + P",
+    hl.dsp.exec_cmd("playerctl play-pause"),
+    {
+        locked = true,
+        description = "toggle play/pause",
+    }
+)
+hl.bind(
+    main_mod .. " + SHIFT + P",
+    hl.dsp.exec_cmd("playerctl next"),
+    {
+        locked = true,
+        description = "play next audio/video",
+    }
+)
+hl.bind(
+    main_mod .. " + CTRL + P",
+    hl.dsp.exec_cmd("playerctl previous"),
+    {
+        locked = true,
+        description = "play previous audio/video",
+    }
+)
+hl.bind(
+    main_mod .. " + SHIFT + CTRL + P",
+    hl.dsp.exec_cmd("playerctl stop"),
+    {
+        locked = true,
+        description = "stop played audio/video",
+    }
+)
+
+-- window rule
+hl.window_rule({
+    match = {
+        class = "(pinentry-)(.*)",
+    },
+    stay_focused = true,
+})
+hl.layer_rule({
+    match = {
+        class = "hyprland-run",
+    },
+    stay_focused = true,
+})
+
+-- workspace rule
+hl.workspace_rule({
+    workspace = "1",
+    persistent = true,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "2",
+    persistent = true,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "3",
+    persistent = true,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "4",
+    persistent = true,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "5",
+    persistent = true,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "6",
+    persistent = false,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "7",
+    persistent = false,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "8",
+    persistent = false,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "9",
+    persistent = false,
+    layout = "dwindle",
+})
+hl.workspace_rule({
+    workspace = "10",
+    persistent = false,
+    layout = "dwindle",
+})
+
