@@ -4,10 +4,37 @@ set -e
 # =========================
 # Default configuration variables
 # =========================
-TERMINAL_DEFAULT="foot"                             # Terminal to ask for input
-DEFAULT_DIRECTORY="$HOME/Pictures"                 # Default directory to save screenshot
-DEFAULT_NAME="screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png"  # Default file name
+TERMINAL_DEFAULT="foot"
+DEFAULT_DIRECTORY="$HOME/Pictures"
+DEFAULT_NAME="screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png"
 # =========================
+
+AUTO_MODE=false
+
+# Parse arguments
+while getopts "a" opt; do
+    case $opt in
+        a)
+            AUTO_MODE=true
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
+done
+
+if $AUTO_MODE; then
+    mkdir -p "$DEFAULT_DIRECTORY"
+
+    DEST="$DEFAULT_DIRECTORY/$DEFAULT_NAME"
+
+    # Fullscreen screenshot
+    grim "$DEST"
+
+    notify-send "📸 Screenshot saved" "Saved to: $DEST"
+    echo "Screenshot saved: $DEST"
+    exit 0
+fi
 
 TMP_FILE=$(mktemp)
 
@@ -21,7 +48,6 @@ OUTPUT_DIRECTORY=${OUTPUT_DIRECTORY:-'"$DEFAULT_DIRECTORY"'}
 read -p "Enter file name (default: '"$DEFAULT_NAME"'): " FILE_NAME
 FILE_NAME=${FILE_NAME:-'"$DEFAULT_NAME"'}
 
-# Save full path to temporary file
 echo "$OUTPUT_DIRECTORY/$FILE_NAME" > "'"$TMP_FILE"'"
 '
 
@@ -31,7 +57,8 @@ echo "$OUTPUT_DIRECTORY/$FILE_NAME" > "'"$TMP_FILE"'"
 DEST=$(cat "$TMP_FILE")
 rm "$TMP_FILE"
 
-# Ensure .png extension
+mkdir -p "$(dirname "$DEST")"
+
 [[ "$DEST" != *.png ]] && DEST="$DEST.png"
 
 # =========================

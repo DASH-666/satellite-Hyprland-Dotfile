@@ -1,5 +1,5 @@
-
-
+-- https://wiki.hypr.land/
+-- default variables
 local main_mod     = "SUPER"
 local terminal_0   = "ghostty"
 local terminal_1   = "foot"
@@ -20,12 +20,13 @@ local tool         = "foot -e btop"
 local screenshot   = "~/.config/hypr/screenshot.sh"
 
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
+-- environment variables
 hl.env("GDK_BACKEND", "wayland,x11")
 hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
-hl.env("GTK_THEME", "adwaita-dark-amoled-master")
+hl.env("GTK_THEME", "adwaita-dark-amoled")
 hl.env("GTK_ICON_THEME", "beautyline")
 hl.env("QT_QPA_PLATFORM", "wayland")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
@@ -49,6 +50,7 @@ if has_nvidia() then
 end
 
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
+-- autostart
 hl.on("hyprland.start", function ()
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     -- hl.exec_cmd(terminal_0)
@@ -487,7 +489,7 @@ hl.config({
     ecosystem = {
         no_update_news      = true,
         no_donation_nag     = true,
-        enforce_permissions = false,
+        enforce_permissions = true,
     },
     quirks = {
         prefer_hdr = 0,
@@ -564,27 +566,27 @@ hl.layer_rule({
 -- workspace rule
 hl.workspace_rule({
     workspace = "1",
-    persistent = true,
+    persistent = false,
     layout = "dwindle",
 })
 hl.workspace_rule({
     workspace = "2",
-    persistent = true,
+    persistent = false,
     layout = "dwindle",
 })
 hl.workspace_rule({
     workspace = "3",
-    persistent = true,
+    persistent = false,
     layout = "dwindle",
 })
 hl.workspace_rule({
     workspace = "4",
-    persistent = true,
+    persistent = false,
     layout = "dwindle",
 })
 hl.workspace_rule({
     workspace = "5",
-    persistent = true,
+    persistent = false,
     layout = "dwindle",
 })
 hl.workspace_rule({
@@ -613,7 +615,36 @@ hl.workspace_rule({
     layout = "dwindle",
 })
 
+-- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Permissions/
+-- permissions
+hl.permission({
+    binary = "/usr/(bin|local/bin)/grim",
+    type = "screencopy",
+    mode = "allow",
+})
+hl.permission({
+    binary = "/usr/(bin|local/bin)/obs",
+    type = "screencopy",
+    mode = "allow",
+})
+hl.permission({
+    binary = "/usr/(bin|local/bin)/hyprpm",
+    type = "plugin",
+    mode = "allow",
+})
+hl.permission({
+    binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland",
+    type = "screencopy",
+    mode = "allow",
+})
+hl.permission({
+    binary = "/usr/(bin|local/bin)/hyprlock",
+    type = "screencopy",
+    mode = "allow",
+})
+
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
+-- curves
 hl.curve("from_bottom_curve",
     {
         type = "bezier",
@@ -632,6 +663,8 @@ hl.curve("punchy_window_curve",
         }
     }
 )
+
+-- animations
 hl.animation({
     leaf    = "global",
     enabled = true,
@@ -696,7 +729,7 @@ hl.animation({
     style   = "slide top",
 })
 hl.animation({
-    leaf    = "specialWorkspaceIn",
+    leaf    = "specialWorkspaceOut",
     enabled = true,
     speed   = 10,
     bezier  = "from_bottom_curve",
@@ -744,7 +777,7 @@ hl.bind(
     }
 )
 hl.bind(
-    main_mod .. " + Q",
+    main_mod .. " + T",
     hl.dsp.exec_cmd(terminal_1),
     {
         description = "open favourite terminal 1",
@@ -829,6 +862,27 @@ hl.bind(
     hl.dsp.window.close(),
     {
         description = "close focused window",
+    }
+)
+hl.bind(
+    main_mod .. " + SHIFT + C",
+    hl.dsp.window.kill(),
+    {
+        description = "kill focused window",
+    }
+)
+hl.bind(
+    main_mod .. " + Q",
+    hl.dsp.window.close(),
+    {
+        description = "close focused window",
+    }
+)
+hl.bind(
+    main_mod .. " + SHIFT + Q",
+    hl.dsp.window.kill(),
+    {
+        description = "kill focused window",
     }
 )
 hl.bind(
@@ -1625,5 +1679,16 @@ hl.bind(
     {
         locked = true,
         description = "stop played audio/video",
+    }
+)
+
+-- plugins keybinds
+hl.bind(
+    main_mod .. " + A",
+    function()
+        hl.plugin.hyprexpo.expo("toggle")
+    end,
+    {
+        description = "open hyprexpo menu",
     }
 )
