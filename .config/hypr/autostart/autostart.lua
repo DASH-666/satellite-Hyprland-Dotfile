@@ -1,0 +1,15 @@
+-- https://wiki.hypr.land/Configuring/Basics/Autostart/
+-- autostart
+hl.on("hyprland.start", function ()
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    -- hl.exec_cmd(terminal_0)
+    hl.exec_cmd("hyprpm reload")
+    hl.exec_cmd(Status_Bar)
+    hl.exec_cmd(Wallpaper)
+    hl.exec_cmd(Idle)
+    hl.exec_cmd(Notification)
+    hl.exec_cmd(Polkit)
+    hl.exec_cmd(Music)
+    hl.exec_cmd(Soundeffect)
+    hl.exec_cmd("wayscriber --daemon")
+end)
