@@ -9,25 +9,25 @@
   "reload_style_on_change": true,
 
   // === Modules positions ===
-  "modules-left": ["group/group-browser", 
-  				   "group/group-filemanager", 
+  "modules-left": ["group/group-browser",
+  				   "group/group-filemanager",
   				   "group/group-terminal"],
-  				   
-  "modules-center": ["group/group-power", 
-  					 "hyprland/language", 
-  					 "network", 
-  					 "mpd", 
-  					 "hyprland/workspaces", 
-  					 "mpris", 
-  					 "battery", 
-  					 "clock", 
+
+  "modules-center": ["group/group-power",
+  					 "hyprland/language",
+  					 "network",
+  					 "mpd",
+  					 "hyprland/workspaces",
+  					 "mpris",
+  					 "battery",
+  					 "clock",
   					 "group/group-power-mod"],
-  					 
+
   "modules-right": [
   					"group/group-pulse",
-  					"cpu", 
-  					"temperature", 
-  					"memory", 
+  					"cpu",
+  					"temperature",
+  					"memory",
   					"tray"],
 
   // === Browser group ===
@@ -120,7 +120,7 @@
 	  ],
 	  "orientation": "inherit"
 	},
-	
+
   // === Custom separators ===
     "custom/linux": {
     "format": "  linux ",
@@ -506,7 +506,7 @@
       "phone": "<U+F095>",
       "phone-muted": "<U+ED17>",
       "portable": "<U+F095>",
-      "car": "<U+F1B9>",
+      "car": "<U+F1B9>"
     },
     "on-click": "GTK_THEME=Adwaita:dark pavucontrol",
     "on-click-right": "hdajackretask",
@@ -532,7 +532,15 @@
   },
 
   "hyprland/workspaces": {
-    "format": "{name}",
+    "format": "{icon}",
+    "format-icons": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "special": " magic "
+    },
     "persistent-workspaces": {
       "1": {},
       "2": {},
@@ -540,9 +548,12 @@
       "4": {},
       "5": {}
     },
-    "on-click-left": "activate",
-    "on-scroll-up": "hyprctl dispatch workspace e+1",
-    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "on-click": "activate",
+    "show-special": true,
+    //"on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace = '+1'})'",
+    //"on-scroll-down": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace = '-1'})'",
     "tooltip": true,
     "tooltip-format": "workspace"
   }

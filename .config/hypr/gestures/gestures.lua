@@ -21,3 +21,11 @@ hl.gesture({
    direction = "down",
    action    = "close",
 })
+hl.gesture({
+    fingers = 2,
+    direction = "pinch",
+    action = "cursorZoom",
+    zoom_level = 1,
+    mode = "live",
+})
+

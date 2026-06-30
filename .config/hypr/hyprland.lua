@@ -17,7 +17,3 @@ require("binds.media_binds")
 require("binds.window_binds")
 require("binds.workspace_binds")
 require("binds.plugin_binds")
-
-hl.gesture({ fingers = 2, direction = "pinch", action = "cursorZoom", zoom_level = 2 })
--- hl.gesture({ fingers = 2, direction = "pinch", action = "cursorZoom", zoom_level = 1.2, mode = "mult" })
--- hl.gesture({ fingers = 2, direction = "pinch", action = "cursorZoom", zoom_level = 1, mode = "live" })
