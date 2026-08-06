@@ -550,10 +550,9 @@
     },
     "on-click": "activate",
     "show-special": true,
-    //"on-scroll-up": "hyprctl dispatch workspace e+1",
-    "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace = '+1'})'",
-    //"on-scroll-down": "hyprctl dispatch workspace e-1",
-    "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace = '-1'})'",
+    "on-scroll-up": "sh -c 'hyprctl dispatch \"hl.dsp.focus({ workspace = \\\"e+1\\\" })\"'",
+    "on-scroll-down": "sh -c 'hyprctl dispatch \"hl.dsp.focus({ workspace = \\\"e-1\\\" })\"'",
+    "enable-bar-scroll": true,
     "tooltip": true,
     "tooltip-format": "workspace"
   }

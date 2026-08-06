@@ -24,28 +24,28 @@ end
 -- change workspaces with Main_Mod + mouse_scroll
 hl.bind(
     Main_Mod .. " + mouse_down",
-    hl.dsp.focus({ workspace = "e+1" }),
+    hl.dsp.focus({ workspace = "e-1" }),
     {
         description = "scroll to next workspace",
     }
 )
 hl.bind(
     Main_Mod .. " + mouse:276",
-    hl.dsp.focus({ workspace = "e+1" }),
+    hl.dsp.focus({ workspace = "e-1" }),
     {
         description = "scroll to next workspace",
     }
 )
 hl.bind(
     Main_Mod .. " + mouse_up",
-    hl.dsp.focus({ workspace = "e-1" }),
+    hl.dsp.focus({ workspace = "e+1" }),
     {
         description = "scroll to previous workspace",
     }
 )
 hl.bind(
     Main_Mod .. " + mouse:275",
-    hl.dsp.focus({ workspace = "e-1" }),
+    hl.dsp.focus({ workspace = "e+1" }),
     {
         description = "scroll to previous workspace",
     }

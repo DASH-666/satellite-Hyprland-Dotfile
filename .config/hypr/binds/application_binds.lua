@@ -30,23 +30,23 @@ hl.bind(
 )
 hl.bind(
     Main_Mod .. " + E",
-    hl.dsp.exec_cmd(File_Manager),
+    hl.dsp.exec_cmd(File_Manager_TUI),
     {
-        description = "open favourite file manager",
+        description = "open favourite tui file manager",
     }
 )
 hl.bind(
     Main_Mod .. " + SHIFT + E",
-    hl.dsp.exec_cmd(File_Editor),
+    hl.dsp.exec_cmd(File_Manager_GUI),
     {
-        description = "open favourite file manager",
+        description = "open favourite gui file manager",
     }
 )
 hl.bind(
     Main_Mod .. " + R",
-    hl.dsp.exec_cmd("hyprland-run"),
+    hl.dsp.exec_cmd(File_Editor),
     {
-        description = "hyprland run",
+        description = "open favourite file editor",
     }
 )
 hl.bind(

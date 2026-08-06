@@ -111,25 +111,25 @@ hl.bind(
 
 -- cursor zoom with Main_Mod + ctrl + mouse_scroll
 hl.bind(
-    Main_Mod .. " + CTRL + mouse_down",
-    function()
-        zoom(0.5)
-    end,
-    {
-        description = "zoom in to cursor",
-    }
-)
-hl.bind(
-    Main_Mod .. " + CTRL + mouse:275",
-    function()
-        zoom(0.5)
-    end,
-    {
-        description = "zoom in to cursor",
-    }
-)
-hl.bind(
     Main_Mod .. " + CTRL + mouse_up",
+    function()
+        zoom(0.5)
+    end,
+    {
+        description = "zoom in to cursor",
+    }
+)
+hl.bind(
+    Main_Mod .. " + CTRL + mouse:276",
+    function()
+        zoom(0.5)
+    end,
+    {
+        description = "zoom in to cursor",
+    }
+)
+hl.bind(
+    Main_Mod .. " + CTRL + mouse_down",
     function()
         zoom(-0.5)
     end,
@@ -138,7 +138,7 @@ hl.bind(
     }
 )
 hl.bind(
-    Main_Mod .. " + CTRL + mouse:276",
+    Main_Mod .. " + CTRL + mouse:275",
     function()
         zoom(-0.5)
     end,

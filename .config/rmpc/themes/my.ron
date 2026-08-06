@@ -15,13 +15,13 @@
     preview_metadata_group_style: (fg: "#ff0000"),
     tab_bar: (
         enabled: true,
-        active_style: (fg: "#ff0000", bg: "#000000", modifiers: "Bold"),
+        active_style: (fg: "#ff0505", bg: "#000000", modifiers: "Bold"),
         inactive_style: (fg: "#ffffff", bg: None, modifiers: "Bold"),
     ),
-    highlighted_item_style: (fg: "#ff0505", modifiers: "Bold"),
-    current_item_style: (fg: "#ff00ff", modifiers: "Bold"),
+    highlighted_item_style: (fg: "#00ff00", modifiers: "Bold"),
+    current_item_style: (fg: "#00ff00", bg: "#222222", modifiers: "Bold"),
     borders_style: (fg: "#0000ff", modifiers: "Bold"),
-    highlight_border_style: (fg: "#ff0000"),
+    highlight_border_style: (fg: "#ff0505"),
     symbols: (song: "󰝚 ", dir: " ", playlist: "󰲸 ", marker: "* ", ellipsis: "..."),
     progress_bar: (
         symbols: ["█", "█", "█", "█", "█"],
@@ -37,13 +37,13 @@
     ),
     song_table_format: [
         (
-            prop: (kind: Property(Artist), style: (fg: "#ffb000", modifiers: "Bold"),
+            prop: (kind: Property(Artist), style: (fg: "#00ffdd", modifiers: "Bold"),
                 default: (kind: Text("Unknown"), style: (fg: "#00ff00"))
             ),
             width: "100%",
         ),
         (
-            prop: (kind: Property(Title), style: (fg: "#ff7700", modifiers: "Bold"),
+            prop: (kind: Property(Title), style: (fg: "#ff00ff", modifiers: "Bold"),
                 highlighted_item_style: (fg: "#d8dee9", modifiers: "Bold"),
                 default: (kind: Property(Filename), style: (fg: "#d8dee9"),)
             ),
@@ -63,46 +63,39 @@
             alignment: Right,
         ),
     ],
+    cava: (
+        bar_color: Gradient({
+            0:   "#00ff00", // Neon Green
+            10:  "#00ff66",
+            20:  "#00ffaa",
+            30:  "#00ffff", // Cyan
+            40:  "#00aaff",
+            50:  "#0066ff", // Blue
+            60:  "#4b00ff",
+            70:  "#8a00ff", // Purple
+            80:  "#ff00ff", // Magenta
+            90:  "#ff0066",
+            100: "#ff0000", // Red
+        }),
+    ),
     layout: Split(
         direction: Vertical,
+        borders: "ALL",
         panes: [
             (
                 size: "3",
+                borders: "TOP | BOTTOM",
                 pane: Pane(Tabs),
             ),
             (
                 size: "4",
-                pane: Split(
-                    direction: Horizontal,
-                    panes: [
-                        (
-                            size: "100%",
-                            pane: Split(
-                                direction: Vertical,
-                                panes: [
-                                    (
-                                        size: "4",
-                                        borders: "ALL",
-                                        pane: Pane(Header),
-                                    ),
-                                ]
-                            )
-                        ),
-                    ]
-                ),
+                borders: "ALL",
+                pane: Pane(Header),
             ),
             (
                 size: "100%",
-                pane: Split(
-                    direction: Horizontal,
-                    panes: [
-                        (
-                            size: "100%",
-                            borders: "NONE",
-                            pane: Pane(TabContent),
-                        ),
-                    ]
-                ),
+                borders: "TOP | BOTTOM",
+                pane: Pane(TabContent),
             ),
             (
                 size: "3",
@@ -191,3 +184,4 @@
         ),
     ],
 )
+

@@ -17,3 +17,8 @@ require("binds.media_binds")
 require("binds.window_binds")
 require("binds.workspace_binds")
 require("binds.plugin_binds")
+
+hl.bind(
+    Main_Mod .. " + Y",
+    hl.dsp.exec_cmd("killall qs || qs")
+)
