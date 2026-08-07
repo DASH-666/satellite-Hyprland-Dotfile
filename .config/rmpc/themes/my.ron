@@ -48,7 +48,7 @@
         modifiers: "Bold",
     ),
     highlight_border_style: (
-        fg: "#ff0505",
+        fg: "#0000ff",
     ),
     symbols: (
         song: "󰝚 ",
