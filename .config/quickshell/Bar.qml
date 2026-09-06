@@ -38,6 +38,9 @@ Scope {
                 anchors.centerIn: parent
                 spacing: 10
 
+                LanguageWidget {}
+                NetworkWidget {}
+                MpdWidget {}
                 WorkspacesWidget {}
                 MprisWidget {}
                 ClockWidget {}

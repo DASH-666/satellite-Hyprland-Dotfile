@@ -7,6 +7,7 @@ Item {
 
     property alias text: iconText.text
     property color textColor: "#ffffff"
+    property int fontSize: 12
 
     implicitWidth: iconText.implicitWidth
     implicitHeight: iconText.implicitHeight + 3
@@ -19,7 +20,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
 
         font.family: "FiraCode Nerd Font Propo"
-        font.pixelSize: 12
+        font.pixelSize: 11
         font.weight: 700
         color: root.textColor
 

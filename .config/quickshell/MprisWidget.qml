@@ -112,7 +112,7 @@ Item {
         id: content
         spacing: 4
 
-        BarIconStyle {
+        BarTextStyle {
             text: root.player
                 ? root.playerIcon()
                 : ""
@@ -124,7 +124,7 @@ Item {
                 : ""
         }
 
-        BarIconStyle {
+        BarTextStyle {
             text: root.statusIcon()
         }
     }

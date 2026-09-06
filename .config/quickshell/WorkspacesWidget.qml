@@ -50,6 +50,38 @@ Item {
             && ws.toplevels.values.length > 0
     }
 
+    function isUrgent(id) {
+        var ws = getWorkspace(id)
+
+        return ws && ws.urgent
+    }
+
+    function isFocused(id) {
+        var current = Hyprland.focusedWorkspace
+
+        return current && current.id === id
+    }
+
+    function workspaceTextColor(id) {
+        if (isUrgent(id))
+            return "#ff0000"
+
+        if (isOccupied(id))
+            return "#ffffff"
+
+        return "#99ffffff"
+    }
+
+    function workspaceStyleColor(id) {
+        if (isUrgent(id))
+            return "#ff0000"
+
+        if (isOccupied(id))
+            return "#ffffff"
+
+        return "#99ffffff"
+    }
+
     function isSpecialOccupied() {
         var workspaces = Hyprland.workspaces.values
 
@@ -116,7 +148,8 @@ Item {
 
     Row {
         id: content
-        spacing: 8
+
+        spacing: 10
 
         Repeater {
             model: root.workspaceIds
@@ -130,9 +163,22 @@ Item {
                 BarNumberStyle {
                     id: number
 
+                    anchors.centerIn: parent
+
                     text: modelData.toString()
 
-                    textColor: root.isOccupied(modelData) ? "#ffffff" : "#777777"
+                    textColor: root.workspaceTextColor(modelData)
+                    textStyleColor: root.workspaceStyleColor(modelData)
+                }
+
+                Rectangle {
+                    anchors.fill: number
+
+                    visible: root.isFocused(modelData)
+
+                    color: "transparent"
+                    border.width: 1
+                    border.color: "#ffffff"
                 }
 
                 MouseArea {
@@ -158,20 +204,17 @@ Item {
         }
 
         Item {
-            width: 1
-            height: 1
-        }
-
-        Item {
             implicitWidth: specialText.implicitWidth
             implicitHeight: specialText.implicitHeight
 
             BarTextStyle {
                 id: specialText
 
-                text: "S"
+                text: ""
 
-                textColor: root.isSpecialOccupied() ? "#ffffff" : "#777777"
+                textColor: root.isSpecialOccupied()
+                    ? "#ffffff"
+                    : "#99ffffff"
             }
 
             MouseArea {
@@ -200,6 +243,14 @@ Item {
         target: Hyprland.workspaces
 
         function onValuesChanged() {
+            root.updateWorkspaceIds()
+        }
+    }
+
+    Connections {
+        target: Hyprland
+
+        function onFocusedWorkspaceChanged() {
             root.updateWorkspaceIds()
         }
     }

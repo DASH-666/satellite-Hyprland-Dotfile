@@ -3,7 +3,7 @@ import Quickshell
 import QtQuick
 
 Row {
-    BarIconStyle {
+    BarTextStyle {
         text: " "
     }
 

@@ -7,6 +7,7 @@ Item {
 
     property alias text: barText.text
     property color textColor: "#ffffff"
+    property int fontSize: 12
 
     implicitWidth: barText.implicitWidth
     implicitHeight: barText.implicitHeight + 4
@@ -19,7 +20,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
 
         font.family: "FiraCode Nerd Font Propo"
-        font.pixelSize: 12
+        font.pixelSize: root.fontSize
         font.weight: 700
         color: "#ffffffff"
 

@@ -7,6 +7,7 @@ Item {
 
     property alias text: numberText.text
     property color textColor: "#ffffff"
+    property color textStyleColor: "#ffffff"
 
     implicitWidth: numberText.implicitWidth
     implicitHeight: numberText.implicitHeight + 3
@@ -23,7 +24,7 @@ Item {
         color: root.textColor
 
         style: Text.Raised
-        styleColor: "#ffffff"
+        styleColor: root.textStyleColor
     }
 
     Rectangle {
