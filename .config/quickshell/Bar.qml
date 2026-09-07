@@ -30,7 +30,7 @@ Scope {
                 id: leftBar
 
                 anchors.left: parent.left
-                anchors.leftMargin: 10
+                spacing: 10
                 anchors.verticalCenter: parent.verticalCenter
             }
 
@@ -40,7 +40,9 @@ Scope {
 
                 anchors.centerIn: parent
                 spacing: 10
+                anchors.verticalCenter: parent.verticalCenter
 
+                PowerWidget {}
                 LanguageWidget {}
                 NetworkWidget {}
                 CalculatorWidget {}
@@ -55,9 +57,10 @@ Scope {
                 id: rightBar
 
                 anchors.right: parent.right
-                anchors.rightMargin: 0
+                spacing: 10
                 anchors.verticalCenter: parent.verticalCenter
 
+                SystemMonitorWidget {}
                 TrayWidget {
                     panelWindow: panelWindow
                 }

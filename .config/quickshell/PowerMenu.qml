@@ -7,15 +7,11 @@ import QtQuick.Layouts
 Item {
     id: root
 
-    property var targetScreen: null
     property bool menuVisible: false
     property bool menuWindowVisible: false
 
     property int selectedIndex: -1
     property bool keyboardNavigation: false
-
-    implicitWidth: powerWidget.implicitWidth
-    implicitHeight: powerWidget.implicitHeight
 
     function toggle() {
         if (menuVisible) {
@@ -123,13 +119,10 @@ Item {
 
         if (selectedIndex === 3)
             select(6)
-
         else if (selectedIndex === 4)
             select(0)
-
         else if (selectedIndex === 5)
             select(1)
-
         else if (selectedIndex === 6)
             select(2)
     }
@@ -181,20 +174,12 @@ Item {
         }
     }
 
-    PowerWidget {
-        id: powerWidget
-
-        anchors.centerIn: parent
-
-        onClicked: {
-            root.toggle()
-        }
-    }
-
     PanelWindow {
         id: menuWindow
 
-        screen: root.targetScreen
+        screen: root.QsWindow.window
+            ? root.QsWindow.window.screen
+            : null
 
         visible: root.menuWindowVisible
 

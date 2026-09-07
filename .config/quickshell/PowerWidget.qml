@@ -3,12 +3,10 @@ import QtQuick
 Item {
     id: root
 
-    signal clicked()
-
     implicitWidth: powerIcon.implicitWidth
     implicitHeight: powerIcon.implicitHeight
 
-    BarIconStyle {
+    BarTextStyle {
         id: powerIcon
 
         anchors.centerIn: parent
@@ -23,7 +21,11 @@ Item {
         cursorShape: Qt.PointingHandCursor
 
         onClicked: {
-            root.clicked()
+            powerMenu.toggle()
         }
+    }
+
+    PowerMenu {
+        id: powerMenu
     }
 }

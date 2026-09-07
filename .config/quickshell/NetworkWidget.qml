@@ -78,7 +78,7 @@ Item {
         networkMenu.toggle()
     }
 
-    BarIconStyle {
+    BarTextStyle {
         id: networkText
 
         anchors.centerIn: parent

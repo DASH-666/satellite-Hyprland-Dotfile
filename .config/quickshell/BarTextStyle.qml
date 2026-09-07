@@ -22,7 +22,7 @@ Item {
         font.family: "FiraCode Nerd Font Propo"
         font.pixelSize: root.fontSize
         font.weight: 700
-        color: "#ffffffff"
+        color: root.textColor
 
         style: Text.Raised
         styleColor: "#ffffff"

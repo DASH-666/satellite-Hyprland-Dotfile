@@ -1,3 +1,5 @@
+// BarIconStyle.qml
+
 import QtQuick
 
 Item {
@@ -18,7 +20,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
 
         font.family: "FiraCode Nerd Font Propo"
-        font.pixelSize: 11
+        font.pixelSize: root.fontSize
         font.weight: 700
         color: root.textColor
 

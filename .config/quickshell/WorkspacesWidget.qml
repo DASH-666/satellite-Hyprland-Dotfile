@@ -149,7 +149,7 @@ Item {
     Row {
         id: content
 
-        spacing: 10
+        spacing: 8
 
         Repeater {
             model: root.workspaceIds

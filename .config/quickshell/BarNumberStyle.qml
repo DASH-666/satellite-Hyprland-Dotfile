@@ -10,7 +10,7 @@ Item {
     property color textStyleColor: "#ffffff"
 
     implicitWidth: numberText.implicitWidth
-    implicitHeight: numberText.implicitHeight + 3
+    implicitHeight: numberText.implicitHeight + 2
 
     Text {
         id: numberText

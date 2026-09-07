@@ -6,7 +6,7 @@ Item {
     implicitWidth: calculatorIcon.implicitWidth
     implicitHeight: calculatorIcon.implicitHeight
 
-    BarIconStyle {
+    BarTextStyle {
         id: calculatorIcon
 
         anchors.centerIn: parent

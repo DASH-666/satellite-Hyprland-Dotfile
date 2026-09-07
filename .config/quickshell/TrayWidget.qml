@@ -8,11 +8,6 @@ Item {
     id: root
 
     required property var panelWindow
-
-    // ========================================
-    // Custom tray icons
-    // ========================================
-
     property var customIcons: ({
         "TelegramDesktop": "",
         "easyeffects": "󰺢",
