@@ -38,9 +38,7 @@ Item {
         if (!wifiDevice)
             return null
 
-        const networks = wifiDevice.networks.values
-
-        for (const network of networks) {
+        for (const network of wifiDevice.networks.values) {
             if (network.connected)
                 return network
         }
@@ -57,6 +55,8 @@ Item {
         )
     }
 
+    property var selectedDevice: null
+
     function openNmtui() {
         nmtuiProcess.running = false
         nmtuiProcess.running = true
@@ -65,6 +65,17 @@ Item {
     function toggleWifi() {
         wifiToggleProcess.running = false
         wifiToggleProcess.running = true
+    }
+
+    function openNetworkMenu() {
+        if (!root.selectedDevice) {
+            if (root.wifiDevice)
+                root.selectedDevice = root.wifiDevice
+            else if (root.ethernetDevice)
+                root.selectedDevice = root.ethernetDevice
+        }
+
+        networkMenu.toggle()
     }
 
     BarIconStyle {
@@ -91,6 +102,10 @@ Item {
 
         onClicked: function(mouse) {
             switch (mouse.button) {
+            case Qt.LeftButton:
+                root.openNetworkMenu()
+                break
+
             case Qt.RightButton:
                 root.openNmtui()
                 break
@@ -102,7 +117,16 @@ Item {
         }
 
         onWheel: function(wheel) {
-            // Intentionally unused.
+        }
+    }
+
+    NetworkMenu {
+        id: networkMenu
+
+        selectedDevice: root.selectedDevice
+
+        onDeviceRequested: function(device) {
+            root.selectedDevice = device
         }
     }
 

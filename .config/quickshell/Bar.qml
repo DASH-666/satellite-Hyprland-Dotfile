@@ -1,4 +1,3 @@
-// Bar.qml
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -12,7 +11,10 @@ Scope {
         model: Quickshell.screens
 
         PanelWindow {
+            id: panelWindow
+
             required property var modelData
+
             screen: modelData
 
             anchors {
@@ -24,35 +26,42 @@ Scope {
             color: "#00000000"
             implicitHeight: 30
 
-            // LEFT
             RowLayout {
                 id: leftBar
+
                 anchors.left: parent.left
                 anchors.leftMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
             }
 
-            // CENTER
             RowLayout {
                 id: centerBar
+
                 anchors.centerIn: parent
                 spacing: 10
 
+                PowerMenu {
+                    //anchorWindow: panelWindow
+                }
                 LanguageWidget {}
                 NetworkWidget {}
                 MpdWidget {}
                 WorkspacesWidget {}
                 MprisWidget {}
-                ClockWidget {}
+                ClockWidget {
+                    targetScreen: modelData
+                }
                 IdleInhibitorWidget {}
             }
 
-            // RIGHT
             RowLayout {
                 id: rightBar
+
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
+
+
             }
         }
     }
