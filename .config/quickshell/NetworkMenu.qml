@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Networking
 import Quickshell.Io
+import Quickshell.Wayland
 
 Item {
     id: root
@@ -23,6 +24,9 @@ Item {
     property real previousRx: -1
     property real previousTx: -1
     property double previousTime: 0
+
+    property int selectedIndex: -1
+    property bool keyboardNavigation: false
 
     readonly property var selectedNetwork: {
         if (!root.selectedDevice)
@@ -58,17 +62,125 @@ Item {
             return
         }
 
+        root.selectedIndex = -1
+        root.keyboardNavigation = false
+
         root.refresh()
 
         root.windowVisible = true
         root.menuVisible = true
 
         refreshTimer.start()
+
+        Qt.callLater(function() {
+            menuArea.forceActiveFocus()
+        })
     }
 
     function close() {
         root.menuVisible = false
+        root.keyboardNavigation = false
+        root.selectedIndex = -1
+
         refreshTimer.stop()
+    }
+
+    function totalItems() {
+        return root.availableNetworks.length + 1
+    }
+
+    function select(index) {
+        if (
+            index < 0
+            || index >= root.totalItems()
+        )
+            return
+
+        root.selectedIndex = index
+        root.keyboardNavigation = true
+    }
+
+    function moveUp() {
+        var count = root.totalItems()
+
+        if (count <= 0)
+            return
+
+        if (!root.keyboardNavigation) {
+            root.select(0)
+            return
+        }
+
+        if (root.selectedIndex <= 0)
+            root.select(count - 1)
+        else
+            root.select(root.selectedIndex - 1)
+    }
+
+    function moveDown() {
+        var count = root.totalItems()
+
+        if (count <= 0)
+            return
+
+        if (!root.keyboardNavigation) {
+            root.select(0)
+            return
+        }
+
+        if (root.selectedIndex >= count - 1)
+            root.select(0)
+        else
+            root.select(root.selectedIndex + 1)
+    }
+
+    function moveLeft() {
+        root.moveUp()
+    }
+
+    function moveRight() {
+        root.moveDown()
+    }
+
+    function activateSelected() {
+        if (
+            !root.keyboardNavigation
+            || root.selectedIndex < 0
+        )
+            return
+
+        if (root.selectedIndex === 0) {
+            if (!root.selectedNetwork)
+                return
+
+            if (
+                root.selectedNetwork.connected
+            ) {
+                root.disconnectNetwork(
+                    root.selectedNetwork
+                )
+            } else {
+                root.connectNetwork(
+                    root.selectedNetwork
+                )
+            }
+
+            return
+        }
+
+        var networkIndex =
+            root.selectedIndex - 1
+
+        if (
+            networkIndex < 0
+            || networkIndex >=
+                root.availableNetworks.length
+        )
+            return
+
+        root.selectNetwork(
+            root.availableNetworks[networkIndex]
+        )
     }
 
     function selectNetwork(network) {
@@ -110,6 +222,7 @@ Item {
             root.uploadBytes = 0
             root.previousRx = -1
             root.previousTx = -1
+            root.previousTime = 0
             return
         }
 
@@ -225,6 +338,13 @@ Item {
 
         visible: root.windowVisible
 
+        focusable: root.windowVisible
+
+        WlrLayershell.keyboardFocus:
+            root.windowVisible
+                ? WlrKeyboardFocus.Exclusive
+                : WlrKeyboardFocus.None
+
         color: "#00000000"
 
         anchors {
@@ -237,7 +357,67 @@ Item {
         exclusionMode: ExclusionMode.Ignore
 
         Item {
+            id: menuArea
+
             anchors.fill: parent
+
+            focus: root.menuVisible
+
+            Keys.onPressed: function(event) {
+                if (event.key === Qt.Key_Escape) {
+                    root.close()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Up
+                    || event.key === Qt.Key_K
+                ) {
+                    root.moveUp()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Down
+                    || event.key === Qt.Key_J
+                ) {
+                    root.moveDown()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Left
+                    || event.key === Qt.Key_H
+                ) {
+                    root.moveLeft()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Right
+                    || event.key === Qt.Key_L
+                ) {
+                    root.moveRight()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Return
+                    || event.key === Qt.Key_Enter
+                ) {
+                    if (root.keyboardNavigation) {
+                        root.activateSelected()
+                        event.accepted = true
+                    }
+
+                    return
+                }
+            }
 
             MouseArea {
                 anchors.fill: parent
@@ -247,10 +427,13 @@ Item {
                 onClicked: {
                     if (
                         mouseX < networkContainer.x
-                        || mouseX > networkContainer.x
+                        || mouseX >
+                            networkContainer.x
                             + networkContainer.width
-                        || mouseY < networkContainer.y
-                        || mouseY > networkContainer.y
+                        || mouseY <
+                            networkContainer.y
+                        || mouseY >
+                            networkContainer.y
                             + networkContainer.height
                     ) {
                         root.close()
@@ -277,7 +460,9 @@ Item {
                 Behavior on y {
                     NumberAnimation {
                         duration: 300
-                        easing.type: Easing.OutCubic
+
+                        easing.type:
+                            Easing.OutCubic
 
                         onRunningChanged: {
                             if (
@@ -328,15 +513,19 @@ Item {
                         Text {
                             Layout.fillWidth: true
 
-                            text: root.selectedNetworkName()
+                            text:
+                                root.selectedNetworkName()
 
-                            font.family: "OCRA"
+                            font.family:
+                                "FiraCode Nerd Font Propo"
+
                             font.pixelSize: 14
                             font.weight: 700
 
                             color: "#ffffff"
 
-                            elide: Text.ElideRight
+                            elide:
+                                Text.ElideRight
                         }
 
                         Rectangle {
@@ -372,12 +561,16 @@ Item {
                                 root.selectedDevice
                                 ? root.selectedDevice.name
                                 : "—"
+
+                            numericValue: true
                         }
 
                         NetworkInfoRow {
                             label: "IP"
 
                             value: root.ipAddress
+
+                            numericValue: true
                         }
 
                         NetworkInfoRow {
@@ -387,6 +580,8 @@ Item {
                                 root.formatSpeed(
                                     root.downloadBytes
                                 )
+
+                            numericValue: true
                         }
 
                         NetworkInfoRow {
@@ -396,6 +591,8 @@ Item {
                                 root.formatSpeed(
                                     root.uploadBytes
                                 )
+
+                            numericValue: true
                         }
 
                         NetworkInfoRow {
@@ -411,6 +608,8 @@ Item {
                                 root.networkSignal(
                                     root.selectedNetwork
                                 )
+
+                            numericValue: true
                         }
 
                         NetworkInfoRow {
@@ -433,6 +632,8 @@ Item {
                                     + " Mbps"
                                 )
                             }
+
+                            numericValue: true
                         }
 
                         Item {
@@ -449,7 +650,12 @@ Item {
                                 color: "#00000000"
 
                                 border.width: 1
-                                border.color: "#ffffff"
+
+                                border.color:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 0
+                                    ? "#ff0000"
+                                    : "#ffffff"
 
                                 radius: 0
                             }
@@ -463,7 +669,9 @@ Item {
                                     ? "DISCONNECT"
                                     : "CONNECT"
 
-                                font.family: "OCRA"
+                                font.family:
+                                    "FiraCode Nerd Font Propo"
+
                                 font.pixelSize: 11
                                 font.weight: 700
 
@@ -510,7 +718,9 @@ Item {
 
                             text: "CONNECTIONS"
 
-                            font.family: "OCRA"
+                            font.family:
+                                "FiraCode Nerd Font Propo"
+
                             font.pixelSize: 10
                             font.weight: 700
 
@@ -537,9 +747,14 @@ Item {
                                         color: "#00000000"
 
                                         border.width: 1
+
                                         border.color:
-                                            modelData
-                                            === root.selectedNetwork
+                                            root.keyboardNavigation
+                                            && root.selectedIndex
+                                                === index + 1
+                                            ? "#ff0000"
+                                            : modelData
+                                                === root.selectedNetwork
                                             ? "#ffffff"
                                             : "#66ffffff"
 
@@ -557,9 +772,12 @@ Item {
                                         Text {
                                             Layout.fillWidth: true
 
-                                            text: modelData.name
+                                            text:
+                                                modelData.name
 
-                                            font.family: "OCRA"
+                                            font.family:
+                                                "FiraCode Nerd Font Propo"
+
                                             font.pixelSize: 10
                                             font.weight: 700
 
@@ -581,11 +799,14 @@ Item {
                                                     * 100
                                                 ) + "%"
 
-                                            font.family: "OCRA"
+                                            font.family:
+                                                "OCRA"
+
                                             font.pixelSize: 9
                                             font.weight: 700
 
-                                            color: "#99ffffff"
+                                            color:
+                                                "#99ffffff"
                                         }
 
                                         Text {
@@ -594,7 +815,9 @@ Item {
                                                     modelData
                                                 )
 
-                                            font.family: "OCRA"
+                                            font.family:
+                                                "FiraCode Nerd Font Propo"
+
                                             font.pixelSize: 9
                                             font.weight: 700
 
@@ -629,6 +852,7 @@ Item {
     component NetworkInfoRow: RowLayout {
         property string label: ""
         property string value: ""
+        property bool numericValue: false
 
         Layout.fillWidth: true
 
@@ -637,7 +861,9 @@ Item {
 
             text: parent.label
 
-            font.family: "OCRA"
+            font.family:
+                "FiraCode Nerd Font Propo"
+
             font.pixelSize: 10
             font.weight: 700
 
@@ -652,13 +878,18 @@ Item {
             horizontalAlignment:
                 Text.AlignRight
 
-            font.family: "OCRA"
+            font.family:
+                parent.numericValue
+                ? "OCRA"
+                : "FiraCode Nerd Font Propo"
+
             font.pixelSize: 11
             font.weight: 700
 
             color: "#ffffff"
 
-            elide: Text.ElideRight
+            elide:
+                Text.ElideRight
         }
     }
 
@@ -666,6 +897,7 @@ Item {
         id: refreshTimer
 
         interval: 1000
+
         repeat: true
 
         onTriggered: {
@@ -678,7 +910,8 @@ Item {
 
         stdout: StdioCollector {
             onStreamFinished: {
-                var lines = this.text
+                var lines =
+                    this.text
                     .trim()
                     .split("\n")
 
@@ -689,10 +922,14 @@ Item {
                     lines[0].trim() || "—"
 
                 var rx =
-                    Number(lines[1].trim())
+                    Number(
+                        lines[1].trim()
+                    )
 
                 var tx =
-                    Number(lines[2].trim())
+                    Number(
+                        lines[2].trim()
+                    )
 
                 var now = Date.now()
 
@@ -709,15 +946,19 @@ Item {
                         root.downloadBytes =
                             Math.max(
                                 0,
-                                (rx - root.previousRx)
-                                / elapsed
+                                (
+                                    rx
+                                    - root.previousRx
+                                ) / elapsed
                             )
 
                         root.uploadBytes =
                             Math.max(
                                 0,
-                                (tx - root.previousTx)
-                                / elapsed
+                                (
+                                    tx
+                                    - root.previousTx
+                                ) / elapsed
                             )
                     }
                 }

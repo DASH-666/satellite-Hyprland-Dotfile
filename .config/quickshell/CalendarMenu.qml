@@ -1,4 +1,6 @@
 import Quickshell
+import Quickshell.Wayland
+import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 
@@ -6,53 +8,74 @@ Item {
     id: root
 
     property var targetScreen: null
+
     property bool menuVisible: false
     property bool windowVisible: false
 
-    property int displayedYear: clock.date.getFullYear()
-    property int displayedMonth: clock.date.getMonth()
+    property int displayedYear: 0
+    property int displayedMonth: 0
+    property int selectedButton: -1
 
-    implicitWidth: 0
-    implicitHeight: 0
+    property string localTime: "--:--:--"
+    property string utcTime: "--:--:--"
+    property string timeZoneName: "LOCAL"
+    property string timeZoneOffset: "UTC+00:00"
 
-    SystemClock {
-        id: clock
-        precision: SystemClock.Seconds
+    readonly property int menuWidth: 340
+
+    function updateCalendarDate() {
+        displayedYear = clock.date.getFullYear()
+        displayedMonth = clock.date.getMonth()
     }
 
     function toggle() {
-        if (root.menuVisible) {
-            root.close()
-            return
-        }
+        if (menuVisible)
+            close()
+        else
+            open()
+    }
 
-        root.displayedYear = clock.date.getFullYear()
-        root.displayedMonth = clock.date.getMonth()
+    function open() {
+        updateCalendarDate()
+        updateTimeZone()
 
-        root.windowVisible = true
-        root.menuVisible = true
+        selectedButton = -1
+        windowVisible = true
+        menuVisible = true
+
+        Qt.callLater(function() {
+            calendarArea.forceActiveFocus()
+        })
     }
 
     function close() {
-        root.menuVisible = false
+        menuVisible = false
+        selectedButton = -1
     }
 
     function previousMonth() {
-        if (root.displayedMonth === 0) {
-            root.displayedMonth = 11
-            root.displayedYear--
+        if (displayedMonth === 0) {
+            displayedMonth = 11
+            displayedYear--
         } else {
-            root.displayedMonth--
+            displayedMonth--
         }
     }
 
     function nextMonth() {
-        if (root.displayedMonth === 11) {
-            root.displayedMonth = 0
-            root.displayedYear++
+        if (displayedMonth === 11) {
+            displayedMonth = 0
+            displayedYear++
         } else {
-            root.displayedMonth++
+            displayedMonth++
         }
+    }
+
+    function activateSelectedButton() {
+        if (selectedButton === 0)
+            previousMonth()
+        else if (selectedButton === 1)
+            nextMonth()
     }
 
     function daysInMonth(year, month) {
@@ -64,89 +87,101 @@ Item {
     }
 
     function dayNumber(index) {
-        var firstDay = root.firstDayOfMonth(
-            root.displayedYear,
-            root.displayedMonth
-        )
-
-        var daysCurrent = root.daysInMonth(
-            root.displayedYear,
-            root.displayedMonth
-        )
-
-        var previousMonth =
-            root.displayedMonth === 0
-                ? 11
-                : root.displayedMonth - 1
-
-        var previousYear =
-            root.displayedMonth === 0
-                ? root.displayedYear - 1
-                : root.displayedYear
-
-        var daysPrevious = root.daysInMonth(
-            previousYear,
-            previousMonth
-        )
-
-        if (index < firstDay)
-            return daysPrevious - firstDay + index + 1
-
-        if (index >= firstDay + daysCurrent)
-            return index - firstDay - daysCurrent + 1
-
-        return index - firstDay + 1
+        return index - firstDayOfMonth(displayedYear, displayedMonth) + 1
     }
 
     function isCurrentMonth(index) {
-        var firstDay = root.firstDayOfMonth(
-            root.displayedYear,
-            root.displayedMonth
-        )
+        var day = dayNumber(index)
 
-        var daysCurrent = root.daysInMonth(
-            root.displayedYear,
-            root.displayedMonth
-        )
-
-        return (
-            index >= firstDay
-            && index < firstDay + daysCurrent
-        )
+        return day >= 1 &&
+               day <= daysInMonth(displayedYear, displayedMonth)
     }
 
     function isToday(index) {
-        return (
-            root.isCurrentMonth(index)
-            && root.dayNumber(index) === clock.date.getDate()
-            && root.displayedMonth === clock.date.getMonth()
-            && root.displayedYear === clock.date.getFullYear()
-        )
+        if (!isCurrentMonth(index))
+            return false
+
+        var day = dayNumber(index)
+
+        return day === clock.date.getDate() &&
+               displayedMonth === clock.date.getMonth() &&
+               displayedYear === clock.date.getFullYear()
     }
 
-    function shortMonthName() {
+    function monthName() {
         return Qt.formatDateTime(
-            new Date(
-                root.displayedYear,
-                root.displayedMonth,
-                1
-            ),
-            "MMM"
+            new Date(displayedYear, displayedMonth, 1),
+            "MMMM"
         )
     }
 
     function dateTitle() {
-        var day = clock.date.getDate()
-        var month = clock.date.getMonth() + 1
-        var year = clock.date.getFullYear()
+        return Qt.formatDateTime(clock.date, "dd/MM/yyyy")
+    }
 
-        return (
-            String(day).padStart(2, "0")
-            + "/"
-            + String(month).padStart(2, "0")
-            + "/"
-            + year
-        )
+    function updateTimeZone() {
+        localTimeProcess.running = false
+        localTimeProcess.running = true
+
+        utcTimeProcess.running = false
+        utcTimeProcess.running = true
+    }
+
+    SystemClock {
+        id: clock
+
+        precision: SystemClock.Seconds
+
+        onDateChanged: {
+            if (root.menuVisible)
+                root.updateTimeZone()
+        }
+    }
+
+    Timer {
+        interval: 1000
+        running: root.windowVisible
+        repeat: true
+
+        onTriggered: root.updateTimeZone()
+    }
+
+    Process {
+        id: localTimeProcess
+
+        command: [
+            "date",
+            "+%H:%M:%S|%Z|%:z"
+        ]
+
+        stdout: SplitParser {
+            onRead: function(line) {
+                var parts = line.trim().split("|")
+
+                if (parts.length < 3)
+                    return
+
+                root.localTime = parts[0]
+                root.timeZoneName = parts[1]
+                root.timeZoneOffset = "UTC" + parts[2]
+            }
+        }
+    }
+
+    Process {
+        id: utcTimeProcess
+
+        command: [
+            "date",
+            "-u",
+            "+%H:%M:%S"
+        ]
+
+        stdout: SplitParser {
+            onRead: function(line) {
+                root.utcTime = line.trim()
+            }
+        }
     }
 
     PanelWindow {
@@ -156,7 +191,11 @@ Item {
 
         visible: root.windowVisible
 
-        color: "#00000000"
+        focusable: root.windowVisible
+
+        WlrLayershell.keyboardFocus: root.windowVisible
+            ? WlrKeyboardFocus.Exclusive
+            : WlrKeyboardFocus.None
 
         anchors {
             top: true
@@ -165,140 +204,200 @@ Item {
             right: true
         }
 
+        color: "#00000000"
+
         exclusionMode: ExclusionMode.Ignore
 
-        Item {
+        // Background
+        MouseArea {
+            id: backgroundArea
+
             anchors.fill: parent
 
-            MouseArea {
-                anchors.fill: parent
+            z: 0
 
-                acceptedButtons: Qt.LeftButton
+            acceptedButtons: Qt.LeftButton
 
-                onClicked: {
-                    if (
-                        mouseX < calendarContainer.x
-                        || mouseX > calendarContainer.x + calendarContainer.width
-                        || mouseY < calendarContainer.y
-                        || mouseY > calendarContainer.y + calendarContainer.height
-                    ) {
-                        root.close()
-                    }
+            cursorShape: Qt.ArrowCursor
+
+            onClicked: {
+                root.close()
+            }
+        }
+
+        // Calendar
+        Item {
+            id: calendarArea
+
+            width: root.menuWidth
+            height: calendarContainer.height
+
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            z: 1
+
+            y: root.menuVisible
+                ? (parent.height - height) / 2
+                : -height
+
+            focus: root.menuVisible
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: 300
+                    easing.type: Easing.OutCubic
                 }
             }
 
-            Item {
+            onYChanged: {
+                if (!root.menuVisible &&
+                    !calendarAnimation.running &&
+                    y <= -height + 1) {
+
+                    root.windowVisible = false
+                }
+            }
+
+            Keys.onPressed: function(event) {
+                if (event.key === Qt.Key_Escape) {
+                    root.close()
+                    event.accepted = true
+                    return
+                }
+
+                if (event.key === Qt.Key_Left ||
+                    event.key === Qt.Key_H ||
+                    event.key === Qt.Key_Up ||
+                    event.key === Qt.Key_K) {
+
+                    root.previousMonth()
+                    event.accepted = true
+                    return
+                }
+
+                if (event.key === Qt.Key_Right ||
+                    event.key === Qt.Key_L ||
+                    event.key === Qt.Key_Down ||
+                    event.key === Qt.Key_J) {
+
+                    root.nextMonth()
+                    event.accepted = true
+                    return
+                }
+
+                if (event.key === Qt.Key_Tab) {
+                    if (event.modifiers & Qt.ShiftModifier) {
+                        root.selectedButton =
+                            root.selectedButton <= 0 ? 1 : 0
+                    } else {
+                        root.selectedButton =
+                            root.selectedButton === 1 ? 0 : 1
+                    }
+
+                    event.accepted = true
+                    return
+                }
+
+                if (event.key === Qt.Key_Return ||
+                    event.key === Qt.Key_Enter) {
+
+                    root.activateSelectedButton()
+                    event.accepted = true
+                    return
+                }
+            }
+
+            Rectangle {
                 id: calendarContainer
 
-                width: 340
+                width: root.menuWidth
                 height: calendarContent.implicitHeight + 24
 
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                y: root.menuVisible
-                    ? (parent.height - height) / 2
-                    : -height
+                color: "#B3000000"
 
-                Behavior on y {
-                    NumberAnimation {
-                        duration: 300
-                        easing.type: Easing.OutCubic
+                border.width: 1
+                border.color: "#ffffffff"
 
-                        onRunningChanged: {
-                            if (
-                                !running
-                                && !root.menuVisible
-                            ) {
-                                root.windowVisible = false
-                            }
-                        }
-                    }
-                }
+                radius: 0
 
-                Rectangle {
-                    anchors.fill: parent
-
-                    color: "#B3000000"
-
-                    border.width: 1
-                    border.color: "#ffffff"
-
-                    radius: 0
-                }
-
-                Item {
+                ColumnLayout {
                     id: calendarContent
 
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        right: parent.right
-                        margins: 12
-                    }
+                    width: parent.width - 24
 
-                    implicitHeight: mainLayout.implicitHeight
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: 12
 
+                    spacing: 10
+
+                    // TIME ZONE
                     ColumnLayout {
-                        id: mainLayout
+                        Layout.fillWidth: true
 
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                            top: parent.top
-                        }
+                        spacing: 5
 
-                        spacing: 10
-
+                        // LOCAL TIME
                         RowLayout {
                             Layout.fillWidth: true
 
-                            Text {
-                                Layout.preferredWidth: 45
+                            spacing: 10
 
-                                text: root.shortMonthName()
-
-                                font.family: "OCRA"
-                                font.pixelSize: 14
-                                font.weight: 700
-
-                                color: "#ffffff"
-                            }
-
-                            Item {
+                            ColumnLayout {
                                 Layout.fillWidth: true
 
-                                implicitHeight: 26
+                                spacing: 0
 
                                 Text {
-                                    anchors.centerIn: parent
+                                    text: "LOCAL"
 
-                                    text: root.dateTitle()
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 9
+                                    font.weight: 600
+
+                                    color: "#99ffffff"
+                                }
+
+                                Text {
+                                    text: root.localTime
 
                                     font.family: "OCRA"
-                                    font.pixelSize: 14
+                                    font.pixelSize: 17
                                     font.weight: 700
 
                                     color: "#ffffff"
                                 }
                             }
 
-                            Row {
-                                spacing: 6
+                            ColumnLayout {
+                                Layout.alignment: Qt.AlignRight
 
-                                CalendarButton {
-                                    text: "‹"
+                                spacing: 0
 
-                                    onClicked: {
-                                        root.previousMonth()
-                                    }
+                                Text {
+                                    Layout.alignment: Qt.AlignRight
+
+                                    text: root.timeZoneName
+
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 10
+                                    font.weight: 600
+
+                                    color: "#ffffff"
                                 }
 
-                                CalendarButton {
-                                    text: "›"
+                                Text {
+                                    Layout.alignment: Qt.AlignRight
 
-                                    onClicked: {
-                                        root.nextMonth()
-                                    }
+                                    text: root.timeZoneOffset
+
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 9
+                                    font.weight: 500
+
+                                    color: "#99ffffff"
                                 }
                             }
                         }
@@ -308,70 +407,209 @@ Item {
 
                             height: 1
 
-                            color: "#ffffff"
+                            color: "#66ffffff"
                         }
 
-                        GridLayout {
+                        // UTC TIME
+                        RowLayout {
                             Layout.fillWidth: true
 
-                            columns: 7
+                            spacing: 10
 
-                            columnSpacing: 0
-                            rowSpacing: 6
+                            ColumnLayout {
+                                Layout.fillWidth: true
 
-                            Repeater {
-                                model: [
-                                    "SUN",
-                                    "MON",
-                                    "TUE",
-                                    "WED",
-                                    "THU",
-                                    "FRI",
-                                    "SAT"
-                                ]
+                                spacing: 0
 
                                 Text {
-                                    Layout.fillWidth: true
+                                    text: "UTC"
 
-                                    horizontalAlignment:
-                                        Text.AlignHCenter
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 9
+                                    font.weight: 600
 
-                                    text: modelData
+                                    color: "#99ffffff"
+                                }
+
+                                Text {
+                                    text: root.utcTime
 
                                     font.family: "OCRA"
-                                    font.pixelSize: 9
+                                    font.pixelSize: 17
                                     font.weight: 700
 
                                     color: "#ffffff"
                                 }
                             }
 
-                            Repeater {
-                                model: 42
+                            Text {
+                                Layout.alignment: Qt.AlignRight
 
-                                Item {
-                                    Layout.fillWidth: true
-                                    Layout.preferredHeight: 30
+                                text: "UNIVERSAL TIME"
 
-                                    Text {
-                                        anchors.centerIn: parent
+                                font.family: "FiraCode Nerd Font Propo"
+                                font.pixelSize: 9
+                                font.weight: 500
 
-                                        text: root.dayNumber(index)
+                                color: "#99ffffff"
+                            }
+                        }
+                    }
 
-                                        font.family: "OCRA"
-                                        font.pixelSize: 11
-                                        font.weight: 700
+                    Rectangle {
+                        Layout.fillWidth: true
 
-                                        color: {
-                                            if (root.isToday(index))
-                                                return "#ff0000"
+                        height: 1
 
-                                            if (root.isCurrentMonth(index))
-                                                return "#ffffff"
+                        color: "#66ffffff"
+                    }
 
-                                            return "#66ffffff"
-                                        }
-                                    }
+                    // CALENDAR HEADER
+                    RowLayout {
+                        Layout.fillWidth: true
+
+                        spacing: 0
+
+                        // LEFT: MONTH
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.preferredWidth: 110
+                            Layout.alignment: Qt.AlignVCenter
+
+                            Text {
+                                anchors.left: parent.left
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                text: root.monthName()
+
+                                font.family: "FiraCode Nerd Font Propo"
+                                font.pixelSize: 16
+                                font.weight: 600
+
+                                color: "#ffffff"
+                            }
+                        }
+
+                        // CENTER: MONTH BUTTONS
+                        Row {
+                            Layout.preferredWidth: 66
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                            spacing: 6
+
+                            CalendarButton {
+                                glyph: "‹"
+
+                                selected: root.selectedButton === 0
+
+                                onClicked: {
+                                    root.previousMonth()
+                                }
+                            }
+
+                            CalendarButton {
+                                glyph: "›"
+
+                                selected: root.selectedButton === 1
+
+                                onClicked: {
+                                    root.nextMonth()
+                                }
+                            }
+                        }
+
+                        // RIGHT: FULL NUMERIC DATE
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.preferredWidth: 110
+                            Layout.alignment: Qt.AlignVCenter
+
+                            Text {
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                text: root.dateTitle()
+
+                                font.family: "OCRA"
+                                font.pixelSize: 13
+                                font.weight: 700
+
+                                color: "#ffffff"
+
+                                horizontalAlignment: Text.AlignRight
+                            }
+                        }
+                    }
+
+                    // WEEKDAYS
+                    GridLayout {
+                        Layout.fillWidth: true
+
+                        columns: 7
+
+                        rowSpacing: 0
+                        columnSpacing: 0
+
+                        Repeater {
+                            model: [
+                                "SUN",
+                                "MON",
+                                "TUE",
+                                "WED",
+                                "THU",
+                                "FRI",
+                                "SAT"
+                            ]
+
+                            delegate: Item {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 20
+
+                                Text {
+                                    anchors.centerIn: parent
+
+                                    text: modelData
+
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 9
+                                    font.weight: 600
+
+                                    color: "#99ffffff"
+                                }
+                            }
+                        }
+                    }
+
+                    // DAYS
+                    GridLayout {
+                        Layout.fillWidth: true
+
+                        columns: 7
+
+                        rowSpacing: 4
+                        columnSpacing: 0
+
+                        Repeater {
+                            model: 42
+
+                            delegate: Item {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 28
+
+                                Text {
+                                    anchors.centerIn: parent
+
+                                    visible: root.isCurrentMonth(index)
+
+                                    text: root.dayNumber(index)
+
+                                    font.family: "OCRA"
+                                    font.pixelSize: 12
+                                    font.weight: 700
+
+                                    color: root.isToday(index)
+                                        ? "#ff0000"
+                                        : "#ffffff"
                                 }
                             }
                         }
@@ -381,15 +619,27 @@ Item {
         }
     }
 
+    Timer {
+        id: calendarAnimation
+
+        interval: 300
+
+        onTriggered: {
+            if (!root.menuVisible)
+                root.windowVisible = false
+        }
+    }
+
     component CalendarButton: Item {
         id: button
 
-        property string text: ""
+        property string glyph: ""
+        property bool selected: false
 
         signal clicked()
 
-        implicitWidth: 28
-        implicitHeight: 26
+        width: 30
+        height: 24
 
         Rectangle {
             anchors.fill: parent
@@ -397,7 +647,10 @@ Item {
             color: "#00000000"
 
             border.width: 1
-            border.color: "#ffffff"
+
+            border.color: button.selected
+                ? "#ff0000"
+                : "#ffffffff"
 
             radius: 0
         }
@@ -405,23 +658,42 @@ Item {
         Text {
             anchors.centerIn: parent
 
-            text: button.text
+            text: button.glyph
 
-            font.family: "OCRA"
-            font.pixelSize: 12
-            font.weight: 700
+            font.family: "FiraCode Nerd Font Propo"
+            font.pixelSize: 16
+            font.weight: 500
 
             color: "#ffffff"
         }
 
         MouseArea {
+            id: buttonMouseArea
+
             anchors.fill: parent
+
+            acceptedButtons: Qt.LeftButton
 
             cursorShape: Qt.PointingHandCursor
 
             onClicked: {
                 button.clicked()
             }
+        }
+    }
+
+    onMenuVisibleChanged: {
+        if (menuVisible) {
+            windowVisible = true
+
+            updateCalendarDate()
+            updateTimeZone()
+
+            Qt.callLater(function() {
+                calendarArea.forceActiveFocus()
+            })
+        } else {
+            calendarAnimation.restart()
         }
     }
 }

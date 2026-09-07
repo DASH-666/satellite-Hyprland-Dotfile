@@ -1,5 +1,3 @@
-// BarIconStyle.qml
-
 import QtQuick
 
 Item {
