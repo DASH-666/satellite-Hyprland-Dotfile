@@ -60,6 +60,7 @@ Scope {
                 spacing: 10
                 anchors.verticalCenter: parent.verticalCenter
 
+                AudioWidget {}
                 SystemMonitorWidget {}
                 TrayWidget {
                     panelWindow: panelWindow

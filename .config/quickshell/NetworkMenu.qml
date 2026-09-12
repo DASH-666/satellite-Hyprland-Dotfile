@@ -28,6 +28,8 @@ Item {
     property int selectedIndex: -1
     property bool keyboardNavigation: false
 
+    property string statsInterface: ""
+
     readonly property var selectedNetwork: {
         if (!root.selectedDevice)
             return null
@@ -223,24 +225,37 @@ Item {
             root.previousRx = -1
             root.previousTx = -1
             root.previousTime = 0
+            root.statsInterface = ""
             return
         }
 
         root.interfaceName =
             root.selectedDevice.name
 
-        networkStatsProcess.command = [
-            "sh",
-            "-c",
-            "iface=\"$1\"; " +
-            "ipaddr=$(ip -4 -o addr show dev \"$iface\" | " +
-            "awk '{print $4}' | cut -d/ -f1 | head -n1); " +
-            "rx=$(cat \"/sys/class/net/$iface/statistics/rx_bytes\" 2>/dev/null || echo 0); " +
-            "tx=$(cat \"/sys/class/net/$iface/statistics/tx_bytes\" 2>/dev/null || echo 0); " +
-            "printf '%s\\n%s\\n%s\\n' \"$ipaddr\" \"$rx\" \"$tx\"",
-            "network-stats",
-            root.selectedDevice.name
-        ]
+        if (
+            root.statsInterface
+            !== root.selectedDevice.name
+        ) {
+            root.statsInterface =
+                root.selectedDevice.name
+
+            networkStatsProcess.command = [
+                "sh",
+                "-c",
+                "iface=\"$1\"; " +
+                "ipaddr=$(ip -4 -o addr show dev \"$iface\" | " +
+                "awk '{print $4}' | cut -d/ -f1 | head -n1); " +
+                "rx=$(cat \"/sys/class/net/$iface/statistics/rx_bytes\" 2>/dev/null || echo 0); " +
+                "tx=$(cat \"/sys/class/net/$iface/statistics/tx_bytes\" 2>/dev/null || echo 0); " +
+                "printf '%s\\n%s\\n%s\\n' \"$ipaddr\" \"$rx\" \"$tx\"",
+                "network-stats",
+                root.selectedDevice.name
+            ]
+
+            root.previousRx = -1
+            root.previousTx = -1
+            root.previousTime = 0
+        }
 
         networkStatsProcess.running = false
         networkStatsProcess.running = true
@@ -332,9 +347,7 @@ Item {
     PanelWindow {
         id: networkWindow
 
-        screen: Quickshell.screens.length > 0
-            ? Quickshell.screens[0]
-            : null
+        screen: root.QsWindow.window.screen
 
         visible: root.windowVisible
 
@@ -406,9 +419,11 @@ Item {
                     return
                 }
 
+                // Enter + Return + Space
                 if (
                     event.key === Qt.Key_Return
                     || event.key === Qt.Key_Enter
+                    || event.key === Qt.Key_Space
                 ) {
                     if (root.keyboardNavigation) {
                         root.activateSelected()
@@ -647,15 +662,15 @@ Item {
                             Rectangle {
                                 anchors.fill: parent
 
-                                color: "#00000000"
+                                color:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 0
+                                    ? "#ffffff"
+                                    : "#00000000"
 
                                 border.width: 1
 
-                                border.color:
-                                    root.keyboardNavigation
-                                    && root.selectedIndex === 0
-                                    ? "#ff0000"
-                                    : "#ffffff"
+                                border.color: "#ffffff"
 
                                 radius: 0
                             }
@@ -675,7 +690,11 @@ Item {
                                 font.pixelSize: 11
                                 font.weight: 700
 
-                                color: "#ffffff"
+                                color:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 0
+                                    ? "#000000"
+                                    : "#ffffff"
                             }
 
                             MouseArea {
@@ -744,16 +763,17 @@ Item {
                                     Rectangle {
                                         anchors.fill: parent
 
-                                        color: "#00000000"
+                                        color:
+                                            root.keyboardNavigation
+                                            && root.selectedIndex
+                                                === index + 1
+                                            ? "#ffffff"
+                                            : "#00000000"
 
                                         border.width: 1
 
                                         border.color:
-                                            root.keyboardNavigation
-                                            && root.selectedIndex
-                                                === index + 1
-                                            ? "#ff0000"
-                                            : modelData
+                                            modelData
                                                 === root.selectedNetwork
                                             ? "#ffffff"
                                             : "#66ffffff"
@@ -781,7 +801,12 @@ Item {
                                             font.pixelSize: 10
                                             font.weight: 700
 
-                                            color: "#ffffff"
+                                            color:
+                                                root.keyboardNavigation
+                                                && root.selectedIndex
+                                                    === index + 1
+                                                ? "#000000"
+                                                : "#ffffff"
 
                                             elide:
                                                 Text.ElideRight
@@ -806,7 +831,11 @@ Item {
                                             font.weight: 700
 
                                             color:
-                                                "#99ffffff"
+                                                root.keyboardNavigation
+                                                && root.selectedIndex
+                                                    === index + 1
+                                                ? "#000000"
+                                                : "#99ffffff"
                                         }
 
                                         Text {
@@ -822,7 +851,11 @@ Item {
                                             font.weight: 700
 
                                             color:
-                                                modelData.connected
+                                                root.keyboardNavigation
+                                                && root.selectedIndex
+                                                    === index + 1
+                                                ? "#000000"
+                                                : modelData.connected
                                                 ? "#ffffff"
                                                 : "#99ffffff"
                                         }

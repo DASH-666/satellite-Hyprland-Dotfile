@@ -1,0 +1,5160 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+Bar.qml
+BarIconStyle.qml
+BarNumberStyle.qml
+BarTextStyle.qml
+CalculatorMenu.qml
+CalculatorWidget.qml
+CalendarMenu.qml
+ClockWidget.qml
+IdleInhibitorWidget.qml
+LanguageWidget.qml
+MpdWidget.qml
+MprisWidget.qml
+NetworkMenu.qml
+NetworkWidget.qml
+PowerMenu.qml
+PowerWidget.qml
+shell.qml
+SystemMonitorWidget.qml
+TrayMenu.qml
+TrayWidget.qml
+WorkspacesWidget.qml
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="Bar.qml">
+import Quickshell
+import QtQuick
+import QtQuick.Layouts
+
+Scope {
+    id: root
+
+    readonly property int fontSize: 15
+
+    Variants {
+        model: Quickshell.screens
+
+        PanelWindow {
+            id: panelWindow
+
+            required property var modelData
+            screen: modelData
+
+            anchors {
+                top: true
+                left: true
+                right: true
+            }
+
+            color: "#00000000"
+            implicitHeight: 30
+
+            // LEFT
+            RowLayout {
+                id: leftBar
+
+                anchors.left: parent.left
+                spacing: 10
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            // CENTER
+            RowLayout {
+                id: centerBar
+
+                anchors.centerIn: parent
+                spacing: 10
+                anchors.verticalCenter: parent.verticalCenter
+
+                PowerWidget {}
+                LanguageWidget {}
+                NetworkWidget {}
+                CalculatorWidget {}
+                WorkspacesWidget {}
+                MprisWidget {}
+                ClockWidget {}
+                IdleInhibitorWidget {}
+            }
+
+            // RIGHT
+            RowLayout {
+                id: rightBar
+
+                anchors.right: parent.right
+                spacing: 10
+                anchors.verticalCenter: parent.verticalCenter
+
+                SystemMonitorWidget {}
+                TrayWidget {
+                    panelWindow: panelWindow
+                }
+            }
+        }
+    }
+}
+</file>
+
+<file path="BarIconStyle.qml">
+// BarIconStyle.qml
+
+import QtQuick
+
+Item {
+    id: root
+
+    property alias text: iconText.text
+    property color textColor: "#ffffff"
+    property int fontSize: 11
+
+    implicitWidth: iconText.implicitWidth
+    implicitHeight: iconText.implicitHeight + 3
+
+    Text {
+        id: iconText
+
+        anchors.top: parent.top
+        anchors.topMargin: 1
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        font.family: "FiraCode Nerd Font Propo"
+        font.pixelSize: root.fontSize
+        font.weight: 700
+        color: root.textColor
+
+        style: Text.Raised
+        styleColor: "#ffffff"
+    }
+
+    Rectangle {
+        anchors.top: iconText.bottom
+        anchors.topMargin: 2
+        anchors.left: iconText.left
+        anchors.leftMargin: -3
+        anchors.right: iconText.right
+        anchors.rightMargin: -3
+
+        height: 1
+        color: "#ffffffff"
+    }
+}
+</file>
+
+<file path="BarNumberStyle.qml">
+// BarNumberStyle.qml
+
+import QtQuick
+
+Item {
+    id: root
+
+    property alias text: numberText.text
+    property color textColor: "#ffffff"
+    property color textStyleColor: "#ffffff"
+
+    implicitWidth: numberText.implicitWidth
+    implicitHeight: numberText.implicitHeight + 2
+
+    Text {
+        id: numberText
+
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        font.family: "OCRA"
+        font.pixelSize: 12
+        font.weight: 700
+        color: root.textColor
+
+        style: Text.Raised
+        styleColor: root.textStyleColor
+    }
+
+    Rectangle {
+        anchors.top: numberText.bottom
+        anchors.topMargin: 2
+        anchors.left: numberText.left
+        anchors.leftMargin: -3
+        anchors.right: numberText.right
+        anchors.rightMargin: -3
+
+        height: 1
+        color: "#ffffffff"
+    }
+}
+</file>
+
+<file path="BarTextStyle.qml">
+// BarTextStyle.qml
+
+import QtQuick
+
+Item {
+    id: root
+
+    property alias text: barText.text
+    property color textColor: "#ffffff"
+    property int fontSize: 12
+
+    implicitWidth: barText.implicitWidth
+    implicitHeight: barText.implicitHeight + 4
+
+    Text {
+        id: barText
+
+        anchors.top: parent.top
+        anchors.topMargin: 1
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        font.family: "FiraCode Nerd Font Propo"
+        font.pixelSize: root.fontSize
+        font.weight: 700
+        color: root.textColor
+
+        style: Text.Raised
+        styleColor: "#ffffff"
+    }
+
+    Rectangle {
+        anchors.top: barText.bottom
+        anchors.topMargin: 2
+        anchors.left: barText.left
+        anchors.leftMargin: -3
+        anchors.right: barText.right
+        anchors.rightMargin: -3
+
+        height: 1
+        color: "#ffffffff"
+    }
+}
+</file>
+
+<file path="CalculatorMenu.qml">
+import Quickshell
+import QtQuick
+import QtQuick.Layouts
+import Quickshell.Io
+import Quickshell.Wayland
+
+Item {
+    id: root
+
+    property bool menuVisible: false
+    property bool windowVisible: false
+
+    property string expression: ""
+    property string result: ""
+
+    implicitWidth: 0
+    implicitHeight: 0
+
+    function toggle() {
+        if (root.menuVisible) {
+            root.close()
+            return
+        }
+
+        root.windowVisible = true
+        root.menuVisible = true
+
+        Qt.callLater(function() {
+            expressionInput.forceActiveFocus()
+        })
+    }
+
+    function close() {
+        root.menuVisible = false
+        expressionInput.focus = false
+        resultOutput.focus = false
+    }
+
+    function calculate() {
+        if (root.expression.trim() === "") {
+            root.result = ""
+            return
+        }
+
+        qalcProcess.command = [
+            "qalc",
+            "-t",
+            root.expression
+        ]
+
+        qalcProcess.running = false
+        qalcProcess.running = true
+    }
+
+    function append(value) {
+        var position =
+            expressionInput.cursorPosition
+
+        expressionInput.insert(
+            position,
+            value
+        )
+
+        expressionInput.cursorPosition =
+            position + value.length
+
+        expressionInput.forceActiveFocus()
+    }
+
+    function clear() {
+        expressionInput.text = ""
+        root.result = ""
+        expressionInput.forceActiveFocus()
+    }
+
+    function backspace() {
+        var position =
+            expressionInput.cursorPosition
+
+        if (position <= 0)
+            return
+
+        expressionInput.remove(
+            position - 1,
+            position
+        )
+
+        expressionInput.cursorPosition =
+            position - 1
+
+        expressionInput.forceActiveFocus()
+    }
+
+    PanelWindow {
+        id: calculatorWindow
+
+        screen: Quickshell.screens.length > 0
+            ? Quickshell.screens[0]
+            : null
+
+        visible: root.windowVisible
+
+        focusable: root.windowVisible
+
+        WlrLayershell.keyboardFocus:
+            root.windowVisible
+                ? WlrKeyboardFocus.Exclusive
+                : WlrKeyboardFocus.None
+
+        color: "#00000000"
+
+        anchors {
+            top: true
+            bottom: true
+            left: true
+            right: true
+        }
+
+        exclusionMode: ExclusionMode.Ignore
+
+        Item {
+            anchors.fill: parent
+
+            Keys.onEscapePressed: {
+                root.close()
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                acceptedButtons: Qt.LeftButton
+
+                onClicked: {
+                    if (
+                        mouseX < calculatorContainer.x
+                        || mouseX >
+                            calculatorContainer.x
+                            + calculatorContainer.width
+                        || mouseY <
+                            calculatorContainer.y
+                        || mouseY >
+                            calculatorContainer.y
+                            + calculatorContainer.height
+                    ) {
+                        root.close()
+                    }
+                }
+            }
+
+            Item {
+                id: calculatorContainer
+
+                width: 330
+
+                height:
+                    calculatorContent.implicitHeight
+                    + 24
+
+                anchors.horizontalCenter:
+                    parent.horizontalCenter
+
+                y: root.menuVisible
+                    ? (parent.height - height) / 2
+                    : -height
+
+                Behavior on y {
+                    NumberAnimation {
+                        duration: 300
+                        easing.type: Easing.OutCubic
+
+                        onRunningChanged: {
+                            if (
+                                !running
+                                && !root.menuVisible
+                            ) {
+                                root.windowVisible = false
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    anchors.fill: parent
+
+                    color: "#B3000000"
+
+                    border.width: 1
+                    border.color: "#ffffff"
+
+                    radius: 0
+                }
+
+                Item {
+                    id: calculatorContent
+
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                        margins: 12
+                    }
+
+                    implicitHeight:
+                        calculatorLayout.implicitHeight
+
+                    ColumnLayout {
+                        id: calculatorLayout
+
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            top: parent.top
+                        }
+
+                        spacing: 10
+
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 36
+
+                            TextInput {
+                                id: expressionInput
+
+                                anchors.fill: parent
+
+                                text: root.expression
+
+                                focus: root.menuVisible
+
+                                selectByMouse: true
+
+                                horizontalAlignment:
+                                    Text.AlignRight
+
+                                verticalAlignment:
+                                    Text.AlignVCenter
+
+                                font.family:
+                                    "FiraCode Nerd Font Propo"
+
+                                font.pixelSize: 15
+                                font.weight: 700
+
+                                color: "#ffffff"
+
+                                selectionColor: "#ffffff"
+                                selectedTextColor: "#000000"
+
+                                cursorVisible: true
+
+                                clip: true
+
+                                onTextChanged: {
+                                    root.expression = text
+                                    root.calculate()
+                                }
+
+                                Keys.onPressed: function(event) {
+                                    if (
+                                        event.key === Qt.Key_C
+                                        && (
+                                            event.modifiers
+                                            & Qt.ControlModifier
+                                        )
+                                    ) {
+                                        if (
+                                            expressionInput.selectedText
+                                            !== ""
+                                        ) {
+                                            expressionInput.copy()
+                                            event.accepted = true
+                                        }
+                                    }
+
+                                    if (
+                                        event.key === Qt.Key_Escape
+                                    ) {
+                                        root.close()
+                                        event.accepted = true
+                                    }
+                                }
+
+                                Keys.onReturnPressed: {
+                                    root.calculate()
+                                }
+
+                                Keys.onEnterPressed: {
+                                    root.calculate()
+                                }
+
+                                onActiveFocusChanged: {
+                                    if (
+                                        root.menuVisible
+                                        && !activeFocus
+                                    ) {
+                                        Qt.callLater(function() {
+                                            if (
+                                                root.menuVisible
+                                                && !resultOutput.activeFocus
+                                            ) {
+                                                expressionInput.forceActiveFocus()
+                                            }
+                                        })
+                                    }
+                                }
+                            }
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+
+                            height: 1
+
+                            color: "#ffffff"
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 34
+
+                            TextEdit {
+                                id: resultOutput
+
+                                anchors.fill: parent
+
+                                text:
+                                    root.result === ""
+                                    ? " "
+                                    : root.result
+
+                                readOnly: true
+
+                                selectByMouse: true
+
+                                persistentSelection: true
+
+                                wrapMode:
+                                    TextEdit.NoWrap
+
+                                horizontalAlignment:
+                                    Text.AlignRight
+
+                                verticalAlignment:
+                                    Text.AlignVCenter
+
+                                font.family:
+                                    "FiraCode Nerd Font Propo"
+
+                                font.pixelSize: 13
+                                font.weight: 700
+
+                                color: "#ffffff"
+
+                                selectionColor: "#ffffff"
+                                selectedTextColor: "#000000"
+
+                                cursorVisible: false
+
+                                clip: true
+
+                                Keys.onPressed: function(event) {
+                                    if (
+                                        event.key === Qt.Key_C
+                                        && (
+                                            event.modifiers
+                                            & Qt.ControlModifier
+                                        )
+                                    ) {
+                                        if (
+                                            resultOutput.selectedText
+                                            !== ""
+                                        ) {
+                                            resultOutput.copy()
+                                            event.accepted = true
+                                        }
+                                    }
+
+                                    if (
+                                        event.key === Qt.Key_Escape
+                                    ) {
+                                        root.close()
+                                        event.accepted = true
+                                    }
+                                }
+
+                                onActiveFocusChanged: {
+                                    if (
+                                        root.menuVisible
+                                        && activeFocus
+                                    ) {
+                                        resultOutput.forceActiveFocus()
+                                    }
+                                }
+                            }
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+
+                            height: 1
+
+                            color: "#ffffff"
+                        }
+
+                        GridLayout {
+                            Layout.fillWidth: true
+
+                            columns: 4
+
+                            columnSpacing: 6
+                            rowSpacing: 6
+
+                            CalculatorButton {
+                                text: "C"
+                                operation: true
+
+                                onClicked: {
+                                    root.clear()
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "⌫"
+                                operation: true
+
+                                onClicked: {
+                                    root.backspace()
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "("
+                                operation: true
+
+                                onClicked: {
+                                    root.append("(")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: ")"
+                                operation: true
+
+                                onClicked: {
+                                    root.append(")")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "7"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("7")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "8"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("8")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "9"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("9")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "÷"
+                                operation: true
+
+                                onClicked: {
+                                    root.append("/")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "4"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("4")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "5"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("5")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "6"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("6")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "×"
+                                operation: true
+
+                                onClicked: {
+                                    root.append("*")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "1"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("1")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "2"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("2")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "3"
+                                numeric: true
+
+                                onClicked: {
+                                    root.append("3")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "−"
+                                operation: true
+
+                                onClicked: {
+                                    root.append("-")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "0"
+                                numeric: true
+
+                                Layout.columnSpan: 2
+
+                                onClicked: {
+                                    root.append("0")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "."
+                                operation: true
+
+                                onClicked: {
+                                    root.append(".")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "+"
+                                operation: true
+
+                                onClicked: {
+                                    root.append("+")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "%"
+                                operation: true
+
+                                onClicked: {
+                                    root.append("%")
+                                }
+                            }
+
+                            CalculatorButton {
+                                text: "="
+                                operation: true
+
+                                Layout.columnSpan: 3
+
+                                onClicked: {
+                                    root.calculate()
+                                    expressionInput.forceActiveFocus()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    component CalculatorButton: Item {
+        id: button
+
+        property string text: ""
+        property bool operation: false
+        property bool numeric: false
+
+        signal clicked()
+
+        Layout.fillWidth: true
+        Layout.preferredHeight: 34
+
+        Rectangle {
+            anchors.fill: parent
+
+            color: "#00000000"
+
+            border.width: 1
+            border.color: "#ffffff"
+
+            radius: 0
+        }
+
+        Text {
+            anchors.centerIn: parent
+
+            text: button.text
+
+            font.family: button.numeric
+                ? "OCRA"
+                : "FiraCode Nerd Font Propo"
+
+            font.pixelSize: 11
+            font.weight: 700
+
+            color: button.operation
+                ? "#ff0000"
+                : "#ffffff"
+        }
+
+        MouseArea {
+            anchors.fill: parent
+
+            cursorShape:
+                Qt.PointingHandCursor
+
+            onClicked: {
+                button.clicked()
+                expressionInput.forceActiveFocus()
+            }
+        }
+    }
+
+    Process {
+        id: qalcProcess
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                root.result =
+                    this.text.trim()
+            }
+        }
+
+        stderr: StdioCollector {
+            onStreamFinished: {
+                var error =
+                    this.text.trim()
+
+                if (error !== "")
+                    root.result = error
+            }
+        }
+    }
+}
+</file>
+
+<file path="CalculatorWidget.qml">
+import QtQuick
+
+Item {
+    id: root
+
+    implicitWidth: calculatorIcon.implicitWidth
+    implicitHeight: calculatorIcon.implicitHeight
+
+    BarIconStyle {
+        id: calculatorIcon
+
+        anchors.centerIn: parent
+
+        text: ""
+    }
+
+    MouseArea {
+        anchors.fill: parent
+
+        acceptedButtons: Qt.LeftButton
+
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: {
+            calculatorMenu.toggle()
+        }
+    }
+
+    CalculatorMenu {
+        id: calculatorMenu
+    }
+}
+</file>
+
+<file path="CalendarMenu.qml">
+import Quickshell
+import Quickshell.Wayland
+import Quickshell.Io
+import QtQuick
+import QtQuick.Layouts
+
+Item {
+    id: root
+
+    property var targetScreen: null
+
+    property bool menuVisible: false
+    property bool windowVisible: false
+
+    property int displayedYear: 0
+    property int displayedMonth: 0
+    property int selectedButton: -1
+
+    property string localTime: "--:--:--"
+    property string utcTime: "--:--:--"
+    property string timeZoneName: "LOCAL"
+    property string timeZoneOffset: "UTC+00:00"
+
+    readonly property int menuWidth: 340
+
+    function updateCalendarDate() {
+        displayedYear = clock.date.getFullYear()
+        displayedMonth = clock.date.getMonth()
+    }
+
+    function toggle() {
+        if (menuVisible)
+            close()
+        else
+            open()
+    }
+
+    function open() {
+        updateCalendarDate()
+        updateTimeZone()
+
+        selectedButton = -1
+        windowVisible = true
+        menuVisible = true
+
+        Qt.callLater(function() {
+            calendarArea.forceActiveFocus()
+        })
+    }
+
+    function close() {
+        menuVisible = false
+        selectedButton = -1
+    }
+
+    function previousMonth() {
+        if (displayedMonth === 0) {
+            displayedMonth = 11
+            displayedYear--
+        } else {
+            displayedMonth--
+        }
+    }
+
+    function nextMonth() {
+        if (displayedMonth === 11) {
+            displayedMonth = 0
+            displayedYear++
+        } else {
+            displayedMonth++
+        }
+    }
+
+    function activateSelectedButton() {
+        if (selectedButton === 0)
+            previousMonth()
+        else if (selectedButton === 1)
+            nextMonth()
+    }
+
+    function daysInMonth(year, month) {
+        return new Date(year, month + 1, 0).getDate()
+    }
+
+    function firstDayOfMonth(year, month) {
+        return new Date(year, month, 1).getDay()
+    }
+
+    function dayNumber(index) {
+        return index - firstDayOfMonth(displayedYear, displayedMonth) + 1
+    }
+
+    function isCurrentMonth(index) {
+        var day = dayNumber(index)
+
+        return day >= 1 &&
+               day <= daysInMonth(displayedYear, displayedMonth)
+    }
+
+    function isToday(index) {
+        if (!isCurrentMonth(index))
+            return false
+
+        var day = dayNumber(index)
+
+        return day === clock.date.getDate() &&
+               displayedMonth === clock.date.getMonth() &&
+               displayedYear === clock.date.getFullYear()
+    }
+
+    function monthName() {
+        return Qt.formatDateTime(
+            new Date(displayedYear, displayedMonth, 1),
+            "MMMM"
+        )
+    }
+
+    function dateTitle() {
+        return Qt.formatDateTime(clock.date, "dd/MM/yyyy")
+    }
+
+    function updateTimeZone() {
+        localTimeProcess.running = false
+        localTimeProcess.running = true
+
+        utcTimeProcess.running = false
+        utcTimeProcess.running = true
+    }
+
+    SystemClock {
+        id: clock
+
+        precision: SystemClock.Seconds
+
+        onDateChanged: {
+            if (root.menuVisible)
+                root.updateTimeZone()
+        }
+    }
+
+    Timer {
+        interval: 1000
+        running: root.windowVisible
+        repeat: true
+
+        onTriggered: root.updateTimeZone()
+    }
+
+    Process {
+        id: localTimeProcess
+
+        command: [
+            "date",
+            "+%H:%M:%S|%Z|%:z"
+        ]
+
+        stdout: SplitParser {
+            onRead: function(line) {
+                var parts = line.trim().split("|")
+
+                if (parts.length < 3)
+                    return
+
+                root.localTime = parts[0]
+                root.timeZoneName = parts[1]
+                root.timeZoneOffset = "UTC" + parts[2]
+            }
+        }
+    }
+
+    Process {
+        id: utcTimeProcess
+
+        command: [
+            "date",
+            "-u",
+            "+%H:%M:%S"
+        ]
+
+        stdout: SplitParser {
+            onRead: function(line) {
+                root.utcTime = line.trim()
+            }
+        }
+    }
+
+    PanelWindow {
+        id: calendarWindow
+
+        screen: root.targetScreen
+
+        visible: root.windowVisible
+
+        focusable: root.windowVisible
+
+        WlrLayershell.keyboardFocus: root.windowVisible
+            ? WlrKeyboardFocus.Exclusive
+            : WlrKeyboardFocus.None
+
+        anchors {
+            top: true
+            bottom: true
+            left: true
+            right: true
+        }
+
+        color: "#00000000"
+
+        exclusionMode: ExclusionMode.Ignore
+
+        // Background
+        MouseArea {
+            id: backgroundArea
+
+            anchors.fill: parent
+
+            z: 0
+
+            acceptedButtons: Qt.LeftButton
+
+            cursorShape: Qt.ArrowCursor
+
+            onClicked: {
+                root.close()
+            }
+        }
+
+        // Calendar
+        Item {
+            id: calendarArea
+
+            width: root.menuWidth
+            height: calendarContainer.height
+
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            z: 1
+
+            y: root.menuVisible
+                ? (parent.height - height) / 2
+                : -height
+
+            focus: root.menuVisible
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: 300
+                    easing.type: Easing.OutCubic
+                }
+            }
+
+            onYChanged: {
+                if (!root.menuVisible &&
+                    !calendarAnimation.running &&
+                    y <= -height + 1) {
+
+                    root.windowVisible = false
+                }
+            }
+
+            Keys.onPressed: function(event) {
+                if (event.key === Qt.Key_Escape) {
+                    root.close()
+                    event.accepted = true
+                    return
+                }
+
+                if (event.key === Qt.Key_Left ||
+                    event.key === Qt.Key_H ||
+                    event.key === Qt.Key_Up ||
+                    event.key === Qt.Key_K) {
+
+                    root.previousMonth()
+                    event.accepted = true
+                    return
+                }
+
+                if (event.key === Qt.Key_Right ||
+                    event.key === Qt.Key_L ||
+                    event.key === Qt.Key_Down ||
+                    event.key === Qt.Key_J) {
+
+                    root.nextMonth()
+                    event.accepted = true
+                    return
+                }
+
+                if (event.key === Qt.Key_Tab) {
+                    if (event.modifiers & Qt.ShiftModifier) {
+                        root.selectedButton =
+                            root.selectedButton <= 0 ? 1 : 0
+                    } else {
+                        root.selectedButton =
+                            root.selectedButton === 1 ? 0 : 1
+                    }
+
+                    event.accepted = true
+                    return
+                }
+
+                if (event.key === Qt.Key_Return ||
+                    event.key === Qt.Key_Enter) {
+
+                    root.activateSelectedButton()
+                    event.accepted = true
+                    return
+                }
+            }
+
+            Rectangle {
+                id: calendarContainer
+
+                width: root.menuWidth
+                height: calendarContent.implicitHeight + 24
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                color: "#B3000000"
+
+                border.width: 1
+                border.color: "#ffffffff"
+
+                radius: 0
+
+                ColumnLayout {
+                    id: calendarContent
+
+                    width: parent.width - 24
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: 12
+
+                    spacing: 10
+
+                    // TIME ZONE
+                    ColumnLayout {
+                        Layout.fillWidth: true
+
+                        spacing: 5
+
+                        // LOCAL TIME
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            spacing: 10
+
+                            ColumnLayout {
+                                Layout.fillWidth: true
+
+                                spacing: 0
+
+                                Text {
+                                    text: "LOCAL"
+
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 9
+                                    font.weight: 600
+
+                                    color: "#99ffffff"
+                                }
+
+                                Text {
+                                    text: root.localTime
+
+                                    font.family: "OCRA"
+                                    font.pixelSize: 17
+                                    font.weight: 700
+
+                                    color: "#ffffff"
+                                }
+                            }
+
+                            ColumnLayout {
+                                Layout.alignment: Qt.AlignRight
+
+                                spacing: 0
+
+                                Text {
+                                    Layout.alignment: Qt.AlignRight
+
+                                    text: root.timeZoneName
+
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 10
+                                    font.weight: 600
+
+                                    color: "#ffffff"
+                                }
+
+                                Text {
+                                    Layout.alignment: Qt.AlignRight
+
+                                    text: root.timeZoneOffset
+
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 9
+                                    font.weight: 500
+
+                                    color: "#99ffffff"
+                                }
+                            }
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+
+                            height: 1
+
+                            color: "#66ffffff"
+                        }
+
+                        // UTC TIME
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            spacing: 10
+
+                            ColumnLayout {
+                                Layout.fillWidth: true
+
+                                spacing: 0
+
+                                Text {
+                                    text: "UTC"
+
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 9
+                                    font.weight: 600
+
+                                    color: "#99ffffff"
+                                }
+
+                                Text {
+                                    text: root.utcTime
+
+                                    font.family: "OCRA"
+                                    font.pixelSize: 17
+                                    font.weight: 700
+
+                                    color: "#ffffff"
+                                }
+                            }
+
+                            Text {
+                                Layout.alignment: Qt.AlignRight
+
+                                text: "UNIVERSAL TIME"
+
+                                font.family: "FiraCode Nerd Font Propo"
+                                font.pixelSize: 9
+                                font.weight: 500
+
+                                color: "#99ffffff"
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        Layout.fillWidth: true
+
+                        height: 1
+
+                        color: "#66ffffff"
+                    }
+
+                    // CALENDAR HEADER
+                    RowLayout {
+                        Layout.fillWidth: true
+
+                        spacing: 0
+
+                        // LEFT: MONTH
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.preferredWidth: 110
+                            Layout.alignment: Qt.AlignVCenter
+
+                            Text {
+                                anchors.left: parent.left
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                text: root.monthName()
+
+                                font.family: "FiraCode Nerd Font Propo"
+                                font.pixelSize: 16
+                                font.weight: 600
+
+                                color: "#ffffff"
+                            }
+                        }
+
+                        // CENTER: MONTH BUTTONS
+                        Row {
+                            Layout.preferredWidth: 66
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                            spacing: 6
+
+                            CalendarButton {
+                                glyph: "‹"
+
+                                selected: root.selectedButton === 0
+
+                                onClicked: {
+                                    root.previousMonth()
+                                }
+                            }
+
+                            CalendarButton {
+                                glyph: "›"
+
+                                selected: root.selectedButton === 1
+
+                                onClicked: {
+                                    root.nextMonth()
+                                }
+                            }
+                        }
+
+                        // RIGHT: FULL NUMERIC DATE
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.preferredWidth: 110
+                            Layout.alignment: Qt.AlignVCenter
+
+                            Text {
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                text: root.dateTitle()
+
+                                font.family: "OCRA"
+                                font.pixelSize: 13
+                                font.weight: 700
+
+                                color: "#ffffff"
+
+                                horizontalAlignment: Text.AlignRight
+                            }
+                        }
+                    }
+
+                    // WEEKDAYS
+                    GridLayout {
+                        Layout.fillWidth: true
+
+                        columns: 7
+
+                        rowSpacing: 0
+                        columnSpacing: 0
+
+                        Repeater {
+                            model: [
+                                "SUN",
+                                "MON",
+                                "TUE",
+                                "WED",
+                                "THU",
+                                "FRI",
+                                "SAT"
+                            ]
+
+                            delegate: Item {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 20
+
+                                Text {
+                                    anchors.centerIn: parent
+
+                                    text: modelData
+
+                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.pixelSize: 9
+                                    font.weight: 600
+
+                                    color: "#99ffffff"
+                                }
+                            }
+                        }
+                    }
+
+                    // DAYS
+                    GridLayout {
+                        Layout.fillWidth: true
+
+                        columns: 7
+
+                        rowSpacing: 4
+                        columnSpacing: 0
+
+                        Repeater {
+                            model: 42
+
+                            delegate: Item {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 28
+
+                                Text {
+                                    anchors.centerIn: parent
+
+                                    visible: root.isCurrentMonth(index)
+
+                                    text: root.dayNumber(index)
+
+                                    font.family: "OCRA"
+                                    font.pixelSize: 12
+                                    font.weight: 700
+
+                                    color: root.isToday(index)
+                                        ? "#ff0000"
+                                        : "#ffffff"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Timer {
+        id: calendarAnimation
+
+        interval: 300
+
+        onTriggered: {
+            if (!root.menuVisible)
+                root.windowVisible = false
+        }
+    }
+
+    component CalendarButton: Item {
+        id: button
+
+        property string glyph: ""
+        property bool selected: false
+
+        signal clicked()
+
+        width: 30
+        height: 24
+
+        Rectangle {
+            anchors.fill: parent
+
+            color: "#00000000"
+
+            border.width: 1
+
+            border.color: button.selected
+                ? "#ff0000"
+                : "#ffffffff"
+
+            radius: 0
+        }
+
+        Text {
+            anchors.centerIn: parent
+
+            text: button.glyph
+
+            font.family: "FiraCode Nerd Font Propo"
+            font.pixelSize: 16
+            font.weight: 500
+
+            color: "#ffffff"
+        }
+
+        MouseArea {
+            id: buttonMouseArea
+
+            anchors.fill: parent
+
+            acceptedButtons: Qt.LeftButton
+
+            cursorShape: Qt.PointingHandCursor
+
+            onClicked: {
+                button.clicked()
+            }
+        }
+    }
+
+    onMenuVisibleChanged: {
+        if (menuVisible) {
+            windowVisible = true
+
+            updateCalendarDate()
+            updateTimeZone()
+
+            Qt.callLater(function() {
+                calendarArea.forceActiveFocus()
+            })
+        } else {
+            calendarAnimation.restart()
+        }
+    }
+}
+</file>
+
+<file path="ClockWidget.qml">
+import Quickshell
+import QtQuick
+
+Item {
+    id: root
+
+    property var targetScreen: null
+
+    implicitWidth: clockRow.implicitWidth
+    implicitHeight: clockRow.implicitHeight
+
+    Row {
+        id: clockRow
+
+        anchors.fill: parent
+
+        BarTextStyle {
+            text: " "
+        }
+
+        BarNumberStyle {
+            text: Qt.formatDateTime(
+                clock.date,
+                "hh:mm:ss"
+            )
+        }
+    }
+
+    SystemClock {
+        id: clock
+        precision: SystemClock.Seconds
+    }
+
+    MouseArea {
+        anchors.fill: parent
+
+        acceptedButtons: Qt.LeftButton
+
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: {
+            calendarMenu.toggle()
+        }
+    }
+
+    CalendarMenu {
+        id: calendarMenu
+
+        targetScreen: root.targetScreen
+    }
+}
+</file>
+
+<file path="IdleInhibitorWidget.qml">
+// IdleInhibitorWidget.qml
+import Quickshell.Io
+import QtQuick
+
+Item {
+    implicitWidth: icon.implicitWidth
+    implicitHeight: icon.implicitHeight
+
+    BarTextStyle {
+        id: icon
+        text: "󰍹"
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: {
+            toggleProcess.running = true
+        }
+    }
+
+    Process {
+        id: toggleProcess
+
+        command: [
+            "sh",
+            "-c",
+            "if pgrep -x hypridle >/dev/null; then killall hypridle && notify-send 'stop hypridle'; else notify-send 'start hypridle' && hypridle >/dev/null 2>&1 & fi"
+        ]
+    }
+}
+</file>
+
+<file path="LanguageWidget.qml">
+import Quickshell
+import Quickshell.Io
+import Quickshell.Hyprland
+import QtQuick
+
+Item {
+    id: root
+
+    readonly property string keyboardName: "at-translated-set-2-keyboard"
+
+    property string currentLayout: "EN"
+
+    implicitWidth: content.implicitWidth
+    implicitHeight: content.implicitHeight
+
+    function updateLayout(layout) {
+        var value = String(layout).toLowerCase()
+
+        if (
+            value.includes("persian")
+            || value.includes("farsi")
+            || value.includes("iran")
+            || value === "fa"
+        ) {
+            root.currentLayout = "fa"
+            return
+        }
+
+        if (
+            value.includes("english")
+            || value.includes("us")
+            || value === "en"
+        ) {
+            root.currentLayout = "en"
+            return
+        }
+
+        root.currentLayout = "EN"
+    }
+
+    function switchLayout() {
+        switchLayoutProcess.running = false
+        switchLayoutProcess.running = true
+    }
+
+    Row {
+        id: content
+
+        BarTextStyle {
+            text: root.currentLayout
+        }
+    }
+
+    MouseArea {
+        anchors.fill: content
+
+        acceptedButtons: Qt.AllButtons
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: function(mouse) {
+            switch (mouse.button) {
+            case Qt.LeftButton:
+                root.switchLayout()
+                break
+
+            case Qt.RightButton:
+                root.switchLayout()
+                break
+
+            case Qt.MiddleButton:
+                root.switchLayout()
+                break
+
+            case Qt.XButton1:
+                root.switchLayout()
+                break
+
+            case Qt.XButton2:
+                root.switchLayout()
+                break
+            }
+        }
+
+        onWheel: function(wheel) {
+            if (wheel.angleDelta.y > 0) {
+                root.switchLayout()
+            } else if (wheel.angleDelta.y < 0) {
+                root.switchLayout()
+            }
+        }
+    }
+
+    Process {
+        id: switchLayoutProcess
+
+        command: [
+            "hyprctl",
+            "switchxkblayout",
+            root.keyboardName,
+            "next"
+        ]
+    }
+
+    Process {
+        id: initialLayoutProcess
+
+        command: [
+            "hyprctl",
+            "devices",
+            "-j"
+        ]
+
+        running: true
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    var data = JSON.parse(text)
+
+                    if (!data.keyboards)
+                        return
+
+                    for (var i = 0; i < data.keyboards.length; i++) {
+                        var keyboard = data.keyboards[i]
+
+                        if (keyboard.name !== root.keyboardName)
+                            continue
+
+                        root.updateLayout(
+                            keyboard.active_keymap || ""
+                        )
+
+                        break
+                    }
+                } catch (error) {
+                    console.warn(
+                        "LanguageWidget: failed to parse keyboard state:",
+                        error
+                    )
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: Hyprland
+
+        function onRawEvent(event) {
+            if (event.name !== "activelayout")
+                return
+
+            var data = event.parse(2)
+
+            if (data.length < 2)
+                return
+
+            if (data[0] !== root.keyboardName)
+                return
+
+            root.updateLayout(data[1])
+        }
+    }
+}
+</file>
+
+<file path="MpdWidget.qml">
+import QtQuick
+import Quickshell
+import Quickshell.Io
+
+Item {
+    id: root
+
+    implicitWidth: mpdText.implicitWidth
+    implicitHeight: mpdText.implicitHeight
+
+    property string state: "disconnected"
+
+    function updateStatus() {
+        statusProcess.running = false
+        statusProcess.running = true
+    }
+
+    function control(action) {
+        switch (action) {
+        case "toggle":
+            toggleProcess.running = false
+            toggleProcess.running = true
+            break
+
+        case "next":
+            nextProcess.running = false
+            nextProcess.running = true
+            break
+
+        case "previous":
+            previousProcess.running = false
+            previousProcess.running = true
+            break
+
+        case "forward":
+            forwardProcess.running = false
+            forwardProcess.running = true
+            break
+
+        case "backward":
+            backwardProcess.running = false
+            backwardProcess.running = true
+            break
+        }
+    }
+
+    BarIconStyle {
+        id: mpdText
+
+        anchors.centerIn: parent
+
+        text: {
+            switch (root.state) {
+            case "playing":
+                return ""
+
+            case "paused":
+                return ""
+
+            case "stopped":
+                return ""
+
+            default:
+                return ""
+            }
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+
+        acceptedButtons: Qt.AllButtons
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: function(mouse) {
+            switch (mouse.button) {
+            case Qt.LeftButton:
+                root.control("toggle")
+                break
+
+            case Qt.RightButton:
+                root.control("next")
+                break
+
+            case Qt.MiddleButton:
+                root.control("previous")
+                break
+
+            case Qt.XButton1:
+                root.control("previous")
+                break
+
+            case Qt.XButton2:
+                root.control("next")
+                break
+            }
+        }
+
+        onWheel: function(wheel) {
+            if (wheel.angleDelta.y > 0)
+                root.control("forward")
+            else if (wheel.angleDelta.y < 0)
+                root.control("backward")
+        }
+    }
+
+    Process {
+        id: statusProcess
+
+        command: [
+            "mpc",
+            "status"
+        ]
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const output = text
+
+                if (!output || output.trim() === "") {
+                    root.state = "disconnected"
+                    return
+                }
+
+                if (
+                    output.includes("[playing]")
+                    || output.includes("playing")
+                ) {
+                    root.state = "playing"
+                } else if (
+                    output.includes("[paused]")
+                    || output.includes("paused")
+                ) {
+                    root.state = "paused"
+                } else if (
+                    output.includes("[stopped]")
+                    || output.includes("stopped")
+                ) {
+                    root.state = "stopped"
+                } else {
+                    root.state = "disconnected"
+                }
+            }
+        }
+
+        onExited: function(exitCode, exitStatus) {
+            if (exitCode !== 0)
+                root.state = "disconnected"
+        }
+    }
+
+    Process {
+        id: toggleProcess
+
+        command: [
+            "mpc",
+            "toggle"
+        ]
+
+        onExited: {
+            root.updateStatus()
+        }
+    }
+
+    Process {
+        id: nextProcess
+
+        command: [
+            "mpc",
+            "next"
+        ]
+
+        onExited: {
+            root.updateStatus()
+        }
+    }
+
+    Process {
+        id: previousProcess
+
+        command: [
+            "mpc",
+            "prev"
+        ]
+
+        onExited: {
+            root.updateStatus()
+        }
+    }
+
+    Process {
+        id: forwardProcess
+
+        command: [
+            "mpc",
+            "seek",
+            "+5"
+        ]
+
+        onExited: {
+            root.updateStatus()
+        }
+    }
+
+    Process {
+        id: backwardProcess
+
+        command: [
+            "mpc",
+            "seek",
+            "-5"
+        ]
+
+        onExited: {
+            root.updateStatus()
+        }
+    }
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+
+        onTriggered: {
+            root.updateStatus()
+        }
+    }
+
+    Component.onCompleted: {
+        root.updateStatus()
+    }
+}
+</file>
+
+<file path="MprisWidget.qml">
+import Quickshell
+import Quickshell.Services.Mpris
+import QtQuick
+
+Item {
+    id: root
+
+    property MprisPlayer player: null
+
+    implicitWidth: content.implicitWidth
+    implicitHeight: content.implicitHeight
+
+    function isRealPlayer(p) {
+        return p
+            && p.dbusName
+            && !p.dbusName.startsWith(
+                "org.mpris.MediaPlayer2.playerctld"
+            )
+    }
+
+    function playerName() {
+        if (!player || !player.dbusName)
+            return ""
+
+        return player.dbusName
+            .replace(/^org\.mpris\.MediaPlayer2\./, "")
+            .split(".")[0]
+    }
+
+    function playerIcon() {
+        switch (playerName().toLowerCase()) {
+        case "chromium":
+        case "chrome":
+            return ""
+        case "firefox":
+            return ""
+        case "telegramdesktop":
+            return ""
+        case "mpv":
+            return "󰿎"
+        case "mpd":
+            return ""
+        default:
+            return ""
+        }
+    }
+
+    function statusIcon() {
+        return player
+            ? (player.isPlaying ? "" : "")
+            : ""
+    }
+
+    function control(action) {
+        if (!player)
+            return
+
+        switch (action) {
+        case "toggle":
+            if (player.canTogglePlaying)
+                player.togglePlaying()
+            break
+
+        case "next":
+            if (player.canGoNext)
+                player.next()
+            break
+
+        case "previous":
+            if (player.canGoPrevious)
+                player.previous()
+            break
+
+        case "stop":
+            if (player.canControl)
+                player.stop()
+            break
+
+        case "forward":
+            if (player.canSeek)
+                player.seek(5)
+            break
+
+        case "backward":
+            if (player.canSeek)
+                player.seek(-5)
+            break
+        }
+    }
+
+    function findPlayer() {
+        var players = Mpris.players.values
+
+        for (var i = 0; i < players.length; i++) {
+            if (isRealPlayer(players[i]) && players[i].isPlaying) {
+                player = players[i]
+                return
+            }
+        }
+
+        for (var j = 0; j < players.length; j++) {
+            if (isRealPlayer(players[j])) {
+                player = players[j]
+                return
+            }
+        }
+
+        player = null
+    }
+
+    Row {
+        id: content
+        spacing: 4
+
+        BarTextStyle {
+            text: root.player
+                ? root.playerIcon()
+                : ""
+        }
+
+        BarTextStyle {
+            text: root.player
+                ? root.playerName()
+                : ""
+        }
+
+        BarTextStyle {
+            text: root.statusIcon()
+        }
+    }
+
+    MouseArea {
+        anchors.fill: content
+
+        acceptedButtons: Qt.AllButtons
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: function(mouse) {
+            switch (mouse.button) {
+            case Qt.LeftButton:
+                root.control("toggle")
+                break
+
+            case Qt.RightButton:
+                root.control("stop")
+                break
+
+            case Qt.MiddleButton:
+                root.control("next")
+                break
+
+            case Qt.XButton1:
+                root.control("previous")
+                break
+
+            case Qt.XButton2:
+                root.control("next")
+                break
+            }
+        }
+
+        onWheel: function(wheel) {
+            if (wheel.angleDelta.y > 0)
+                root.control("forward")
+            else if (wheel.angleDelta.y < 0)
+                root.control("backward")
+        }
+    }
+
+    Instantiator {
+        model: Mpris.players
+
+        delegate: Connections {
+            required property MprisPlayer modelData
+
+            target: modelData
+
+            Component.onCompleted: {
+                if (!root.isRealPlayer(modelData))
+                    return
+
+                if (
+                    root.player === null
+                    || modelData.isPlaying
+                ) {
+                    root.player = modelData
+                }
+            }
+
+            Component.onDestruction: {
+                if (root.player === modelData)
+                    root.findPlayer()
+            }
+
+            function onPlaybackStateChanged() {
+                if (
+                    root.isRealPlayer(modelData)
+                    && modelData.isPlaying
+                ) {
+                    root.player = modelData
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        root.findPlayer()
+    }
+}
+</file>
+
+<file path="NetworkMenu.qml">
+import Quickshell
+import QtQuick
+import QtQuick.Layouts
+import Quickshell.Networking
+import Quickshell.Io
+import Quickshell.Wayland
+
+Item {
+    id: root
+
+    property var selectedDevice: null
+
+    signal deviceRequested(var device)
+
+    property bool menuVisible: false
+    property bool windowVisible: false
+
+    property string interfaceName: ""
+    property string ipAddress: "—"
+
+    property real downloadBytes: 0
+    property real uploadBytes: 0
+
+    property real previousRx: -1
+    property real previousTx: -1
+    property double previousTime: 0
+
+    property int selectedIndex: -1
+    property bool keyboardNavigation: false
+
+    readonly property var selectedNetwork: {
+        if (!root.selectedDevice)
+            return null
+
+        if (
+            root.selectedDevice.type === DeviceType.Wired
+        ) {
+            return root.selectedDevice.network
+        }
+
+        for (
+            const network
+            of root.selectedDevice.networks.values
+        ) {
+            if (network.connected)
+                return network
+        }
+
+        return null
+    }
+
+    readonly property var availableNetworks: {
+        if (!root.selectedDevice)
+            return []
+
+        return root.selectedDevice.networks.values
+    }
+
+    function toggle() {
+        if (root.menuVisible) {
+            root.close()
+            return
+        }
+
+        root.selectedIndex = -1
+        root.keyboardNavigation = false
+
+        root.refresh()
+
+        root.windowVisible = true
+        root.menuVisible = true
+
+        refreshTimer.start()
+
+        Qt.callLater(function() {
+            menuArea.forceActiveFocus()
+        })
+    }
+
+    function close() {
+        root.menuVisible = false
+        root.keyboardNavigation = false
+        root.selectedIndex = -1
+
+        refreshTimer.stop()
+    }
+
+    function totalItems() {
+        return root.availableNetworks.length + 1
+    }
+
+    function select(index) {
+        if (
+            index < 0
+            || index >= root.totalItems()
+        )
+            return
+
+        root.selectedIndex = index
+        root.keyboardNavigation = true
+    }
+
+    function moveUp() {
+        var count = root.totalItems()
+
+        if (count <= 0)
+            return
+
+        if (!root.keyboardNavigation) {
+            root.select(0)
+            return
+        }
+
+        if (root.selectedIndex <= 0)
+            root.select(count - 1)
+        else
+            root.select(root.selectedIndex - 1)
+    }
+
+    function moveDown() {
+        var count = root.totalItems()
+
+        if (count <= 0)
+            return
+
+        if (!root.keyboardNavigation) {
+            root.select(0)
+            return
+        }
+
+        if (root.selectedIndex >= count - 1)
+            root.select(0)
+        else
+            root.select(root.selectedIndex + 1)
+    }
+
+    function moveLeft() {
+        root.moveUp()
+    }
+
+    function moveRight() {
+        root.moveDown()
+    }
+
+    function activateSelected() {
+        if (
+            !root.keyboardNavigation
+            || root.selectedIndex < 0
+        )
+            return
+
+        if (root.selectedIndex === 0) {
+            if (!root.selectedNetwork)
+                return
+
+            if (
+                root.selectedNetwork.connected
+            ) {
+                root.disconnectNetwork(
+                    root.selectedNetwork
+                )
+            } else {
+                root.connectNetwork(
+                    root.selectedNetwork
+                )
+            }
+
+            return
+        }
+
+        var networkIndex =
+            root.selectedIndex - 1
+
+        if (
+            networkIndex < 0
+            || networkIndex >=
+                root.availableNetworks.length
+        )
+            return
+
+        root.selectNetwork(
+            root.availableNetworks[networkIndex]
+        )
+    }
+
+    function selectNetwork(network) {
+        if (!network)
+            return
+
+        root.deviceRequested(
+            network.device
+        )
+
+        root.refresh()
+    }
+
+    function connectNetwork(network) {
+        if (!network)
+            return
+
+        if (network.stateChanging)
+            return
+
+        network.connect()
+    }
+
+    function disconnectNetwork(network) {
+        if (!network)
+            return
+
+        if (network.stateChanging)
+            return
+
+        network.disconnect()
+    }
+
+    function refresh() {
+        if (!root.selectedDevice) {
+            root.interfaceName = ""
+            root.ipAddress = "—"
+            root.downloadBytes = 0
+            root.uploadBytes = 0
+            root.previousRx = -1
+            root.previousTx = -1
+            root.previousTime = 0
+            return
+        }
+
+        root.interfaceName =
+            root.selectedDevice.name
+
+        networkStatsProcess.command = [
+            "sh",
+            "-c",
+            "iface=\"$1\"; " +
+            "ipaddr=$(ip -4 -o addr show dev \"$iface\" | " +
+            "awk '{print $4}' | cut -d/ -f1 | head -n1); " +
+            "rx=$(cat \"/sys/class/net/$iface/statistics/rx_bytes\" 2>/dev/null || echo 0); " +
+            "tx=$(cat \"/sys/class/net/$iface/statistics/tx_bytes\" 2>/dev/null || echo 0); " +
+            "printf '%s\\n%s\\n%s\\n' \"$ipaddr\" \"$rx\" \"$tx\"",
+            "network-stats",
+            root.selectedDevice.name
+        ]
+
+        networkStatsProcess.running = false
+        networkStatsProcess.running = true
+    }
+
+    function formatSpeed(bytesPerSecond) {
+        if (bytesPerSecond < 1024)
+            return Math.round(bytesPerSecond) + " B/s"
+
+        if (bytesPerSecond < 1024 * 1024)
+            return (
+                bytesPerSecond / 1024
+            ).toFixed(1) + " KB/s"
+
+        if (bytesPerSecond < 1024 * 1024 * 1024)
+            return (
+                bytesPerSecond / (1024 * 1024)
+            ).toFixed(1) + " MB/s"
+
+        return (
+            bytesPerSecond
+            / (1024 * 1024 * 1024)
+        ).toFixed(1) + " GB/s"
+    }
+
+    function networkType(device) {
+        if (!device)
+            return "Unknown"
+
+        if (device.type === DeviceType.Wifi)
+            return "Wi-Fi"
+
+        if (device.type === DeviceType.Wired)
+            return "Ethernet"
+
+        return "Unknown"
+    }
+
+    function networkState(network) {
+        if (!network)
+            return "Disconnected"
+
+        switch (network.state) {
+        case ConnectionState.Connecting:
+            return "Connecting"
+
+        case ConnectionState.Connected:
+            return "Connected"
+
+        case ConnectionState.Disconnecting:
+            return "Disconnecting"
+
+        case ConnectionState.Disconnected:
+            return "Disconnected"
+
+        case ConnectionState.Failed:
+            return "Failed"
+
+        case ConnectionState.Unknown:
+            return "Unknown"
+
+        default:
+            return "Unknown"
+        }
+    }
+
+    function networkSignal(network) {
+        if (
+            !network
+            || !network.device
+            || network.device.type !== DeviceType.Wifi
+        )
+            return ""
+
+        return (
+            Math.round(
+                network.signalStrength * 100
+            ) + "%"
+        )
+    }
+
+    function selectedNetworkName() {
+        if (!root.selectedNetwork)
+            return "No connection"
+
+        return root.selectedNetwork.name
+    }
+
+    PanelWindow {
+        id: networkWindow
+
+        screen: Quickshell.screens.length > 0
+            ? Quickshell.screens[0]
+            : null
+
+        visible: root.windowVisible
+
+        focusable: root.windowVisible
+
+        WlrLayershell.keyboardFocus:
+            root.windowVisible
+                ? WlrKeyboardFocus.Exclusive
+                : WlrKeyboardFocus.None
+
+        color: "#00000000"
+
+        anchors {
+            top: true
+            bottom: true
+            left: true
+            right: true
+        }
+
+        exclusionMode: ExclusionMode.Ignore
+
+        Item {
+            id: menuArea
+
+            anchors.fill: parent
+
+            focus: root.menuVisible
+
+            Keys.onPressed: function(event) {
+                if (event.key === Qt.Key_Escape) {
+                    root.close()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Up
+                    || event.key === Qt.Key_K
+                ) {
+                    root.moveUp()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Down
+                    || event.key === Qt.Key_J
+                ) {
+                    root.moveDown()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Left
+                    || event.key === Qt.Key_H
+                ) {
+                    root.moveLeft()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Right
+                    || event.key === Qt.Key_L
+                ) {
+                    root.moveRight()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Return
+                    || event.key === Qt.Key_Enter
+                ) {
+                    if (root.keyboardNavigation) {
+                        root.activateSelected()
+                        event.accepted = true
+                    }
+
+                    return
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                acceptedButtons: Qt.LeftButton
+
+                onClicked: {
+                    if (
+                        mouseX < networkContainer.x
+                        || mouseX >
+                            networkContainer.x
+                            + networkContainer.width
+                        || mouseY <
+                            networkContainer.y
+                        || mouseY >
+                            networkContainer.y
+                            + networkContainer.height
+                    ) {
+                        root.close()
+                    }
+                }
+            }
+
+            Item {
+                id: networkContainer
+
+                width: 360
+
+                height:
+                    networkContent.implicitHeight
+                    + 24
+
+                anchors.horizontalCenter:
+                    parent.horizontalCenter
+
+                y: root.menuVisible
+                    ? (parent.height - height) / 2
+                    : -height
+
+                Behavior on y {
+                    NumberAnimation {
+                        duration: 300
+
+                        easing.type:
+                            Easing.OutCubic
+
+                        onRunningChanged: {
+                            if (
+                                !running
+                                && !root.menuVisible
+                            ) {
+                                root.windowVisible = false
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    anchors.fill: parent
+
+                    color: "#B3000000"
+
+                    border.width: 1
+                    border.color: "#ffffff"
+
+                    radius: 0
+                }
+
+                Item {
+                    id: networkContent
+
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                        margins: 12
+                    }
+
+                    implicitHeight:
+                        networkLayout.implicitHeight
+
+                    ColumnLayout {
+                        id: networkLayout
+
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            top: parent.top
+                        }
+
+                        spacing: 10
+
+                        Text {
+                            Layout.fillWidth: true
+
+                            text:
+                                root.selectedNetworkName()
+
+                            font.family:
+                                "FiraCode Nerd Font Propo"
+
+                            font.pixelSize: 14
+                            font.weight: 700
+
+                            color: "#ffffff"
+
+                            elide:
+                                Text.ElideRight
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+
+                            height: 1
+
+                            color: "#ffffff"
+                        }
+
+                        NetworkInfoRow {
+                            label: "TYPE"
+
+                            value:
+                                root.networkType(
+                                    root.selectedDevice
+                                )
+                        }
+
+                        NetworkInfoRow {
+                            label: "STATE"
+
+                            value:
+                                root.networkState(
+                                    root.selectedNetwork
+                                )
+                        }
+
+                        NetworkInfoRow {
+                            label: "IF"
+
+                            value:
+                                root.selectedDevice
+                                ? root.selectedDevice.name
+                                : "—"
+
+                            numericValue: true
+                        }
+
+                        NetworkInfoRow {
+                            label: "IP"
+
+                            value: root.ipAddress
+
+                            numericValue: true
+                        }
+
+                        NetworkInfoRow {
+                            label: "DOWN"
+
+                            value:
+                                root.formatSpeed(
+                                    root.downloadBytes
+                                )
+
+                            numericValue: true
+                        }
+
+                        NetworkInfoRow {
+                            label: "UP"
+
+                            value:
+                                root.formatSpeed(
+                                    root.uploadBytes
+                                )
+
+                            numericValue: true
+                        }
+
+                        NetworkInfoRow {
+                            visible:
+                                root.selectedNetwork
+                                && root.selectedDevice
+                                && root.selectedDevice.type
+                                    === DeviceType.Wifi
+
+                            label: "SIGNAL"
+
+                            value:
+                                root.networkSignal(
+                                    root.selectedNetwork
+                                )
+
+                            numericValue: true
+                        }
+
+                        NetworkInfoRow {
+                            visible:
+                                root.selectedDevice
+                                && root.selectedDevice.type
+                                    === DeviceType.Wired
+
+                            label: "LINK"
+
+                            value: {
+                                if (
+                                    !root.selectedDevice
+                                    || !root.selectedDevice.hasLink
+                                )
+                                    return "No link"
+
+                                return (
+                                    root.selectedDevice.linkSpeed
+                                    + " Mbps"
+                                )
+                            }
+
+                            numericValue: true
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+
+                            implicitHeight: 30
+
+                            visible:
+                                root.selectedNetwork !== null
+
+                            Rectangle {
+                                anchors.fill: parent
+
+                                color: "#00000000"
+
+                                border.width: 1
+
+                                border.color:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 0
+                                    ? "#ff0000"
+                                    : "#ffffff"
+
+                                radius: 0
+                            }
+
+                            Text {
+                                anchors.centerIn: parent
+
+                                text:
+                                    root.selectedNetwork
+                                    && root.selectedNetwork.connected
+                                    ? "DISCONNECT"
+                                    : "CONNECT"
+
+                                font.family:
+                                    "FiraCode Nerd Font Propo"
+
+                                font.pixelSize: 11
+                                font.weight: 700
+
+                                color: "#ffffff"
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+
+                                cursorShape:
+                                    Qt.PointingHandCursor
+
+                                onClicked: {
+                                    if (
+                                        !root.selectedNetwork
+                                    )
+                                        return
+
+                                    if (
+                                        root.selectedNetwork.connected
+                                    ) {
+                                        root.disconnectNetwork(
+                                            root.selectedNetwork
+                                        )
+                                    } else {
+                                        root.connectNetwork(
+                                            root.selectedNetwork
+                                        )
+                                    }
+                                }
+                            }
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+
+                            height: 1
+
+                            color: "#ffffff"
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+
+                            text: "CONNECTIONS"
+
+                            font.family:
+                                "FiraCode Nerd Font Propo"
+
+                            font.pixelSize: 10
+                            font.weight: 700
+
+                            color: "#99ffffff"
+                        }
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+
+                            spacing: 5
+
+                            Repeater {
+                                model:
+                                    root.availableNetworks
+
+                                Item {
+                                    Layout.fillWidth: true
+
+                                    implicitHeight: 32
+
+                                    Rectangle {
+                                        anchors.fill: parent
+
+                                        color: "#00000000"
+
+                                        border.width: 1
+
+                                        border.color:
+                                            root.keyboardNavigation
+                                            && root.selectedIndex
+                                                === index + 1
+                                            ? "#ff0000"
+                                            : modelData
+                                                === root.selectedNetwork
+                                            ? "#ffffff"
+                                            : "#66ffffff"
+
+                                        radius: 0
+                                    }
+
+                                    RowLayout {
+                                        anchors.fill: parent
+
+                                        anchors.leftMargin: 8
+                                        anchors.rightMargin: 8
+
+                                        spacing: 8
+
+                                        Text {
+                                            Layout.fillWidth: true
+
+                                            text:
+                                                modelData.name
+
+                                            font.family:
+                                                "FiraCode Nerd Font Propo"
+
+                                            font.pixelSize: 10
+                                            font.weight: 700
+
+                                            color: "#ffffff"
+
+                                            elide:
+                                                Text.ElideRight
+                                        }
+
+                                        Text {
+                                            visible:
+                                                modelData.device
+                                                && modelData.device.type
+                                                    === DeviceType.Wifi
+
+                                            text:
+                                                Math.round(
+                                                    modelData.signalStrength
+                                                    * 100
+                                                ) + "%"
+
+                                            font.family:
+                                                "OCRA"
+
+                                            font.pixelSize: 9
+                                            font.weight: 700
+
+                                            color:
+                                                "#99ffffff"
+                                        }
+
+                                        Text {
+                                            text:
+                                                root.networkState(
+                                                    modelData
+                                                )
+
+                                            font.family:
+                                                "FiraCode Nerd Font Propo"
+
+                                            font.pixelSize: 9
+                                            font.weight: 700
+
+                                            color:
+                                                modelData.connected
+                                                ? "#ffffff"
+                                                : "#99ffffff"
+                                        }
+                                    }
+
+                                    MouseArea {
+                                        anchors.fill: parent
+
+                                        cursorShape:
+                                            Qt.PointingHandCursor
+
+                                        onClicked: {
+                                            root.selectNetwork(
+                                                modelData
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    component NetworkInfoRow: RowLayout {
+        property string label: ""
+        property string value: ""
+        property bool numericValue: false
+
+        Layout.fillWidth: true
+
+        Text {
+            Layout.preferredWidth: 70
+
+            text: parent.label
+
+            font.family:
+                "FiraCode Nerd Font Propo"
+
+            font.pixelSize: 10
+            font.weight: 700
+
+            color: "#99ffffff"
+        }
+
+        Text {
+            Layout.fillWidth: true
+
+            text: parent.value
+
+            horizontalAlignment:
+                Text.AlignRight
+
+            font.family:
+                parent.numericValue
+                ? "OCRA"
+                : "FiraCode Nerd Font Propo"
+
+            font.pixelSize: 11
+            font.weight: 700
+
+            color: "#ffffff"
+
+            elide:
+                Text.ElideRight
+        }
+    }
+
+    Timer {
+        id: refreshTimer
+
+        interval: 1000
+
+        repeat: true
+
+        onTriggered: {
+            root.refresh()
+        }
+    }
+
+    Process {
+        id: networkStatsProcess
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var lines =
+                    this.text
+                    .trim()
+                    .split("\n")
+
+                if (lines.length < 3)
+                    return
+
+                root.ipAddress =
+                    lines[0].trim() || "—"
+
+                var rx =
+                    Number(
+                        lines[1].trim()
+                    )
+
+                var tx =
+                    Number(
+                        lines[2].trim()
+                    )
+
+                var now = Date.now()
+
+                if (
+                    root.previousRx >= 0
+                    && root.previousTx >= 0
+                    && root.previousTime > 0
+                ) {
+                    var elapsed =
+                        (now - root.previousTime)
+                        / 1000
+
+                    if (elapsed > 0) {
+                        root.downloadBytes =
+                            Math.max(
+                                0,
+                                (
+                                    rx
+                                    - root.previousRx
+                                ) / elapsed
+                            )
+
+                        root.uploadBytes =
+                            Math.max(
+                                0,
+                                (
+                                    tx
+                                    - root.previousTx
+                                ) / elapsed
+                            )
+                    }
+                }
+
+                root.previousRx = rx
+                root.previousTx = tx
+                root.previousTime = now
+            }
+        }
+    }
+}
+</file>
+
+<file path="NetworkWidget.qml">
+import QtQuick
+import Quickshell.Io
+import Quickshell.Networking
+
+Item {
+    id: root
+
+    implicitWidth: networkText.implicitWidth
+    implicitHeight: networkText.implicitHeight
+
+    readonly property var devices: Networking.devices.values
+
+    readonly property var wifiDevice: {
+        for (const device of devices) {
+            if (
+                device.type === DeviceType.Wifi
+                && device.connected
+            )
+                return device
+        }
+
+        return null
+    }
+
+    readonly property var ethernetDevice: {
+        for (const device of devices) {
+            if (
+                device.type === DeviceType.Wired
+                && device.connected
+            )
+                return device
+        }
+
+        return null
+    }
+
+    readonly property var connectedWifi: {
+        if (!wifiDevice)
+            return null
+
+        for (const network of wifiDevice.networks.values) {
+            if (network.connected)
+                return network
+        }
+
+        return null
+    }
+
+    readonly property int wifiSignal: {
+        if (!connectedWifi)
+            return 0
+
+        return Math.round(
+            connectedWifi.signalStrength * 100
+        )
+    }
+
+    property var selectedDevice: null
+
+    function openNmtui() {
+        nmtuiProcess.running = false
+        nmtuiProcess.running = true
+    }
+
+    function toggleWifi() {
+        wifiToggleProcess.running = false
+        wifiToggleProcess.running = true
+    }
+
+    function openNetworkMenu() {
+        if (!root.selectedDevice) {
+            if (root.wifiDevice)
+                root.selectedDevice = root.wifiDevice
+            else if (root.ethernetDevice)
+                root.selectedDevice = root.ethernetDevice
+        }
+
+        networkMenu.toggle()
+    }
+
+    BarIconStyle {
+        id: networkText
+
+        anchors.centerIn: parent
+
+        text: {
+            if (root.connectedWifi)
+                return "" + root.wifiSignal + "%"
+
+            if (root.ethernetDevice)
+                return ""
+
+            return ""
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+
+        acceptedButtons: Qt.AllButtons
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: function(mouse) {
+            switch (mouse.button) {
+            case Qt.LeftButton:
+                root.openNetworkMenu()
+                break
+
+            case Qt.RightButton:
+                root.openNmtui()
+                break
+
+            case Qt.MiddleButton:
+                root.toggleWifi()
+                break
+            }
+        }
+
+        onWheel: function(wheel) {
+        }
+    }
+
+    NetworkMenu {
+        id: networkMenu
+
+        selectedDevice: root.selectedDevice
+
+        onDeviceRequested: function(device) {
+            root.selectedDevice = device
+        }
+    }
+
+    Process {
+        id: nmtuiProcess
+
+        command: [
+            "ghostty",
+            "-e",
+            "nmtui"
+        ]
+    }
+
+    Process {
+        id: wifiToggleProcess
+
+        command: [
+            "/home/dash-/.config/hypr/wifi-toggle.sh"
+        ]
+    }
+}
+</file>
+
+<file path="PowerMenu.qml">
+import Quickshell
+import Quickshell.Io
+import Quickshell.Wayland
+import QtQuick
+import QtQuick.Layouts
+
+Item {
+    id: root
+
+    property var targetScreen: null
+    property bool menuVisible: false
+    property bool menuWindowVisible: false
+
+    property int selectedIndex: -1
+    property bool keyboardNavigation: false
+
+    implicitWidth: powerWidget.implicitWidth
+    implicitHeight: powerWidget.implicitHeight
+
+    function toggle() {
+        if (menuVisible) {
+            menuVisible = false
+        } else {
+            selectedIndex = -1
+            keyboardNavigation = false
+
+            menuWindowVisible = true
+            menuVisible = true
+
+            Qt.callLater(function() {
+                menuArea.forceActiveFocus()
+            })
+        }
+    }
+
+    function close() {
+        menuVisible = false
+        keyboardNavigation = false
+        selectedIndex = -1
+    }
+
+    function select(index) {
+        if (index < 0 || index >= 7)
+            return
+
+        selectedIndex = index
+        keyboardNavigation = true
+    }
+
+    function moveLeft() {
+        if (!keyboardNavigation) {
+            select(0)
+            return
+        }
+
+        if (selectedIndex === 0)
+            select(3)
+        else if (selectedIndex === 1)
+            select(0)
+        else if (selectedIndex === 2)
+            select(1)
+        else if (selectedIndex === 3)
+            select(2)
+        else if (selectedIndex === 4)
+            select(6)
+        else if (selectedIndex === 5)
+            select(4)
+        else if (selectedIndex === 6)
+            select(5)
+    }
+
+    function moveRight() {
+        if (!keyboardNavigation) {
+            select(0)
+            return
+        }
+
+        if (selectedIndex === 0)
+            select(1)
+        else if (selectedIndex === 1)
+            select(2)
+        else if (selectedIndex === 2)
+            select(3)
+        else if (selectedIndex === 3)
+            select(0)
+        else if (selectedIndex === 4)
+            select(5)
+        else if (selectedIndex === 5)
+            select(6)
+        else if (selectedIndex === 6)
+            select(4)
+    }
+
+    function moveUp() {
+        if (!keyboardNavigation) {
+            select(0)
+            return
+        }
+
+        if (selectedIndex >= 0 && selectedIndex <= 3) {
+            select(4 + Math.min(selectedIndex, 2))
+            return
+        }
+
+        if (selectedIndex === 4)
+            select(0)
+        else if (selectedIndex === 5)
+            select(1)
+        else if (selectedIndex === 6)
+            select(2)
+    }
+
+    function moveDown() {
+        if (!keyboardNavigation) {
+            select(0)
+            return
+        }
+
+        if (selectedIndex >= 0 && selectedIndex <= 2) {
+            select(4 + selectedIndex)
+            return
+        }
+
+        if (selectedIndex === 3)
+            select(6)
+
+        else if (selectedIndex === 4)
+            select(0)
+
+        else if (selectedIndex === 5)
+            select(1)
+
+        else if (selectedIndex === 6)
+            select(2)
+    }
+
+    function activateSelected() {
+        switch (selectedIndex) {
+        case 0:
+            root.close()
+
+            shutdownProcess.running = false
+            shutdownProcess.running = true
+            break
+
+        case 1:
+            root.close()
+
+            rebootProcess.running = false
+            rebootProcess.running = true
+            break
+
+        case 2:
+            root.close()
+
+            suspendProcess.running = false
+            suspendProcess.running = true
+            break
+
+        case 3:
+            root.close()
+
+            logoutProcess.running = false
+            logoutProcess.running = true
+            break
+
+        case 4:
+            performanceProcess.running = false
+            performanceProcess.running = true
+            break
+
+        case 5:
+            schedutilProcess.running = false
+            schedutilProcess.running = true
+            break
+
+        case 6:
+            powersaveProcess.running = false
+            powersaveProcess.running = true
+            break
+        }
+    }
+
+    PowerWidget {
+        id: powerWidget
+
+        anchors.centerIn: parent
+
+        onClicked: {
+            root.toggle()
+        }
+    }
+
+    PanelWindow {
+        id: menuWindow
+
+        screen: root.targetScreen
+
+        visible: root.menuWindowVisible
+
+        focusable: root.menuWindowVisible
+
+        WlrLayershell.keyboardFocus:
+            root.menuWindowVisible
+                ? WlrKeyboardFocus.Exclusive
+                : WlrKeyboardFocus.None
+
+        color: "#00000000"
+
+        anchors {
+            top: true
+            bottom: true
+            left: true
+            right: true
+        }
+
+        exclusionMode: ExclusionMode.Ignore
+
+        Item {
+            id: menuArea
+
+            anchors.fill: parent
+
+            focus: root.menuVisible
+
+            Keys.onPressed: function(event) {
+                if (event.key === Qt.Key_Escape) {
+                    root.close()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Left
+                    || event.key === Qt.Key_H
+                ) {
+                    root.moveLeft()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Right
+                    || event.key === Qt.Key_L
+                ) {
+                    root.moveRight()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Up
+                    || event.key === Qt.Key_K
+                ) {
+                    root.moveUp()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Down
+                    || event.key === Qt.Key_J
+                ) {
+                    root.moveDown()
+                    event.accepted = true
+                    return
+                }
+
+                if (
+                    event.key === Qt.Key_Return
+                    || event.key === Qt.Key_Enter
+                ) {
+                    if (root.keyboardNavigation) {
+                        root.activateSelected()
+                        event.accepted = true
+                    }
+
+                    return
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                acceptedButtons: Qt.LeftButton
+
+                onClicked: {
+                    if (
+                        mouseX < menuContainer.x
+                        || mouseX >
+                            menuContainer.x
+                            + menuContainer.width
+                        || mouseY <
+                            menuContainer.y
+                        || mouseY >
+                            menuContainer.y
+                            + menuContainer.height
+                    ) {
+                        root.close()
+                    }
+                }
+            }
+
+            Item {
+                id: menuContainer
+
+                width: 320
+
+                height:
+                    menuContent.implicitHeight
+                    + 24
+
+                anchors.horizontalCenter:
+                    parent.horizontalCenter
+
+                y: root.menuVisible
+                    ? (parent.height - height) / 2
+                    : -height
+
+                Behavior on y {
+                    NumberAnimation {
+                        duration: 300
+
+                        easing.type:
+                            Easing.OutCubic
+
+                        onRunningChanged: {
+                            if (
+                                !running
+                                && !root.menuVisible
+                            ) {
+                                root.menuWindowVisible = false
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    anchors.fill: parent
+
+                    color: "#B3000000"
+
+                    border.width: 1
+                    border.color: "#ffffff"
+
+                    radius: 0
+                }
+
+                Item {
+                    id: menuContent
+
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                        margins: 12
+                    }
+
+                    implicitHeight:
+                        mainLayout.implicitHeight
+
+                    ColumnLayout {
+                        id: mainLayout
+
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            top: parent.top
+                        }
+
+                        spacing: 10
+
+                        Text {
+                            text: "POWER"
+
+                            font.family: "FiraCode Nerd Font Propo"
+                            font.pixelSize: 13
+                            font.weight: 700
+
+                            color: "#ffffff"
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+
+                            height: 1
+
+                            color: "#ffffff"
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            spacing: 8
+
+                            MenuButton {
+                                Layout.fillWidth: true
+
+                                icon: "⏻"
+                                label: "Shutdown"
+
+                                selected:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 0
+
+                                onClicked: {
+                                    root.close()
+
+                                    shutdownProcess.running = false
+                                    shutdownProcess.running = true
+                                }
+                            }
+
+                            MenuButton {
+                                Layout.fillWidth: true
+
+                                icon: "󰜉"
+                                label: "Restart"
+
+                                selected:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 1
+
+                                onClicked: {
+                                    root.close()
+
+                                    rebootProcess.running = false
+                                    rebootProcess.running = true
+                                }
+                            }
+
+                            MenuButton {
+                                Layout.fillWidth: true
+
+                                icon: "󰤄"
+                                label: "Suspend"
+
+                                selected:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 2
+
+                                onClicked: {
+                                    root.close()
+
+                                    suspendProcess.running = false
+                                    suspendProcess.running = true
+                                }
+                            }
+
+                            MenuButton {
+                                Layout.fillWidth: true
+
+                                icon: "󰗼"
+                                label: "Logout"
+
+                                selected:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 3
+
+                                onClicked: {
+                                    root.close()
+
+                                    logoutProcess.running = false
+                                    logoutProcess.running = true
+                                }
+                            }
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                            height: 6
+                        }
+
+                        Text {
+                            text: "CPU POWER MODE"
+
+                            font.family: "FiraCode Nerd Font Propo"
+                            font.pixelSize: 13
+                            font.weight: 700
+
+                            color: "#ffffff"
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+
+                            height: 1
+
+                            color: "#ffffff"
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            spacing: 8
+
+                            MenuButton {
+                                Layout.fillWidth: true
+
+                                icon: ""
+                                label: "Performance"
+
+                                selected:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 4
+
+                                onClicked: {
+                                    performanceProcess.running = false
+                                    performanceProcess.running = true
+                                }
+                            }
+
+                            MenuButton {
+                                Layout.fillWidth: true
+
+                                icon: ""
+                                label: "Schedutil"
+
+                                selected:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 5
+
+                                onClicked: {
+                                    schedutilProcess.running = false
+                                    schedutilProcess.running = true
+                                }
+                            }
+
+                            MenuButton {
+                                Layout.fillWidth: true
+
+                                icon: ""
+                                label: "Powersave"
+
+                                selected:
+                                    root.keyboardNavigation
+                                    && root.selectedIndex === 6
+
+                                onClicked: {
+                                    powersaveProcess.running = false
+                                    powersaveProcess.running = true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    component MenuButton: Item {
+        id: button
+
+        property string icon: ""
+        property string label: ""
+        property bool selected: false
+
+        signal clicked()
+
+        implicitWidth: 70
+        implicitHeight:
+            buttonContent.implicitHeight + 16
+
+        Rectangle {
+            anchors.fill: parent
+
+            color: "#00000000"
+
+            border.width: 1
+
+            border.color:
+                button.selected
+                ? "#ff0000"
+                : "#ffffff"
+
+            radius: 0
+        }
+
+        Column {
+            id: buttonContent
+
+            anchors.centerIn: parent
+
+            spacing: 4
+
+            Text {
+                anchors.horizontalCenter:
+                    parent.horizontalCenter
+
+                text: button.icon
+
+                font.family:
+                    "FiraCode Nerd Font Propo"
+
+                font.pixelSize: 18
+
+                color: "#ffffff"
+            }
+
+            Text {
+                anchors.horizontalCenter:
+                    parent.horizontalCenter
+
+                text: button.label
+
+                font.family: "FiraCode Nerd Font Propo"
+                font.pixelSize: 9
+
+                color: "#ffffff"
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+
+            cursorShape:
+                Qt.PointingHandCursor
+
+            onClicked: {
+                button.clicked()
+            }
+        }
+    }
+
+    Process {
+        id: shutdownProcess
+
+        command: [
+            "systemctl",
+            "poweroff"
+        ]
+    }
+
+    Process {
+        id: rebootProcess
+
+        command: [
+            "systemctl",
+            "reboot"
+        ]
+    }
+
+    Process {
+        id: suspendProcess
+
+        command: [
+            "systemctl",
+            "suspend"
+        ]
+    }
+
+    Process {
+        id: logoutProcess
+
+        command: [
+            "hyprctl",
+            "dispatch",
+            "exit"
+        ]
+    }
+
+    Process {
+        id: performanceProcess
+
+        command: [
+            "sh",
+            "-c",
+            "sudo cpupower frequency-set -g performance && notify-send ' performance power mode'"
+        ]
+    }
+
+    Process {
+        id: schedutilProcess
+
+        command: [
+            "sh",
+            "-c",
+            "sudo cpupower frequency-set -g schedutil && notify-send ' schedutil power mode'"
+        ]
+    }
+
+    Process {
+        id: powersaveProcess
+
+        command: [
+            "sh",
+            "-c",
+            "sudo cpupower frequency-set -g powersave && notify-send ' powersave power mode'"
+        ]
+    }
+}
+</file>
+
+<file path="PowerWidget.qml">
+import QtQuick
+
+Item {
+    id: root
+
+    signal clicked()
+
+    implicitWidth: powerIcon.implicitWidth
+    implicitHeight: powerIcon.implicitHeight
+
+    BarIconStyle {
+        id: powerIcon
+
+        anchors.centerIn: parent
+
+        text: "⏻"
+    }
+
+    MouseArea {
+        anchors.fill: parent
+
+        acceptedButtons: Qt.LeftButton
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: {
+            root.clicked()
+        }
+    }
+}
+</file>
+
+<file path="shell.qml">
+// shell.qml
+//@ pragma UseQApplication
+import Quickshell
+
+Scope {
+    Bar {}
+}
+</file>
+
+<file path="SystemMonitorWidget.qml">
+import QtQuick
+import Quickshell
+import Quickshell.Io
+
+Item {
+    id: root
+
+    property real cpuUsage: 0
+    property real memoryUsage: 0
+    property real cpuTemperature: 0
+
+    property real previousCpuTotal: 0
+    property real previousCpuIdle: 0
+
+    implicitWidth: content.implicitWidth
+    implicitHeight: content.implicitHeight
+
+    FileView {
+        id: cpuFile
+
+        path: "/proc/stat"
+
+        onLoaded: {
+            var lines = text().split("\n")
+
+            if (lines.length === 0)
+                return
+
+            var parts = lines[0].trim().split(/\s+/)
+
+            if (parts.length < 8 || parts[0] !== "cpu")
+                return
+
+            var user = Number(parts[1])
+            var nice = Number(parts[2])
+            var system = Number(parts[3])
+            var idle = Number(parts[4])
+            var iowait = Number(parts[5])
+            var irq = Number(parts[6])
+            var softirq = Number(parts[7])
+            var steal = parts.length > 8 ? Number(parts[8]) : 0
+
+            var total =
+                user +
+                nice +
+                system +
+                idle +
+                iowait +
+                irq +
+                softirq +
+                steal
+
+            var idleTotal = idle + iowait
+
+            if (root.previousCpuTotal > 0) {
+                var totalDelta =
+                    total - root.previousCpuTotal
+
+                var idleDelta =
+                    idleTotal - root.previousCpuIdle
+
+                if (totalDelta > 0) {
+                    root.cpuUsage = Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            (1 - idleDelta / totalDelta) * 100
+                        )
+                    )
+                }
+            }
+
+            root.previousCpuTotal = total
+            root.previousCpuIdle = idleTotal
+        }
+    }
+
+    FileView {
+        id: memoryFile
+
+        path: "/proc/meminfo"
+
+        onLoaded: {
+            var lines = text().split("\n")
+            var total = 0
+            var available = 0
+
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i]
+
+                if (line.indexOf("MemTotal:") === 0) {
+                    total = Number(
+                        line
+                            .replace("MemTotal:", "")
+                            .trim()
+                            .split(/\s+/)[0]
+                    )
+                }
+
+                if (line.indexOf("MemAvailable:") === 0) {
+                    available = Number(
+                        line
+                            .replace("MemAvailable:", "")
+                            .trim()
+                            .split(/\s+/)[0]
+                    )
+                }
+            }
+
+            if (total > 0) {
+                root.memoryUsage = Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        (1 - available / total) * 100
+                    )
+                )
+            }
+        }
+    }
+
+    FileView {
+        id: temperatureFile
+
+        path: "/sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input"
+
+        onLoaded: {
+            var value = Number(text().trim())
+
+            if (!isNaN(value) && value > 0)
+                root.cpuTemperature = value / 1000
+        }
+    }
+
+    Timer {
+        interval: 700
+        running: true
+        repeat: true
+
+        onTriggered: {
+            cpuFile.reload()
+            memoryFile.reload()
+            temperatureFile.reload()
+        }
+    }
+
+    Component.onCompleted: {
+        cpuFile.reload()
+        memoryFile.reload()
+        temperatureFile.reload()
+    }
+
+    Row {
+        id: content
+
+        spacing: 8
+
+        Row {
+            spacing: 2
+
+            BarIconStyle {
+                text: ""
+            }
+
+            BarNumberStyle {
+                text: Math.round(root.cpuUsage)
+            }
+
+            BarTextStyle {
+                text: "%"
+            }
+        }
+
+        Row {
+            spacing: 2
+
+            BarIconStyle {
+                text: root.cpuTemperature >= 70
+                    ? ""
+                    : ""
+
+                textColor: root.cpuTemperature >= 70
+                    ? "#ff5555"
+                    : "#ffffff"
+            }
+
+            BarNumberStyle {
+                text: Math.round(root.cpuTemperature)
+
+                textColor: root.cpuTemperature >= 70
+                    ? "#ff5555"
+                    : "#ffffff"
+            }
+
+            BarTextStyle {
+                text: "°C"
+            }
+        }
+
+        Row {
+            spacing: 2
+
+            BarIconStyle {
+                text: ""
+            }
+
+            BarNumberStyle {
+                text: Math.round(root.memoryUsage)
+            }
+
+            BarTextStyle {
+                text: "%"
+            }
+        }
+    }
+}
+</file>
+
+<file path="TrayMenu.qml">
+import QtQuick
+import QtQuick.Layouts
+import Quickshell
+import Quickshell.Services.SystemTray
+
+Item {
+    id: root
+
+    property var menuItem: null
+    property var parentWindow: null
+    property var sourceItem: null
+
+    function openFor(item, window, source) {
+        if (!item || !item.hasMenu || !window || !source)
+            return
+
+        root.menuItem = item
+        root.parentWindow = window
+        root.sourceItem = source
+
+        menuPopup.visible = false
+
+        Qt.callLater(function() {
+            menuPopup.anchor.window = root.parentWindow
+
+            var position = root.sourceItem.mapToItem(
+                root.parentWindow.contentItem,
+                0,
+                root.sourceItem.height
+            )
+
+            menuPopup.anchor.rect.x = Math.round(position.x)
+            menuPopup.anchor.rect.y = Math.round(position.y)
+
+            menuPopup.visible = true
+        })
+    }
+
+    function close() {
+        menuPopup.visible = false
+        root.menuItem = null
+        root.parentWindow = null
+        root.sourceItem = null
+    }
+
+    QsMenuOpener {
+        id: menuOpener
+
+        menu: root.menuItem
+            ? root.menuItem.menu
+            : null
+    }
+
+    PopupWindow {
+        id: menuPopup
+
+        visible: false
+
+        implicitWidth: 240
+        implicitHeight: menuColumn.implicitHeight + 12
+
+        anchor.window: root.parentWindow
+        anchor.adjustment: PopupAdjustment.Slide
+
+        color: "transparent"
+        grabFocus: true
+
+        onVisibleChanged: {
+            if (visible)
+                menuFocus.forceActiveFocus()
+        }
+
+        FocusScope {
+            id: menuFocus
+
+            anchors.fill: parent
+            focus: true
+
+            Keys.onPressed: function(event) {
+                if (event.key === Qt.Key_Escape) {
+                    root.close()
+                    event.accepted = true
+                }
+            }
+
+            Rectangle {
+                anchors.fill: parent
+
+                color: "#B3000000"
+
+                border.width: 1
+                border.color: "#FFFFFFFF"
+
+                radius: 0
+
+                Column {
+                    id: menuColumn
+
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+
+                    anchors.margins: 6
+
+                    spacing: 0
+
+                    Repeater {
+                        model: menuOpener.children
+
+                        delegate: Item {
+                            required property var modelData
+
+                            width: menuColumn.width
+                            height: modelData.isSeparator ? 7 : 30
+
+                            Rectangle {
+                                visible: modelData.isSeparator
+
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                height: 1
+
+                                color: "#55FFFFFF"
+                            }
+
+                            Rectangle {
+                                visible: !modelData.isSeparator
+
+                                anchors.fill: parent
+
+                                color: mouseArea.containsMouse
+                                    ? "#22FFFFFF"
+                                    : "transparent"
+                            }
+
+                            Image {
+                                visible:
+                                    !modelData.isSeparator &&
+                                    modelData.icon !== ""
+
+                                anchors.left: parent.left
+                                anchors.leftMargin: 8
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                width: 18
+                                height: 18
+
+                                source: modelData.icon
+
+                                sourceSize.width: 18
+                                sourceSize.height: 18
+
+                                fillMode: Image.PreserveAspectFit
+                                smooth: true
+                                asynchronous: true
+                            }
+
+                            Text {
+                                visible: !modelData.isSeparator
+
+                                anchors.left: parent.left
+                                anchors.leftMargin:
+                                    modelData.icon !== ""
+                                    ? 34
+                                    : 10
+
+                                anchors.right: parent.right
+                                anchors.rightMargin: 28
+
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                text: modelData.text
+
+                                color: modelData.enabled
+                                    ? "#FFFFFFFF"
+                                    : "#66FFFFFF"
+
+                                font.family: "FiraCode Nerd Font Propo"
+                                font.pixelSize: 13
+                                font.weight: 500
+
+                                elide: Text.ElideRight
+                            }
+
+                            Text {
+                                visible:
+                                    !modelData.isSeparator &&
+                                    modelData.hasChildren
+
+                                anchors.right: parent.right
+                                anchors.rightMargin: 9
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                text: "›"
+
+                                color: "#FFFFFFFF"
+
+                                font.family: "FiraCode Nerd Font Propo"
+                                font.pixelSize: 18
+                            }
+
+                            Text {
+                                visible:
+                                    !modelData.isSeparator &&
+                                    modelData.buttonType !== 0 &&
+                                    modelData.checkState === Qt.Checked
+
+                                anchors.left: parent.left
+                                anchors.leftMargin: 9
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                text: "✓"
+
+                                color: "#FFFFFFFF"
+
+                                font.family: "FiraCode Nerd Font Propo"
+                                font.pixelSize: 13
+                            }
+
+                            MouseArea {
+                                id: mouseArea
+
+                                visible: !modelData.isSeparator
+
+                                anchors.fill: parent
+
+                                hoverEnabled: true
+
+                                cursorShape:
+                                    modelData.enabled
+                                    ? Qt.PointingHandCursor
+                                    : Qt.ArrowCursor
+
+                                onClicked: {
+                                    if (!modelData.enabled)
+                                        return
+
+                                    if (modelData.hasChildren) {
+                                        modelData.display(
+                                            root.parentWindow,
+                                            mouseArea.x + mouseArea.width,
+                                            mouseArea.y
+                                        )
+                                        return
+                                    }
+
+                                    modelData.triggered()
+                                    root.close()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</file>
+
+<file path="TrayWidget.qml">
+import QtQuick
+import QtQuick.Layouts
+import Quickshell
+import Quickshell.Widgets
+import Quickshell.Services.SystemTray
+
+Item {
+    id: root
+
+    required property var panelWindow
+
+    // ========================================
+    // Custom tray icons
+    // ========================================
+
+    property var customIcons: ({
+        "TelegramDesktop": "",
+        "easyeffects": "󰺢",
+        "Wayscriber Screen Annotation": "󰃥",
+    })
+
+    function customIcon(item) {
+        var title = item.title || ""
+
+        if (customIcons[title] !== undefined)
+            return customIcons[title]
+
+        return ""
+    }
+
+    implicitWidth: trayRow.width + 2
+    implicitHeight: 22
+
+    TrayMenu {
+        id: trayMenu
+    }
+
+    Row {
+        id: trayRow
+
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+
+        spacing: 7
+
+        Repeater {
+            model: SystemTray.items.values
+
+            delegate: Item {
+                required property var modelData
+
+                width: 15
+                height: 20
+
+                Text {
+                    anchors.centerIn: parent
+
+                    visible: root.customIcon(modelData) !== ""
+
+                    text: root.customIcon(modelData)
+
+                    color: "#ffffff"
+
+                    font.family: "FiraCode Nerd Font Propo"
+                    font.pixelSize: 13
+                    font.weight: 700
+
+                    style: Text.Raised
+                    styleColor: "#ffffff"
+                }
+
+                IconImage {
+                    anchors.centerIn: parent
+
+                    width: 14
+                    height: 14
+
+                    visible: root.customIcon(modelData) === ""
+
+                    source: modelData.icon
+
+                    asynchronous: true
+                    mipmap: true
+                }
+
+                MouseArea {
+                    id: mouseArea
+
+                    anchors.fill: parent
+
+                    acceptedButtons:
+                        Qt.LeftButton |
+                        Qt.RightButton |
+                        Qt.MiddleButton
+
+                    cursorShape: Qt.PointingHandCursor
+
+                    onClicked: function(mouse) {
+                        if (mouse.button === Qt.LeftButton) {
+                            modelData.activate()
+                            return
+                        }
+
+                        if (mouse.button === Qt.MiddleButton) {
+                            modelData.secondaryActivate()
+                            return
+                        }
+
+                        if (mouse.button === Qt.RightButton) {
+                            if (modelData.hasMenu) {
+                                trayMenu.openFor(
+                                    modelData,
+                                    root.panelWindow,
+                                    mouseArea
+                                )
+                            } else {
+                                modelData.secondaryActivate()
+                            }
+                        }
+                    }
+
+                    onWheel: function(wheel) {
+                        modelData.scroll(
+                            wheel.angleDelta.y,
+                            wheel.angleDelta.x !== 0
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        anchors.leftMargin: 0
+        anchors.rightMargin: 0
+
+        height: 1
+
+        color: "#ffffffff"
+    }
+}
+</file>
+
+<file path="WorkspacesWidget.qml">
+// WorkspaceWidget.qml
+
+pragma ComponentBehavior: Bound
+
+import Quickshell.Hyprland
+import QtQuick
+
+Item {
+    id: root
+
+    property var workspaceIds: []
+
+    implicitWidth: content.implicitWidth
+    implicitHeight: content.implicitHeight
+
+    function updateWorkspaceIds() {
+        var ids = [1, 2, 3, 4, 5]
+        var workspaces = Hyprland.workspaces.values
+
+        for (var i = 0; i < workspaces.length; i++) {
+            var id = workspaces[i].id
+
+            if (id > 5 && id < 1000 && ids.indexOf(id) === -1)
+                ids.push(id)
+        }
+
+        ids.sort(function(a, b) {
+            return a - b
+        })
+
+        workspaceIds = ids
+    }
+
+    function getWorkspace(id) {
+        var workspaces = Hyprland.workspaces.values
+
+        for (var i = 0; i < workspaces.length; i++) {
+            if (workspaces[i].id === id)
+                return workspaces[i]
+        }
+
+        return null
+    }
+
+    function isOccupied(id) {
+        var ws = getWorkspace(id)
+
+        return ws
+            && ws.toplevels
+            && ws.toplevels.values.length > 0
+    }
+
+    function isUrgent(id) {
+        var ws = getWorkspace(id)
+
+        return ws && ws.urgent
+    }
+
+    function isFocused(id) {
+        var current = Hyprland.focusedWorkspace
+
+        return current && current.id === id
+    }
+
+    function workspaceTextColor(id) {
+        if (isUrgent(id))
+            return "#ff0000"
+
+        if (isOccupied(id))
+            return "#ffffff"
+
+        return "#99ffffff"
+    }
+
+    function workspaceStyleColor(id) {
+        if (isUrgent(id))
+            return "#ff0000"
+
+        if (isOccupied(id))
+            return "#ffffff"
+
+        return "#99ffffff"
+    }
+
+    function isSpecialOccupied() {
+        var workspaces = Hyprland.workspaces.values
+
+        for (var i = 0; i < workspaces.length; i++) {
+            var ws = workspaces[i]
+
+            if (
+                ws.name === "special:magic"
+                && ws.toplevels
+                && ws.toplevels.values.length > 0
+            ) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    function activateWorkspace(id) {
+        var ws = getWorkspace(id)
+
+        if (ws) {
+            ws.activate()
+            return
+        }
+
+        Hyprland.dispatch(
+            'hl.dsp.focus({ workspace = "' + id + '" })'
+        )
+    }
+
+    function activateSpecial() {
+        Hyprland.dispatch(
+            'hl.dsp.workspace.toggle_special("magic")'
+        )
+    }
+
+    function currentIndex() {
+        var current = Hyprland.focusedWorkspace
+
+        if (!current)
+            return 0
+
+        var index = workspaceIds.indexOf(current.id)
+
+        return index >= 0 ? index : 0
+    }
+
+    function scrollWorkspace(direction) {
+        var current = currentIndex()
+
+        for (var i = 1; i <= workspaceIds.length; i++) {
+            var index = (current + direction * i) % workspaceIds.length
+
+            if (index < 0)
+                index += workspaceIds.length
+
+            if (isOccupied(workspaceIds[index])) {
+                activateWorkspace(workspaceIds[index])
+                return
+            }
+        }
+    }
+
+    Row {
+        id: content
+
+        spacing: 8
+
+        Repeater {
+            model: root.workspaceIds
+
+            delegate: Item {
+                required property int modelData
+
+                implicitWidth: number.implicitWidth
+                implicitHeight: number.implicitHeight
+
+                BarNumberStyle {
+                    id: number
+
+                    anchors.centerIn: parent
+
+                    text: modelData.toString()
+
+                    textColor: root.workspaceTextColor(modelData)
+                    textStyleColor: root.workspaceStyleColor(modelData)
+                }
+
+                Rectangle {
+                    anchors.fill: number
+
+                    visible: root.isFocused(modelData)
+
+                    color: "transparent"
+                    border.width: 1
+                    border.color: "#ffffff"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    acceptedButtons: Qt.LeftButton
+                    cursorShape: Qt.PointingHandCursor
+
+                    onClicked: {
+                        root.activateWorkspace(modelData)
+                    }
+
+                    onWheel: function(wheel) {
+                        if (wheel.angleDelta.y > 0)
+                            root.scrollWorkspace(1)
+                        else if (wheel.angleDelta.y < 0)
+                            root.scrollWorkspace(-1)
+
+                        wheel.accepted = true
+                    }
+                }
+            }
+        }
+
+        Item {
+            implicitWidth: specialText.implicitWidth
+            implicitHeight: specialText.implicitHeight
+
+            BarTextStyle {
+                id: specialText
+
+                text: ""
+
+                textColor: root.isSpecialOccupied()
+                    ? "#ffffff"
+                    : "#99ffffff"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                acceptedButtons: Qt.LeftButton
+                cursorShape: Qt.PointingHandCursor
+
+                onClicked: {
+                    root.activateSpecial()
+                }
+
+                onWheel: function(wheel) {
+                    if (wheel.angleDelta.y > 0)
+                        root.scrollWorkspace(1)
+                    else if (wheel.angleDelta.y < 0)
+                        root.scrollWorkspace(-1)
+
+                    wheel.accepted = true
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: Hyprland.workspaces
+
+        function onValuesChanged() {
+            root.updateWorkspaceIds()
+        }
+    }
+
+    Connections {
+        target: Hyprland
+
+        function onFocusedWorkspaceChanged() {
+            root.updateWorkspaceIds()
+        }
+    }
+
+    Component.onCompleted: {
+        root.updateWorkspaceIds()
+    }
+}
+</file>
+
+</files>

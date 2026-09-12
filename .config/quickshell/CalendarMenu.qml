@@ -87,14 +87,19 @@ Item {
     }
 
     function dayNumber(index) {
-        return index - firstDayOfMonth(displayedYear, displayedMonth) + 1
+        return index
+            - firstDayOfMonth(displayedYear, displayedMonth)
+            + 1
     }
 
     function isCurrentMonth(index) {
         var day = dayNumber(index)
 
         return day >= 1 &&
-               day <= daysInMonth(displayedYear, displayedMonth)
+               day <= daysInMonth(
+                   displayedYear,
+                   displayedMonth
+               )
     }
 
     function isToday(index) {
@@ -110,13 +115,20 @@ Item {
 
     function monthName() {
         return Qt.formatDateTime(
-            new Date(displayedYear, displayedMonth, 1),
+            new Date(
+                displayedYear,
+                displayedMonth,
+                1
+            ),
             "MMMM"
         )
     }
 
     function dateTitle() {
-        return Qt.formatDateTime(clock.date, "dd/MM/yyyy")
+        return Qt.formatDateTime(
+            clock.date,
+            "dd/MM/yyyy"
+        )
     }
 
     function updateTimeZone() {
@@ -140,10 +152,14 @@ Item {
 
     Timer {
         interval: 1000
+
         running: root.windowVisible
+
         repeat: true
 
-        onTriggered: root.updateTimeZone()
+        onTriggered: {
+            root.updateTimeZone()
+        }
     }
 
     Process {
@@ -163,7 +179,8 @@ Item {
 
                 root.localTime = parts[0]
                 root.timeZoneName = parts[1]
-                root.timeZoneOffset = "UTC" + parts[2]
+                root.timeZoneOffset =
+                    "UTC" + parts[2]
             }
         }
     }
@@ -193,9 +210,10 @@ Item {
 
         focusable: root.windowVisible
 
-        WlrLayershell.keyboardFocus: root.windowVisible
-            ? WlrKeyboardFocus.Exclusive
-            : WlrKeyboardFocus.None
+        WlrLayershell.keyboardFocus:
+            root.windowVisible
+                ? WlrKeyboardFocus.Exclusive
+                : WlrKeyboardFocus.None
 
         anchors {
             top: true
@@ -208,7 +226,6 @@ Item {
 
         exclusionMode: ExclusionMode.Ignore
 
-        // Background
         MouseArea {
             id: backgroundArea
 
@@ -225,14 +242,14 @@ Item {
             }
         }
 
-        // Calendar
         Item {
             id: calendarArea
 
             width: root.menuWidth
             height: calendarContainer.height
 
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.horizontalCenter:
+                parent.horizontalCenter
 
             z: 1
 
@@ -244,7 +261,10 @@ Item {
 
             Behavior on y {
                 NumberAnimation {
+                    id: calendarAnimation
+
                     duration: 300
+
                     easing.type: Easing.OutCubic
                 }
             }
@@ -286,12 +306,19 @@ Item {
                 }
 
                 if (event.key === Qt.Key_Tab) {
-                    if (event.modifiers & Qt.ShiftModifier) {
+                    if (
+                        event.modifiers
+                        & Qt.ShiftModifier
+                    ) {
                         root.selectedButton =
-                            root.selectedButton <= 0 ? 1 : 0
+                            root.selectedButton <= 0
+                            ? 1
+                            : 0
                     } else {
                         root.selectedButton =
-                            root.selectedButton === 1 ? 0 : 1
+                            root.selectedButton === 1
+                            ? 0
+                            : 1
                     }
 
                     event.accepted = true
@@ -302,6 +329,7 @@ Item {
                     event.key === Qt.Key_Enter) {
 
                     root.activateSelectedButton()
+
                     event.accepted = true
                     return
                 }
@@ -311,12 +339,17 @@ Item {
                 id: calendarContainer
 
                 width: root.menuWidth
-                height: calendarContent.implicitHeight + 24
 
-                anchors.horizontalCenter: parent.horizontalCenter
+                height:
+                    calendarContent.implicitHeight
+                    + 24
+
+                anchors.horizontalCenter:
+                    parent.horizontalCenter
 
                 color: "#B3000000"
 
+                // BORDER اصلی منو
                 border.width: 1
                 border.color: "#ffffffff"
 
@@ -327,8 +360,12 @@ Item {
 
                     width: parent.width - 24
 
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: parent.top
+                    anchors.horizontalCenter:
+                        parent.horizontalCenter
+
+                    anchors.top:
+                        parent.top
+
                     anchors.topMargin: 12
 
                     spacing: 10
@@ -353,7 +390,9 @@ Item {
                                 Text {
                                     text: "LOCAL"
 
-                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.family:
+                                        "FiraCode Nerd Font Propo"
+
                                     font.pixelSize: 9
                                     font.weight: 600
 
@@ -364,6 +403,7 @@ Item {
                                     text: root.localTime
 
                                     font.family: "OCRA"
+
                                     font.pixelSize: 17
                                     font.weight: 700
 
@@ -372,16 +412,21 @@ Item {
                             }
 
                             ColumnLayout {
-                                Layout.alignment: Qt.AlignRight
+                                Layout.alignment:
+                                    Qt.AlignRight
 
                                 spacing: 0
 
                                 Text {
-                                    Layout.alignment: Qt.AlignRight
+                                    Layout.alignment:
+                                        Qt.AlignRight
 
-                                    text: root.timeZoneName
+                                    text:
+                                        root.timeZoneName
 
-                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.family:
+                                        "FiraCode Nerd Font Propo"
+
                                     font.pixelSize: 10
                                     font.weight: 600
 
@@ -389,11 +434,15 @@ Item {
                                 }
 
                                 Text {
-                                    Layout.alignment: Qt.AlignRight
+                                    Layout.alignment:
+                                        Qt.AlignRight
 
-                                    text: root.timeZoneOffset
+                                    text:
+                                        root.timeZoneOffset
 
-                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.family:
+                                        "FiraCode Nerd Font Propo"
+
                                     font.pixelSize: 9
                                     font.weight: 500
 
@@ -424,7 +473,9 @@ Item {
                                 Text {
                                     text: "UTC"
 
-                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.family:
+                                        "FiraCode Nerd Font Propo"
+
                                     font.pixelSize: 9
                                     font.weight: 600
 
@@ -435,6 +486,7 @@ Item {
                                     text: root.utcTime
 
                                     font.family: "OCRA"
+
                                     font.pixelSize: 17
                                     font.weight: 700
 
@@ -443,11 +495,14 @@ Item {
                             }
 
                             Text {
-                                Layout.alignment: Qt.AlignRight
+                                Layout.alignment:
+                                    Qt.AlignRight
 
                                 text: "UNIVERSAL TIME"
 
-                                font.family: "FiraCode Nerd Font Propo"
+                                font.family:
+                                    "FiraCode Nerd Font Propo"
+
                                 font.pixelSize: 9
                                 font.weight: 500
 
@@ -473,16 +528,23 @@ Item {
                         // LEFT: MONTH
                         Item {
                             Layout.fillWidth: true
+
                             Layout.preferredWidth: 110
-                            Layout.alignment: Qt.AlignVCenter
+
+                            Layout.alignment:
+                                Qt.AlignVCenter
 
                             Text {
                                 anchors.left: parent.left
-                                anchors.verticalCenter: parent.verticalCenter
+
+                                anchors.verticalCenter:
+                                    parent.verticalCenter
 
                                 text: root.monthName()
 
-                                font.family: "FiraCode Nerd Font Propo"
+                                font.family:
+                                    "FiraCode Nerd Font Propo"
+
                                 font.pixelSize: 16
                                 font.weight: 600
 
@@ -493,14 +555,18 @@ Item {
                         // CENTER: MONTH BUTTONS
                         Row {
                             Layout.preferredWidth: 66
-                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                            Layout.alignment:
+                                Qt.AlignHCenter |
+                                Qt.AlignVCenter
 
                             spacing: 6
 
                             CalendarButton {
                                 glyph: "‹"
 
-                                selected: root.selectedButton === 0
+                                selected:
+                                    root.selectedButton === 0
 
                                 onClicked: {
                                     root.previousMonth()
@@ -510,7 +576,8 @@ Item {
                             CalendarButton {
                                 glyph: "›"
 
-                                selected: root.selectedButton === 1
+                                selected:
+                                    root.selectedButton === 1
 
                                 onClicked: {
                                     root.nextMonth()
@@ -521,22 +588,30 @@ Item {
                         // RIGHT: FULL NUMERIC DATE
                         Item {
                             Layout.fillWidth: true
+
                             Layout.preferredWidth: 110
-                            Layout.alignment: Qt.AlignVCenter
+
+                            Layout.alignment:
+                                Qt.AlignVCenter
 
                             Text {
-                                anchors.right: parent.right
-                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.right:
+                                    parent.right
+
+                                anchors.verticalCenter:
+                                    parent.verticalCenter
 
                                 text: root.dateTitle()
 
                                 font.family: "OCRA"
+
                                 font.pixelSize: 13
                                 font.weight: 700
 
                                 color: "#ffffff"
 
-                                horizontalAlignment: Text.AlignRight
+                                horizontalAlignment:
+                                    Text.AlignRight
                             }
                         }
                     }
@@ -563,6 +638,7 @@ Item {
 
                             delegate: Item {
                                 Layout.fillWidth: true
+
                                 Layout.preferredHeight: 20
 
                                 Text {
@@ -570,7 +646,9 @@ Item {
 
                                     text: modelData
 
-                                    font.family: "FiraCode Nerd Font Propo"
+                                    font.family:
+                                        "FiraCode Nerd Font Propo"
+
                                     font.pixelSize: 9
                                     font.weight: 600
 
@@ -581,35 +659,104 @@ Item {
                     }
 
                     // DAYS
-                    GridLayout {
+                    Item {
                         Layout.fillWidth: true
 
-                        columns: 7
+                        Layout.preferredHeight:
+                            6 * 28 + 8
 
-                        rowSpacing: 4
-                        columnSpacing: 0
+                        // فقط خطوط داخلی جدول
+                        Item {
+                            id: daysGrid
 
-                        Repeater {
-                            model: 42
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                                top: parent.top
+                                bottom: parent.bottom
 
-                            delegate: Item {
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: 28
+                                leftMargin: 5
+                                rightMargin: 5
 
-                                Text {
-                                    anchors.centerIn: parent
+                                topMargin: 4
+                                bottomMargin: 4
+                            }
 
-                                    visible: root.isCurrentMonth(index)
+                            // خطوط عمودی داخلی
+                            Repeater {
+                                model: 6
 
-                                    text: root.dayNumber(index)
+                                Rectangle {
+                                    x: daysGrid.width
+                                        * (index + 1) / 7
 
-                                    font.family: "OCRA"
-                                    font.pixelSize: 12
-                                    font.weight: 700
+                                    y: 0
 
-                                    color: root.isToday(index)
-                                        ? "#ff0000"
-                                        : "#ffffff"
+                                    width: 1
+                                    height: daysGrid.height
+
+                                    color: "#33ffffff"
+                                }
+                            }
+
+                            // خطوط افقی داخلی
+                            Repeater {
+                                model: 5
+
+                                Rectangle {
+                                    x: 0
+
+                                    y: daysGrid.height
+                                        * (index + 1) / 6
+
+                                    width: daysGrid.width
+                                    height: 1
+
+                                    color: "#33ffffff"
+                                }
+                            }
+
+                            GridLayout {
+                                anchors.fill: parent
+
+                                columns: 7
+
+                                rowSpacing: 0
+                                columnSpacing: 0
+
+                                Repeater {
+                                    model: 42
+
+                                    delegate: Item {
+                                        Layout.fillWidth: true
+
+                                        Layout.preferredHeight: 28
+
+                                        Text {
+                                            anchors.centerIn:
+                                                parent
+
+                                            visible:
+                                                root.isCurrentMonth(
+                                                    index
+                                                )
+
+                                            text:
+                                                root.dayNumber(
+                                                    index
+                                                )
+
+                                            font.family: "OCRA"
+
+                                            font.pixelSize: 12
+                                            font.weight: 700
+
+                                            color:
+                                                root.isToday(index)
+                                                ? "#ff0000"
+                                                : "#ffffff"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -620,7 +767,7 @@ Item {
     }
 
     Timer {
-        id: calendarAnimation
+        id: calendarAnimationTimer
 
         interval: 300
 
@@ -644,13 +791,10 @@ Item {
         Rectangle {
             anchors.fill: parent
 
-            color: "#00000000"
+            color: "#ffffff"
 
             border.width: 1
-
-            border.color: button.selected
-                ? "#ff0000"
-                : "#ffffffff"
+            border.color: "#ffffff"
 
             radius: 0
         }
@@ -660,11 +804,13 @@ Item {
 
             text: button.glyph
 
-            font.family: "FiraCode Nerd Font Propo"
-            font.pixelSize: 16
-            font.weight: 500
+            font.family:
+                "FiraCode Nerd Font Propo"
 
-            color: "#ffffff"
+            font.pixelSize: 16
+            font.weight: 700
+
+            color: "#000000"
         }
 
         MouseArea {
@@ -674,7 +820,8 @@ Item {
 
             acceptedButtons: Qt.LeftButton
 
-            cursorShape: Qt.PointingHandCursor
+            cursorShape:
+                Qt.PointingHandCursor
 
             onClicked: {
                 button.clicked()
@@ -693,7 +840,7 @@ Item {
                 calendarArea.forceActiveFocus()
             })
         } else {
-            calendarAnimation.restart()
+            calendarAnimationTimer.restart()
         }
     }
 }

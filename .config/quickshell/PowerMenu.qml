@@ -93,8 +93,17 @@ Item {
             return
         }
 
-        if (selectedIndex >= 0 && selectedIndex <= 3) {
-            select(4 + Math.min(selectedIndex, 2))
+        if (
+            selectedIndex >= 0 &&
+            selectedIndex <= 3
+        ) {
+            select(
+                4 +
+                Math.min(
+                    selectedIndex,
+                    2
+                )
+            )
             return
         }
 
@@ -112,8 +121,14 @@ Item {
             return
         }
 
-        if (selectedIndex >= 0 && selectedIndex <= 2) {
-            select(4 + selectedIndex)
+        if (
+            selectedIndex >= 0 &&
+            selectedIndex <= 2
+        ) {
+            select(
+                4 +
+                selectedIndex
+            )
             return
         }
 
@@ -177,18 +192,21 @@ Item {
     PanelWindow {
         id: menuWindow
 
-        screen: root.QsWindow.window
+        screen:
+            root.QsWindow.window
             ? root.QsWindow.window.screen
             : null
 
-        visible: root.menuWindowVisible
+        visible:
+            root.menuWindowVisible
 
-        focusable: root.menuWindowVisible
+        focusable:
+            root.menuWindowVisible
 
         WlrLayershell.keyboardFocus:
             root.menuWindowVisible
-                ? WlrKeyboardFocus.Exclusive
-                : WlrKeyboardFocus.None
+            ? WlrKeyboardFocus.Exclusive
+            : WlrKeyboardFocus.None
 
         color: "#00000000"
 
@@ -199,17 +217,22 @@ Item {
             right: true
         }
 
-        exclusionMode: ExclusionMode.Ignore
+        exclusionMode:
+            ExclusionMode.Ignore
 
         Item {
             id: menuArea
 
             anchors.fill: parent
 
-            focus: root.menuVisible
+            focus:
+                root.menuVisible
 
             Keys.onPressed: function(event) {
-                if (event.key === Qt.Key_Escape) {
+                if (
+                    event.key ===
+                    Qt.Key_Escape
+                ) {
                     root.close()
                     event.accepted = true
                     return
@@ -251,11 +274,16 @@ Item {
                     return
                 }
 
+                // Enter + Space
+                // activate selected item.
                 if (
                     event.key === Qt.Key_Return
                     || event.key === Qt.Key_Enter
+                    || event.key === Qt.Key_Space
                 ) {
-                    if (root.keyboardNavigation) {
+                    if (
+                        root.keyboardNavigation
+                    ) {
                         root.activateSelected()
                         event.accepted = true
                     }
@@ -267,19 +295,20 @@ Item {
             MouseArea {
                 anchors.fill: parent
 
-                acceptedButtons: Qt.LeftButton
+                acceptedButtons:
+                    Qt.LeftButton
 
                 onClicked: {
                     if (
                         mouseX < menuContainer.x
                         || mouseX >
-                            menuContainer.x
-                            + menuContainer.width
+                            menuContainer.x +
+                            menuContainer.width
                         || mouseY <
                             menuContainer.y
                         || mouseY >
-                            menuContainer.y
-                            + menuContainer.height
+                            menuContainer.y +
+                            menuContainer.height
                     ) {
                         root.close()
                     }
@@ -292,14 +321,18 @@ Item {
                 width: 320
 
                 height:
-                    menuContent.implicitHeight
-                    + 24
+                    menuContent.implicitHeight +
+                    24
 
                 anchors.horizontalCenter:
                     parent.horizontalCenter
 
-                y: root.menuVisible
-                    ? (parent.height - height) / 2
+                y:
+                    root.menuVisible
+                    ? (
+                        parent.height -
+                        height
+                    ) / 2
                     : -height
 
                 Behavior on y {
@@ -311,10 +344,11 @@ Item {
 
                         onRunningChanged: {
                             if (
-                                !running
-                                && !root.menuVisible
+                                !running &&
+                                !root.menuVisible
                             ) {
-                                root.menuWindowVisible = false
+                                root.menuWindowVisible =
+                                    false
                             }
                         }
                     }
@@ -323,10 +357,13 @@ Item {
                 Rectangle {
                     anchors.fill: parent
 
-                    color: "#B3000000"
+                    color:
+                        "#B3000000"
 
                     border.width: 1
-                    border.color: "#ffffff"
+
+                    border.color:
+                        "#ffffff"
 
                     radius: 0
                 }
@@ -358,11 +395,14 @@ Item {
                         Text {
                             text: "POWER"
 
-                            font.family: "FiraCode Nerd Font Propo"
+                            font.family:
+                                "FiraCode Nerd Font Propo"
+
                             font.pixelSize: 13
                             font.weight: 700
 
-                            color: "#ffffff"
+                            color:
+                                "#ffffff"
                         }
 
                         Rectangle {
@@ -370,7 +410,8 @@ Item {
 
                             height: 1
 
-                            color: "#ffffff"
+                            color:
+                                "#ffffff"
                         }
 
                         RowLayout {
@@ -391,8 +432,11 @@ Item {
                                 onClicked: {
                                     root.close()
 
-                                    shutdownProcess.running = false
-                                    shutdownProcess.running = true
+                                    shutdownProcess.running =
+                                        false
+
+                                    shutdownProcess.running =
+                                        true
                                 }
                             }
 
@@ -409,8 +453,11 @@ Item {
                                 onClicked: {
                                     root.close()
 
-                                    rebootProcess.running = false
-                                    rebootProcess.running = true
+                                    rebootProcess.running =
+                                        false
+
+                                    rebootProcess.running =
+                                        true
                                 }
                             }
 
@@ -427,8 +474,11 @@ Item {
                                 onClicked: {
                                     root.close()
 
-                                    suspendProcess.running = false
-                                    suspendProcess.running = true
+                                    suspendProcess.running =
+                                        false
+
+                                    suspendProcess.running =
+                                        true
                                 }
                             }
 
@@ -445,8 +495,11 @@ Item {
                                 onClicked: {
                                     root.close()
 
-                                    logoutProcess.running = false
-                                    logoutProcess.running = true
+                                    logoutProcess.running =
+                                        false
+
+                                    logoutProcess.running =
+                                        true
                                 }
                             }
                         }
@@ -457,13 +510,17 @@ Item {
                         }
 
                         Text {
-                            text: "CPU POWER MODE"
+                            text:
+                                "CPU POWER MODE"
 
-                            font.family: "FiraCode Nerd Font Propo"
+                            font.family:
+                                "FiraCode Nerd Font Propo"
+
                             font.pixelSize: 13
                             font.weight: 700
 
-                            color: "#ffffff"
+                            color:
+                                "#ffffff"
                         }
 
                         Rectangle {
@@ -471,7 +528,8 @@ Item {
 
                             height: 1
 
-                            color: "#ffffff"
+                            color:
+                                "#ffffff"
                         }
 
                         RowLayout {
@@ -490,8 +548,11 @@ Item {
                                     && root.selectedIndex === 4
 
                                 onClicked: {
-                                    performanceProcess.running = false
-                                    performanceProcess.running = true
+                                    performanceProcess.running =
+                                        false
+
+                                    performanceProcess.running =
+                                        true
                                 }
                             }
 
@@ -506,8 +567,11 @@ Item {
                                     && root.selectedIndex === 5
 
                                 onClicked: {
-                                    schedutilProcess.running = false
-                                    schedutilProcess.running = true
+                                    schedutilProcess.running =
+                                        false
+
+                                    schedutilProcess.running =
+                                        true
                                 }
                             }
 
@@ -522,8 +586,11 @@ Item {
                                     && root.selectedIndex === 6
 
                                 onClicked: {
-                                    powersaveProcess.running = false
-                                    powersaveProcess.running = true
+                                    powersaveProcess.running =
+                                        false
+
+                                    powersaveProcess.running =
+                                        true
                                 }
                             }
                         }
@@ -543,20 +610,23 @@ Item {
         signal clicked()
 
         implicitWidth: 70
+
         implicitHeight:
-            buttonContent.implicitHeight + 16
+            buttonContent.implicitHeight +
+            16
 
         Rectangle {
             anchors.fill: parent
 
-            color: "#00000000"
+            color:
+                button.selected
+                ? "#ffffff"
+                : "#00000000"
 
             border.width: 1
 
             border.color:
-                button.selected
-                ? "#ff0000"
-                : "#ffffff"
+                "#ffffff"
 
             radius: 0
         }
@@ -572,26 +642,36 @@ Item {
                 anchors.horizontalCenter:
                     parent.horizontalCenter
 
-                text: button.icon
+                text:
+                    button.icon
 
                 font.family:
                     "FiraCode Nerd Font Propo"
 
                 font.pixelSize: 18
 
-                color: "#ffffff"
+                color:
+                    button.selected
+                    ? "#000000"
+                    : "#ffffff"
             }
 
             Text {
                 anchors.horizontalCenter:
                     parent.horizontalCenter
 
-                text: button.label
+                text:
+                    button.label
 
-                font.family: "FiraCode Nerd Font Propo"
+                font.family:
+                    "FiraCode Nerd Font Propo"
+
                 font.pixelSize: 9
 
-                color: "#ffffff"
+                color:
+                    button.selected
+                    ? "#000000"
+                    : "#ffffff"
             }
         }
 

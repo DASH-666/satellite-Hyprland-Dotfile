@@ -1,6 +1,5 @@
+// TrayWidget.qml
 import QtQuick
-import QtQuick.Layouts
-import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 
@@ -23,8 +22,8 @@ Item {
         return ""
     }
 
-    implicitWidth: trayRow.width + 2
-    implicitHeight: 22
+    implicitWidth: trayRow.width
+    implicitHeight: 20
 
     TrayMenu {
         id: trayMenu
@@ -36,7 +35,7 @@ Item {
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
 
-        spacing: 7
+        spacing: 6
 
         Repeater {
             model: SystemTray.items.values

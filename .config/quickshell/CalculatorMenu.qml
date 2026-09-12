@@ -7,6 +7,8 @@ import Quickshell.Wayland
 Item {
     id: root
 
+    property int buttonFontSize: 15
+
     property bool menuVisible: false
     property bool windowVisible: false
 
@@ -412,7 +414,7 @@ Item {
 
                             CalculatorButton {
                                 text: "C"
-                                operation: true
+                                clearButton: true
 
                                 onClicked: {
                                     root.clear()
@@ -421,7 +423,7 @@ Item {
 
                             CalculatorButton {
                                 text: "⌫"
-                                operation: true
+                                clearButton: true
 
                                 onClicked: {
                                     root.backspace()
@@ -616,6 +618,7 @@ Item {
         property string text: ""
         property bool operation: false
         property bool numeric: false
+        property bool clearButton: false
 
         signal clicked()
 
@@ -625,7 +628,7 @@ Item {
         Rectangle {
             anchors.fill: parent
 
-            color: "#00000000"
+            color: "#ffffff"
 
             border.width: 1
             border.color: "#ffffff"
@@ -642,12 +645,12 @@ Item {
                 ? "OCRA"
                 : "FiraCode Nerd Font Propo"
 
-            font.pixelSize: 11
+            font.pixelSize: root.buttonFontSize
             font.weight: 700
 
-            color: button.operation
+            color: button.clearButton
                 ? "#ff0000"
-                : "#ffffff"
+                : "#000000"
         }
 
         MouseArea {
