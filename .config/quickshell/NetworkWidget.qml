@@ -1,3 +1,5 @@
+// NetworkWidget.qml
+
 import QtQuick
 import Quickshell.Io
 import Quickshell.Networking

@@ -7,6 +7,7 @@ Item {
 
     property alias text: barText.text
     property color textColor: "#ffffff"
+    property color textStyleColor: "#ffffff"
     property int fontSize: 12
 
     implicitWidth: barText.implicitWidth
@@ -25,7 +26,7 @@ Item {
         color: root.textColor
 
         style: Text.Raised
-        styleColor: "#ffffff"
+        styleColor: root.textStyleColor
     }
 
     Rectangle {

@@ -1,3 +1,5 @@
+// PowerWidget.qml
+
 import QtQuick
 
 Item {

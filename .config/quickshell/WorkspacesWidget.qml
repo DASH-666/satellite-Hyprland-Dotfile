@@ -20,8 +20,13 @@ Item {
         for (var i = 0; i < workspaces.length; i++) {
             var id = workspaces[i].id
 
-            if (id > 5 && id < 1000 && ids.indexOf(id) === -1)
+            if (
+                id > 5
+                && id < 1000
+                && ids.indexOf(id) === -1
+            ) {
                 ids.push(id)
+            }
         }
 
         ids.sort(function(a, b) {
@@ -63,6 +68,9 @@ Item {
     }
 
     function workspaceTextColor(id) {
+        if (isFocused(id))
+            return "#000000"
+
         if (isUrgent(id))
             return "#ff0000"
 
@@ -73,6 +81,9 @@ Item {
     }
 
     function workspaceStyleColor(id) {
+        if (isFocused(id))
+            return "#000000"
+
         if (isUrgent(id))
             return "#ff0000"
 
@@ -82,22 +93,56 @@ Item {
         return "#99ffffff"
     }
 
-    function isSpecialOccupied() {
+    function getSpecialWorkspace() {
         var workspaces = Hyprland.workspaces.values
 
         for (var i = 0; i < workspaces.length; i++) {
             var ws = workspaces[i]
 
-            if (
-                ws.name === "special:magic"
-                && ws.toplevels
-                && ws.toplevels.values.length > 0
-            ) {
-                return true
-            }
+            if (ws.name === "special:magic")
+                return ws
         }
 
-        return false
+        return null
+    }
+
+    function isSpecialOccupied() {
+        var ws = getSpecialWorkspace()
+
+        return (
+            ws !== null &&
+            ws.toplevels &&
+            ws.toplevels.values.length > 0
+        )
+    }
+
+    function isSpecialActive() {
+        var active = Hyprland.activeToplevel
+
+        if (!active || !active.workspace)
+            return false
+
+        return active.workspace.name === "special:magic"
+    }
+
+    function specialTextColor() {
+        if (isSpecialActive())
+            return "#000000"
+
+        if (isSpecialOccupied())
+            return "#ffffff"
+
+        return "#99ffffff"
+    }
+
+    function specialStyleColor() {
+        if (isSpecialActive())
+            return "#000000"
+
+        if (isSpecialOccupied())
+            return "#ffffff"
+
+        return "#99ffffff"
     }
 
     function activateWorkspace(id) {
@@ -109,7 +154,9 @@ Item {
         }
 
         Hyprland.dispatch(
-            'hl.dsp.focus({ workspace = "' + id + '" })'
+            'hl.dsp.focus({ workspace = "'
+            + id
+            + '" })'
         )
     }
 
@@ -133,8 +180,14 @@ Item {
     function scrollWorkspace(direction) {
         var current = currentIndex()
 
-        for (var i = 1; i <= workspaceIds.length; i++) {
-            var index = (current + direction * i) % workspaceIds.length
+        for (
+            var i = 1;
+            i <= workspaceIds.length;
+            i++
+        ) {
+            var index =
+                (current + direction * i)
+                % workspaceIds.length
 
             if (index < 0)
                 index += workspaceIds.length
@@ -157,38 +210,63 @@ Item {
             delegate: Item {
                 required property int modelData
 
-                implicitWidth: number.implicitWidth
-                implicitHeight: number.implicitHeight
+                implicitWidth:
+                    number.implicitWidth
+
+                implicitHeight:
+                    number.implicitHeight
+
+                Rectangle {
+                    anchors.centerIn: parent
+
+                    width:
+                        number.implicitWidth + 6
+
+                    height:
+                        number.implicitHeight + 2
+
+                    visible:
+                        root.isFocused(modelData)
+
+                    color: "#ffffff"
+
+                    radius: 0
+
+                    z: -1
+                }
 
                 BarNumberStyle {
                     id: number
 
                     anchors.centerIn: parent
 
-                    text: modelData.toString()
+                    text:
+                        modelData.toString()
 
-                    textColor: root.workspaceTextColor(modelData)
-                    textStyleColor: root.workspaceStyleColor(modelData)
-                }
+                    textColor:
+                        root.workspaceTextColor(
+                            modelData
+                        )
 
-                Rectangle {
-                    anchors.fill: number
-
-                    visible: root.isFocused(modelData)
-
-                    color: "transparent"
-                    border.width: 1
-                    border.color: "#ffffff"
+                    textStyleColor:
+                        root.workspaceStyleColor(
+                            modelData
+                        )
                 }
 
                 MouseArea {
                     anchors.fill: parent
 
-                    acceptedButtons: Qt.LeftButton
-                    cursorShape: Qt.PointingHandCursor
+                    acceptedButtons:
+                        Qt.LeftButton
+
+                    cursorShape:
+                        Qt.PointingHandCursor
 
                     onClicked: {
-                        root.activateWorkspace(modelData)
+                        root.activateWorkspace(
+                            modelData
+                        )
                     }
 
                     onWheel: function(wheel) {
@@ -204,24 +282,53 @@ Item {
         }
 
         Item {
-            implicitWidth: specialText.implicitWidth
-            implicitHeight: specialText.implicitHeight
+            implicitWidth:
+                specialText.implicitWidth
+
+            implicitHeight:
+                specialText.implicitHeight
+
+            Rectangle {
+                anchors.centerIn: parent
+
+                width:
+                    specialText.implicitWidth + 6
+
+                height:
+                    specialText.implicitHeight + 2
+
+                visible:
+                    root.isSpecialActive()
+
+                color: "#ffffff"
+
+                radius: 0
+
+                z: -1
+            }
 
             BarTextStyle {
                 id: specialText
 
+                anchors.centerIn: parent
+
                 text: ""
 
-                textColor: root.isSpecialOccupied()
-                    ? "#ffffff"
-                    : "#99ffffff"
+                textColor:
+                    root.specialTextColor()
+
+                textStyleColor:
+                    root.specialStyleColor()
             }
 
             MouseArea {
                 anchors.fill: parent
 
-                acceptedButtons: Qt.LeftButton
-                cursorShape: Qt.PointingHandCursor
+                acceptedButtons:
+                    Qt.LeftButton
+
+                cursorShape:
+                    Qt.PointingHandCursor
 
                 onClicked: {
                     root.activateSpecial()
@@ -251,6 +358,10 @@ Item {
         target: Hyprland
 
         function onFocusedWorkspaceChanged() {
+            root.updateWorkspaceIds()
+        }
+
+        function onActiveToplevelChanged() {
             root.updateWorkspaceIds()
         }
     }

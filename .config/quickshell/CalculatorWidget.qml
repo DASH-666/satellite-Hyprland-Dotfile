@@ -1,3 +1,5 @@
+// CalculatorWidget.qml
+
 import QtQuick
 
 Item {

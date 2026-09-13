@@ -1,3 +1,5 @@
+// Bar.qml
+
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -32,6 +34,54 @@ Scope {
                 anchors.left: parent.left
                 spacing: 10
                 anchors.verticalCenter: parent.verticalCenter
+
+                AppGroupWidget {
+                    displayName: "browser"
+                    icon: ""
+
+                    apps: [
+                        {
+                            name: "Firefox",
+                            command: "firefox-developer-edition"
+                        },
+                        {
+                            name: "Chromium",
+                            command: "chromium"
+                        }
+                    ]
+                }
+                AppGroupWidget {
+                    displayName: "file"
+                    icon: ""
+
+                    apps: [
+                        {
+                            name: "thunar",
+                            command: "thunar"
+                        },
+                        {
+                            name: "superfile",
+                            command: "ghostty -e spf"
+                        }
+                    ]
+                }
+                AppGroupWidget {
+                    displayName: "terminal"
+                    icon: ""
+
+                    apps: [
+                        {
+                            name: "ghostty",
+                            command: "ghostty"
+                        },
+                        {
+                            name: "foot",
+                            command: "foot"
+                        }
+                    ]
+                }
+
+
             }
 
             // CENTER

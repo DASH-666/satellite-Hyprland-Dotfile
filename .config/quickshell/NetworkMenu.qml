@@ -1,3 +1,5 @@
+// NetwokMenu.qml
+
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -347,7 +349,10 @@ Item {
     PanelWindow {
         id: networkWindow
 
-        screen: root.QsWindow.window.screen
+        screen:
+            root.QsWindow.window
+            ? root.QsWindow.window.screen
+            : null
 
         visible: root.windowVisible
 

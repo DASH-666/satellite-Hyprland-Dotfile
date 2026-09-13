@@ -1,4 +1,5 @@
-import Quickshell
+// LanguageWidget.qml
+
 import Quickshell.Io
 import Quickshell.Hyprland
 import QtQuick

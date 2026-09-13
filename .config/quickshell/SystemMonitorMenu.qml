@@ -1,3 +1,5 @@
+// SystemMonitorMenu.qml
+
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
@@ -74,7 +76,9 @@ Item {
         id: menuWindow
 
         screen:
-            root.QsWindow.window.screen
+            root.QsWindow.window
+            ? root.QsWindow.window.screen
+            : null
 
         visible:
             root.menuWindowVisible

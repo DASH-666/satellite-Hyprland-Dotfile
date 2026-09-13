@@ -1,3 +1,5 @@
+// ClockWidget.qml
+
 import Quickshell
 import QtQuick
 
@@ -15,7 +17,7 @@ Item {
         anchors.fill: parent
 
         BarTextStyle {
-            text: " "
+            text: ""
         }
 
         BarNumberStyle {

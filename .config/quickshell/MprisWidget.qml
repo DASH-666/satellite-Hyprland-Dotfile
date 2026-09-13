@@ -1,4 +1,5 @@
-import Quickshell
+// MprisWidget.qml
+
 import Quickshell.Services.Mpris
 import QtQuick
 

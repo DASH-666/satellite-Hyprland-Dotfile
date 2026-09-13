@@ -1,4 +1,5 @@
 // TrayWidget.qml
+
 import QtQuick
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
@@ -7,6 +8,7 @@ Item {
     id: root
 
     required property var panelWindow
+
     property var customIcons: ({
         "TelegramDesktop": "",
         "easyeffects": "󰺢",
@@ -16,13 +18,12 @@ Item {
     function customIcon(item) {
         var title = item.title || ""
 
-        if (customIcons[title] !== undefined)
-            return customIcons[title]
-
-        return ""
+        return customIcons[title] !== undefined
+            ? customIcons[title]
+            : ""
     }
 
-    implicitWidth: trayRow.width
+    implicitWidth: trayRow.implicitWidth
     implicitHeight: 20
 
     TrayMenu {
@@ -35,7 +36,7 @@ Item {
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
 
-        spacing: 6
+        spacing: 8
 
         Repeater {
             model: SystemTray.items.values
@@ -43,24 +44,25 @@ Item {
             delegate: Item {
                 required property var modelData
 
-                width: 15
-                height: 20
+                readonly property string customIconText:
+                    root.customIcon(modelData)
 
-                Text {
+                implicitWidth:
+                    customIconText !== ""
+                    ? barIcon.implicitWidth
+                    : 14
+
+                implicitHeight: 20
+
+                BarIconStyle {
+                    id: barIcon
+
                     anchors.centerIn: parent
 
-                    visible: root.customIcon(modelData) !== ""
+                    text: parent.customIconText
+                    textColor: "#ffffff"
 
-                    text: root.customIcon(modelData)
-
-                    color: "#ffffff"
-
-                    font.family: "FiraCode Nerd Font Propo"
-                    font.pixelSize: 13
-                    font.weight: 700
-
-                    style: Text.Raised
-                    styleColor: "#ffffff"
+                    visible: parent.customIconText !== ""
                 }
 
                 IconImage {
@@ -69,9 +71,9 @@ Item {
                     width: 14
                     height: 14
 
-                    visible: root.customIcon(modelData) === ""
-
                     source: modelData.icon
+
+                    visible: parent.customIconText === ""
 
                     asynchronous: true
                     mipmap: true
@@ -122,18 +124,5 @@ Item {
                 }
             }
         }
-    }
-
-    Rectangle {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
-
-        height: 1
-
-        color: "#ffffffff"
     }
 }
