@@ -43,7 +43,7 @@ I don't own or claim authorship of the software, artwork, wallpapers, Fonts, or 
 - [hypr-zoom](https://github.com/FShou/hypr-zoom) — zoom on hyprland
 - [xdg-desktop-portal-hyprland](https://github.com/hyprwm/xdg-desktop-portal-hyprland) — Desktop portal backend for Wayland  
 - [ghostty](https://github.com/ghostty-org/ghostty), [foot](https://codeberg.org/dnkl/foot) — Terminal emulators  
-- [waybar](https://github.com/Alexays/Waybar) — Status bar  
+- [quickshell](https://quickshell.org/) — Status bar(the whole config for quqick shell made by chatGPT)  
 - [gtk3](https://docs.gtk.org/gtk3/), [gtk4](https://docs.gtk.org/gtk4/) — GTK toolkits  
 - [qt5ct](https://sourceforge.net/projects/qt5ct/), [qt6ct](https://github.com/trialuser02/qt6ct) — Set qt theme
 - [mako](https://github.com/emersion/mako) — Notification daemon  
