@@ -88,6 +88,8 @@ require("lazy").setup({
                 "json",
                 "css",
                 "cmake",
+                "markdown",
+                "markdown_inline",
             })
 
             vim.api.nvim_create_autocmd("FileType", {
@@ -100,6 +102,7 @@ require("lazy").setup({
                     "json",
                     "css",
                     "cmake",
+                    "markdown",
                 },
                 callback = function()
                     vim.treesitter.start()
@@ -116,7 +119,7 @@ require("lazy").setup({
         "glepnir/dashboard-nvim",
         event = "VimEnter",
         opts = {
-            theme = "hyper",
+            --theme = "hyper",
         },
     },
 
@@ -173,6 +176,16 @@ require("lazy").setup({
             },
             automatic_enable = false,
         },
+    },
+
+    -- Markdown rendering
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "markdown" },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
+        opts = {},
     },
 
     -- LSP configuration
@@ -574,6 +587,12 @@ local servers = {
 
     -- JSON
     jsonls = {},
+
+    -- QML
+    qmlls = {
+        cmd = { "qmlls6" },
+        filetypes = { "qml" },
+    },
 }
 
 -- Configure each LSP server
@@ -642,7 +661,7 @@ end
 
 vim.diagnostic.config({
     -- Disable inline diagnostic text
-    virtual_text = false,
+    virtual_text = true,
 
     -- Show diagnostic signs in the sign column
     signs = true,
