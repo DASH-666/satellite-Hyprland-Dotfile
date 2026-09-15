@@ -51,6 +51,7 @@ Item {
             var iowait = Number(parts[5])
             var irq = Number(parts[6])
             var softirq = Number(parts[7])
+
             var steal =
                 parts.length > 8
                 ? Number(parts[8])
@@ -111,14 +112,25 @@ Item {
             var total = 0
             var available = 0
 
-            for (var i = 0; i < lines.length; i++) {
+            for (
+                var i = 0;
+                i < lines.length;
+                i++
+            ) {
                 var line = lines[i]
 
-                if (line.indexOf("MemTotal:") === 0) {
+                if (
+                    line.indexOf(
+                        "MemTotal:"
+                    ) === 0
+                ) {
                     total =
                         Number(
                             line
-                            .replace("MemTotal:", "")
+                            .replace(
+                                "MemTotal:",
+                                ""
+                            )
                             .trim()
                             .split(/\s+/)[0]
                         )
@@ -143,7 +155,8 @@ Item {
             }
 
             if (total > 0) {
-                root.memoryTotal = total
+                root.memoryTotal =
+                    total
 
                 root.memoryUsed =
                     total -
@@ -165,22 +178,56 @@ Item {
         }
     }
 
-    FileView {
-        id: temperatureFile
+    Process {
+        id: temperatureProcess
 
-        path:
-            "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
+        command: [
+            "sh",
+            "-c",
+            "for dir in /sys/class/hwmon/hwmon*; do
+                [ -f \"$dir/name\" ] || continue
 
-        onLoaded: {
-            var value =
-                Number(text().trim())
+                name=$(cat \"$dir/name\" 2>/dev/null)
 
-            if (
-                !isNaN(value) &&
-                value > 0
-            ) {
-                root.cpuTemperature =
-                    value / 1000
+                case \"$name\" in
+                    coretemp|k10temp|zenpower|cpu_thermal)
+                        max=0
+
+                        for temp in \"$dir\"/temp*_input; do
+                            [ -f \"$temp\" ] || continue
+
+                            value=$(cat \"$temp\" 2>/dev/null)
+
+                            if [ -n \"$value\" ] &&
+                               [ \"$value\" -gt \"$max\" ] 2>/dev/null
+                            then
+                                max=$value
+                            fi
+                        done
+
+                        if [ \"$max\" -gt 0 ] 2>/dev/null; then
+                            echo \"$max\"
+                            exit 0
+                        fi
+                        ;;
+                esac
+            done
+
+            echo 0"
+        ]
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var value =
+                    Number(this.text.trim())
+
+                if (
+                    !isNaN(value) &&
+                    value > 0
+                ) {
+                    root.cpuTemperature =
+                        value / 1000
+                }
             }
         }
     }
@@ -208,7 +255,6 @@ Item {
                 if (parts.length < 3)
                     return
 
-                // df -B1 returns bytes.
                 var total =
                     Number(parts[0])
 
@@ -216,7 +262,10 @@ Item {
                     Number(parts[1])
 
                 var percentText =
-                    parts[2].replace("%", "")
+                    parts[2].replace(
+                        "%",
+                        ""
+                    )
 
                 var percent =
                     Number(percentText)
@@ -254,19 +303,23 @@ Item {
         onTriggered: {
             cpuFile.reload()
             memoryFile.reload()
-            temperatureFile.reload()
 
-            rootDiskProcess.running = false
-            rootDiskProcess.running = true
+            if (!rootDiskProcess.running) {
+                rootDiskProcess.running = true
+            }
+
+            if (!temperatureProcess.running) {
+                temperatureProcess.running = true
+            }
         }
     }
 
     Component.onCompleted: {
         cpuFile.reload()
         memoryFile.reload()
-        temperatureFile.reload()
 
         rootDiskProcess.running = true
+        temperatureProcess.running = true
     }
 
     SystemMonitorMenu {
